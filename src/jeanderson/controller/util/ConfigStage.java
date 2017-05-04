@@ -193,9 +193,9 @@ public class ConfigStage {
      * @param urlOrName
      */
     private void verificaUrlFromFXML(String urlOrName) {
-        if (urlOrName.contains("/") && urlOrName.contains(".")) {
+        if (urlOrName.contains("/")) {
             this.urlFromFXML = urlOrName;
-        } else if (urlOrName.contains(".") && !urlOrName.contains("/")) {
+        } else if (urlOrName.contains(".")) {
             this.urlFromFXML = "/view/" + urlOrName;
         } else {
             this.urlFromFXML = "/view/" + urlOrName + ".fxml";
