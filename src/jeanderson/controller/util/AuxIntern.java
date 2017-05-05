@@ -14,29 +14,56 @@ public class AuxIntern {
     private boolean enableCampos;
     private boolean correctShowForEnableCampos;
 
+    /**
+     * Construtor padrão.
+     */
     public AuxIntern() {
     }
 
+    /**
+     * Informa se a Tela já foi carregada alguma vez.
+     * @return 
+     */
     public boolean isShowStage() {
         return showStage;
     }
 
+    /**
+     * Altera informando se a Tela foi aberta ou não.
+     * @param showStage 
+     */
     public void setShowStage(boolean showStage) {
         this.showStage = showStage;
     }
 
+    /**
+     * Informa o que o usuario passou no método enableCampos.
+     * @return 
+     */
     public boolean isEnableCampos() {
         return enableCampos;
     }
 
+    /**
+     * Faz alteração de acordo com o que o usuário passou.
+     * @param enableCampos 
+     */
     public void setEnableCampos(boolean enableCampos) {
         this.enableCampos = enableCampos;
     }
 
+    /**
+     * Verifica se o método Show é correto para o funcionando do EnableCampos.
+     * @return 
+     */
     public boolean isCorrectShowForEnableCampos() {
         return correctShowForEnableCampos;
     }
 
+    /**
+     * Informa se o método show é ideal para enableCampos ou não.
+     * @param correctShowForEnableCampos 
+     */
     public void setCorrectShowForEnableCampos(boolean correctShowForEnableCampos) {
         this.correctShowForEnableCampos = correctShowForEnableCampos;
     }    
