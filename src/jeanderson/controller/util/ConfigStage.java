@@ -13,8 +13,6 @@ public class ConfigStage {
     private String urlFromFXML;
     private String urlFromIcon;
     private String titleStage;
-    private boolean isMaximized = false;
-    private boolean isResizable = true;
 
     /**
      * Construtor que recebe as configurações básicas.
@@ -56,26 +54,6 @@ public class ConfigStage {
         this.verificaUrlFromFXML(urlOrName);
         this.titleStage = titleStage;
         this.urlFromIcon = urlFromIcon;
-    }
-
-    /**
-     * Construtor que recebe as configurações básicas.
-     * Obs: na urlOrName pode ser passado só o nome do arquivo FXML, pois ele vai colocar
-     * que o arquivo está em /view/ e sua extensão. Ex:
-     * passado Home - montara a seguinte URL /view/Home.fxml
-     * Caso preferir mudar a URL é só passar URL.
-     * @param urlOrName - Nome do arquivo FXML ou a URL dele.
-     * @param titleStage - Titulo da Janela.
-     * @param urlFromIcon - URL do icone da Janela.
-     * @param maximized - Se inicia Maximizado.
-     * @param resizable - Se é redimensionável.
-     */
-    public ConfigStage(String urlOrName, String titleStage, String urlFromIcon, boolean maximized, boolean resizable) {
-        this.verificaUrlFromFXML(urlOrName);
-        this.titleStage = titleStage;
-        this.urlFromIcon = urlFromIcon;
-        this.isMaximized = maximized;
-        this.isResizable = resizable;
     }
 
     /**
@@ -145,38 +123,6 @@ public class ConfigStage {
      */
     public void setTitleStage(String titleStage) {
         this.titleStage = titleStage;
-    }
-
-    /**
-     * Informa se é maximizavel.
-     * @return 
-     */
-    public boolean isIsMaximized() {
-        return isMaximized;
-    }
-
-    /**
-     * informa se é para maximizar ou não.
-     * @param isMaximized 
-     */
-    public void setIsMaximized(boolean isMaximized) {
-        this.isMaximized = isMaximized;
-    }
-
-    /**
-     * Informa se é redimensionavel.
-     * @return 
-     */
-    public boolean isIsResizable() {
-        return isResizable;
-    }
-
-    /**
-     * Altera se é redimensional sim ou não.
-     * @param isResizable 
-     */
-    public void setIsResizable(boolean isResizable) {
-        this.isResizable = isResizable;
     }
 
     /**
