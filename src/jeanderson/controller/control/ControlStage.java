@@ -53,6 +53,10 @@ public class ControlStage<T extends Inicializador> {
             this.palco.requestFocus();
         }
     }
+    
+    public void showEditMode(Object data){
+        
+    }
 
     private void mostrarTela(boolean enableCampos,boolean isCorrectShow) throws IOException, Exception {
         this.loader = new FXMLLoader(getClass().getResource(this.configuracao.getUrlFromFXML()));
