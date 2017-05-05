@@ -22,11 +22,9 @@ public class ConfigStage {
      * que o arquivo está em /view/ e sua extensão. Ex:
      * passado Home - montara a seguinte URL /view/Home.fxml
      * Caso preferir mudar a URL é só passar URL.
-     * @param palco - Stage
-     * @param urlOrName - Nome do arquivo FXML ou a URL dele.
+     *@param urlOrName - Nome do arquivo FXML ou a URL dele.
      */
-    public ConfigStage(Stage palco, String urlOrName) {
-        this.palco = palco;
+    public ConfigStage(String urlOrName) {        
         this.verificaUrlFromFXML(urlOrName);
     }
 
@@ -36,12 +34,10 @@ public class ConfigStage {
      * que o arquivo está em /view/ e sua extensão. Ex:
      * passado Home - montara a seguinte URL /view/Home.fxml
      * Caso preferir mudar a URL é só passar URL.
-     * @param palco - Stage
      * @param urlOrName - Nome do arquivo FXML ou a URL dele.
      * @param titleStage - Titulo da Janela.
      */
-    public ConfigStage(Stage palco, String urlOrName, String titleStage) {
-        this.palco = palco;
+    public ConfigStage(String urlOrName, String titleStage) {
         this.verificaUrlFromFXML(urlOrName);
         this.titleStage = titleStage;
     }
@@ -52,13 +48,11 @@ public class ConfigStage {
      * que o arquivo está em /view/ e sua extensão. Ex:
      * passado Home - montara a seguinte URL /view/Home.fxml
      * Caso preferir mudar a URL é só passar URL.
-     * @param palco - Stage
      * @param urlOrName - Nome do arquivo FXML ou a URL dele.
      * @param titleStage - Titulo da Janela.
      * @param urlFromIcon - URL do icone da Janela.
      */
-    public ConfigStage(Stage palco, String urlOrName, String titleStage, String urlFromIcon) {
-        this.palco = palco;
+    public ConfigStage(String urlOrName, String titleStage, String urlFromIcon) {       
         this.verificaUrlFromFXML(urlOrName);
         this.titleStage = titleStage;
         this.urlFromIcon = urlFromIcon;
@@ -70,15 +64,13 @@ public class ConfigStage {
      * que o arquivo está em /view/ e sua extensão. Ex:
      * passado Home - montara a seguinte URL /view/Home.fxml
      * Caso preferir mudar a URL é só passar URL.
-     * @param palco - Stage
      * @param urlOrName - Nome do arquivo FXML ou a URL dele.
      * @param titleStage - Titulo da Janela.
      * @param urlFromIcon - URL do icone da Janela.
      * @param maximized - Se inicia Maximizado.
      * @param resizable - Se é redimensionável.
      */
-    public ConfigStage(Stage palco, String urlOrName, String titleStage, String urlFromIcon, boolean maximized, boolean resizable) {
-        this.palco = palco;
+    public ConfigStage(String urlOrName, String titleStage, String urlFromIcon, boolean maximized, boolean resizable) {
         this.verificaUrlFromFXML(urlOrName);
         this.titleStage = titleStage;
         this.urlFromIcon = urlFromIcon;
@@ -87,11 +79,12 @@ public class ConfigStage {
     }
 
     /**
-     * Retorna o Stage Padrão
+     * Retorna o Stage, se o Stage é null é criado uma nova instancia.
      * @return 
      */
     public Stage getPalco() {
-        return palco;
+        if(this.palco == null) this.palco = new Stage();
+        return this.palco;
     }
 
     /**
