@@ -36,12 +36,12 @@ public class ControlStage<T extends Inicializador> extends AuxIntern {
         this.configuracao = configuracao;
         this.controller = controller;
     }
-    
-    public static ControlStageBuilder newBuilder(){
+
+    public static ControlStageBuilder newBuilder() {
         return new ControlStageBuilder();
     }
-    
-    public static ControlStageBuilder newBuilder(Stage palco){
+
+    public static ControlStageBuilder newBuilder(Stage palco) {
         return new ControlStageBuilder(palco);
     }
 
@@ -77,28 +77,28 @@ public class ControlStage<T extends Inicializador> extends AuxIntern {
         if (!super.isShowStage()) {
             super.setCorrectShowForEnableCampos(false);
             this.prerapaTela();
-            ((Inicializador)this.controller).editMode(data);
+            ((Inicializador) this.controller).editMode(data);
             this.palco.show();
             this.palco.requestFocus();
             super.setShowStage(true);
         } else {
-            ((Inicializador)this.controller).editMode(data);
+            ((Inicializador) this.controller).editMode(data);
             this.palco.show();
             this.palco.requestFocus();
         }
     }
-    
+
     public void showEditMode(Object data, boolean enablecampos) throws Exception {
         if (!super.isShowStage()) {
             super.setCorrectShowForEnableCampos(false);
             super.setEnableCampos(enablecampos);
             this.prerapaTela();
-            ((Inicializador)this.controller).editMode(data);
+            ((Inicializador) this.controller).editMode(data);
             this.palco.show();
             this.palco.requestFocus();
             super.setShowStage(true);
         } else {
-            ((Inicializador)this.controller).editMode(data);
+            ((Inicializador) this.controller).editMode(data);
             this.palco.show();
             this.palco.requestFocus();
         }
@@ -107,6 +107,9 @@ public class ControlStage<T extends Inicializador> extends AuxIntern {
     private void configTela() {
         this.palco = this.configuracao.getPalco();
         this.palco.setTitle(this.configuracao.getTitleStage());
+        this.palco.setResizable(this.configuracao.isResizable());
+        this.palco.setMaximized(this.configuracao.isShowMaximized());
+        this.palco.setFullScreen(this.configuracao.isShowFullScreen());
         if (!this.configuracao.getUrlFromIcon().isEmpty()) {
             this.palco.getIcons().add(new Image(getClass().getResourceAsStream(this.configuracao.getUrlFromIcon())));
         }
@@ -151,6 +154,18 @@ public class ControlStage<T extends Inicializador> extends AuxIntern {
         }
     }
 
+    public void reloaderFXML() throws IOException {
+       if(super.isShowStage()) this.loaderFXML();
+    }
+
+    public void reloaderConfigStage() {
+       if(super.isShowStage()) this.configTela();
+    }
+    
+    public void reloaderAll(){
+        super.setShowStage(false);
+    }
+
     public ConfigStage getConfiguracao() {
         return configuracao;
     }
@@ -160,7 +175,7 @@ public class ControlStage<T extends Inicializador> extends AuxIntern {
     }
 
     public Stage getStage() {
-        return palco;
+        return this.palco;
     }
 
     public void setStage(Stage palco) {
@@ -198,6 +213,5 @@ public class ControlStage<T extends Inicializador> extends AuxIntern {
     public void setController(T controller) {
         this.controller = controller;
     }
-    
 
 }
