@@ -29,5 +29,13 @@ public abstract class Inicializador implements Initializable {
     public void enableCampos(boolean enable){
         //deve ser implementado.
     }
+    
+    /**
+     * Método é chamado quando a Tela é aberta em modo de edição.
+     * @param data - Objeto por parâmetro.
+     */
+    public void editMode(Object data){
+        //deve ser implementado.
+    }
 
 }
