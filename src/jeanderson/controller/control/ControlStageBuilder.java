@@ -3,7 +3,6 @@ package jeanderson.controller.control;
 
 import javafx.stage.Stage;
 import jeanderson.controller.componentes.Inicializador;
-import jeanderson.controller.control.ControlStage;
 import jeanderson.controller.util.ConfigStage;
 import jeanderson.controller.util.ConfigStage;
 
