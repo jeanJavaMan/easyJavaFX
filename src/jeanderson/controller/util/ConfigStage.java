@@ -1,6 +1,7 @@
 package jeanderson.controller.util;
 
 import javafx.stage.Stage;
+import jeanderson.controller.componentes.Inicializador;
 
 /**
  * Classe que prepara as configurações básicas do Stage.
@@ -13,6 +14,8 @@ public class ConfigStage {
     private String urlFromFXML;
     private String urlFromIcon;
     private String titleStage;
+    private boolean autoClearCampos = true;
+    private boolean autoEnableCampos = false;
 
     /**
      * Construtor que recebe as configurações básicas.
@@ -54,6 +57,25 @@ public class ConfigStage {
         this.verificaUrlFromFXML(urlOrName);
         this.titleStage = titleStage;
         this.urlFromIcon = urlFromIcon;
+    }
+    /**
+     * Construtor que recebe as configurações básicas.
+     * Obs: na urlOrName pode ser passado só o nome do arquivo FXML, pois ele vai colocar
+     * que o arquivo está em /view/ e sua extensão. Ex:
+     * passado Home - montara a seguinte URL /view/Home.fxml
+     * Caso preferir mudar a URL é só passar URL.
+     * @param urlOrName - Nome do arquivo FXML ou a URL dele.
+     * @param titleStage - Titulo da Janela.
+     * @param urlFromIcon - URL do icone da Janela.
+     * @param autoClearCampos - Se ao abrir a Tela segunda vez, deve chamar o método clearCampos
+     * @param autoEnableCampos - Se deve chamar o método EnableCampos.
+     */
+    public ConfigStage(String urlOrName, String titleStage, String urlFromIcon, boolean autoClearCampos, boolean autoEnableCampos) {       
+        this.verificaUrlFromFXML(urlOrName);
+        this.titleStage = titleStage;
+        this.urlFromIcon = urlFromIcon;
+        this.autoClearCampos = autoClearCampos;
+        this.autoEnableCampos = autoEnableCampos;
     }
 
     /**
@@ -124,6 +146,44 @@ public class ConfigStage {
     public void setTitleStage(String titleStage) {
         this.titleStage = titleStage;
     }
+
+    /**
+     * Informa se o autoClearCampos está ativado.
+     * @see Inicializador
+     * @return 
+     */
+    public boolean isAutoClearCampos() {
+        return autoClearCampos;
+    }
+
+    /**
+     * Desliga ou liga a chamada do método clearCampos.
+     * @see Inicializador
+     * @param autoClearCampos 
+     */
+    public void setAutoClearCampos(boolean autoClearCampos) {
+        this.autoClearCampos = autoClearCampos;
+    }
+
+    /**
+     * Informa se está ativo a chamada do método enableCampos.
+     * @see Inicializador
+     * @return 
+     */
+    public boolean isAutoEnableCampos() {
+        return autoEnableCampos;
+    }
+
+    /**
+     * Desliga ou liga a chamada do método enableCampos.
+     * @see Inicializador
+     * @param autoEnableCampos 
+     */
+    public void setAutoEnableCampos(boolean autoEnableCampos) {
+        this.autoEnableCampos = autoEnableCampos;
+    }
+    
+    
 
     /**
      * Método responsável para verificar se foi digitado somente o nome do
