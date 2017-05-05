@@ -12,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import jeanderson.controller.componentes.Inicializador;
+import jeanderson.controller.util.AuxIntern;
 import jeanderson.controller.util.ConfigStage;
 
 /**
@@ -21,7 +22,7 @@ import jeanderson.controller.util.ConfigStage;
  * @author Jeanderson
  * @param <T> - Informa a Classe do Controller feito pelo usuário.
  */
-public class ControlStage<T extends Inicializador> {
+public class ControlStage<T extends Inicializador> extends AuxIntern{
 
     private ConfigStage configuracao;
     private Stage palco;
@@ -32,13 +33,15 @@ public class ControlStage<T extends Inicializador> {
     private boolean abriu_tela = false;
 
     public ControlStage(T controller, ConfigStage configuracao) {
+        super();
         this.configuracao = configuracao;
         this.controller = controller;
     }
     
     public void show() throws Exception {
-        if (!abriu_tela) {
-            mostrarTela(ConfigStage.NO_AUTO_ENABLE, false);
+        if (!super.isShowStage()) {
+            super.setCorrectShowForEnableCampos(false);
+            mostrarTela();
         } else {
             this.palco.show();
             this.palco.requestFocus();
@@ -46,8 +49,10 @@ public class ControlStage<T extends Inicializador> {
     }
     
     public void show(boolean enableCampos) throws Exception {
-        if (!abriu_tela) {
-            mostrarTela(enableCampos, true);
+        if (!super.isShowStage()) {
+            super.setCorrectShowForEnableCampos(true);
+            super.setEnableCampos(enableCampos);
+            mostrarTela();
         } else {
             this.palco.show();
             this.palco.requestFocus();
@@ -58,14 +63,14 @@ public class ControlStage<T extends Inicializador> {
         
     }
 
-    private void mostrarTela(boolean enableCampos,boolean isCorrectShow) throws IOException, Exception {
+    private void mostrarTela() throws IOException, Exception {
         this.loader = new FXMLLoader(getClass().getResource(this.configuracao.getUrlFromFXML()));
         this.root = this.loader.load();
         this.cena = new Scene(this.root);
         this.controller = this.loader.getController();
         /*Métodos importantes para a execução*/
         this.verificaController();
-        this.verificaConfiguracoes(enableCampos, isCorrectShow);
+        this.verificaConfiguracoes();
         
         this.palco = this.configuracao.getPalco();
         this.palco.setTitle(this.configuracao.getTitleStage());
@@ -75,7 +80,8 @@ public class ControlStage<T extends Inicializador> {
         this.palco.setScene(this.cena);
         this.palco.show();
         this.palco.requestFocus();
-        this.abriu_tela = true;
+        /*Fala para a classe pai que a Tela já abriu*/
+        super.setShowStage(true);
     }
 
     private void verificaController() throws Exception {
@@ -87,13 +93,13 @@ public class ControlStage<T extends Inicializador> {
         }
     }
     
-    private void verificaConfiguracoes(boolean enableCampos, boolean isCorrectShow){
+    private void verificaConfiguracoes(){
         if(this.configuracao.isAutoClearCampos()){
            ((Inicializador) this.controller).clearCampos();
         }
         if(this.configuracao.isAutoEnableCampos()){
-            ((Inicializador) this.controller).enableCampos(enableCampos);
-            if(!isCorrectShow){
+            ((Inicializador) this.controller).enableCampos(super.isEnableCampos());
+            if(!super.isCorrectShowForEnableCampos()){
                 System.out.println("Você ativou o EnableCampos, mas está chamando a tela"
                         + " utilizando o método show(), por favor utilize o método"
                         + " show(boolean enableCampos) para informar atráves dos parâmetros devem"
