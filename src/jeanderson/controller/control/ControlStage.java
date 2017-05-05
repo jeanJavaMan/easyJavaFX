@@ -22,7 +22,7 @@ import jeanderson.controller.util.ConfigStage;
  * @author Jeanderson
  * @param <T> - Informa a Classe do Controller feito pelo usuário.
  */
-public class ControlStage<T extends Inicializador> extends AuxIntern{
+public class ControlStage<T extends Inicializador> extends AuxIntern {
 
     private ConfigStage configuracao;
     private Stage palco;
@@ -37,51 +37,71 @@ public class ControlStage<T extends Inicializador> extends AuxIntern{
         this.configuracao = configuracao;
         this.controller = controller;
     }
-    
+
     public void show() throws Exception {
         if (!super.isShowStage()) {
             super.setCorrectShowForEnableCampos(false);
-            mostrarTela();
+            this.prerapaTela();
+            this.palco.show();
+            this.palco.requestFocus();
+            super.setShowStage(true);
         } else {
             this.palco.show();
             this.palco.requestFocus();
         }
     }
-    
+
     public void show(boolean enableCampos) throws Exception {
         if (!super.isShowStage()) {
             super.setCorrectShowForEnableCampos(true);
             super.setEnableCampos(enableCampos);
-            mostrarTela();
+            this.prerapaTela();
+            this.palco.show();
+            this.palco.requestFocus();
+            super.setShowStage(true);
         } else {
             this.palco.show();
             this.palco.requestFocus();
         }
     }
-    
-    public void showEditMode(Object data){
-        
+
+    public void showEditMode(Object data) throws Exception {
+
+        if (!super.isShowStage()) {
+            super.setCorrectShowForEnableCampos(false);
+            this.prerapaTela();
+            ((Inicializador)this.controller).editMode(data);
+            this.palco.show();
+            this.palco.requestFocus();
+            super.setShowStage(true);
+        } else {
+            ((Inicializador)this.controller).editMode(data);
+            this.palco.show();
+            this.palco.requestFocus();
+        }
     }
 
-    private void mostrarTela() throws IOException, Exception {
-        this.loader = new FXMLLoader(getClass().getResource(this.configuracao.getUrlFromFXML()));
-        this.root = this.loader.load();
-        this.cena = new Scene(this.root);
-        this.controller = this.loader.getController();
-        /*Métodos importantes para a execução*/
-        this.verificaController();
-        this.verificaConfiguracoes();
-        
+    private void configTela() {
         this.palco = this.configuracao.getPalco();
         this.palco.setTitle(this.configuracao.getTitleStage());
         if (!this.configuracao.getUrlFromIcon().isEmpty()) {
             this.palco.getIcons().add(new Image(getClass().getResourceAsStream(this.configuracao.getUrlFromIcon())));
         }
+        this.cena = new Scene(this.root);
         this.palco.setScene(this.cena);
-        this.palco.show();
-        this.palco.requestFocus();
-        /*Fala para a classe pai que a Tela já abriu*/
-        super.setShowStage(true);
+    }
+
+    private void prerapaTela() throws IOException, Exception {
+        this.loaderFXML();
+        this.verificaController();
+        this.configTela();
+        this.verificaConfiguracoes();
+    }
+
+    private void loaderFXML() throws IOException {
+        this.loader = new FXMLLoader(getClass().getResource(this.configuracao.getUrlFromFXML()));
+        this.root = this.loader.load();
+        this.controller = this.loader.getController();
     }
 
     private void verificaController() throws Exception {
@@ -92,19 +112,20 @@ public class ControlStage<T extends Inicializador> extends AuxIntern{
             throw new Exception(msg);
         }
     }
-    
-    private void verificaConfiguracoes(){
-        if(this.configuracao.isAutoClearCampos()){
-           ((Inicializador) this.controller).clearCampos();
+
+    private void verificaConfiguracoes() {
+        if (this.configuracao.isAutoClearCampos() && super.isShowStage()) {
+            ((Inicializador) this.controller).clearCampos();
         }
-        if(this.configuracao.isAutoEnableCampos()){
+        if (this.configuracao.isAutoEnableCampos()) {
             ((Inicializador) this.controller).enableCampos(super.isEnableCampos());
-            if(!super.isCorrectShowForEnableCampos()){
+            if (!super.isCorrectShowForEnableCampos()) {
                 System.out.println("Você ativou o EnableCampos, mas está chamando a tela"
-                        + " utilizando o método show(), por favor utilize o método"
-                        + " show(boolean enableCampos) para informar atráves dos parâmetros devem"
-                        + " ser ativados ou não!");
+                        + " utilizando o método show() que não tem como parâmetro enablecampos, por favor utilize um método"
+                        + " show que tenha como parâmetro EnableCampos para informar atráves dos parâmetros se os campos"
+                        + " devem ser ativados ou não!");
             }
         }
     }
+
 }
