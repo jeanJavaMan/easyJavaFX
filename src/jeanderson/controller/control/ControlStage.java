@@ -31,20 +31,47 @@ public class ControlStage<T extends Inicializador> extends AuxIntern {
     private FXMLLoader loader;
     private T controller;
 
+    /**
+     * Construtor padrão que recebe a Classe de Controller, e a configuração da Janela
+     * @param controller - Classe do Controller
+     * @param configuracao - Classe de Configuração
+     * @see ConfigStage
+     */
     public ControlStage(T controller, ConfigStage configuracao) {
         super();
         this.configuracao = configuracao;
         this.controller = controller;
     }
 
+    /**
+     * Cria uma nova Builder da Classe ControlStageBuilder. Utilizando 
+     * a ideia do Design Pattern Builder
+     * @return 
+     * @see ControlStageBuilder
+     */
     public static ControlStageBuilder newBuilder() {
         return new ControlStageBuilder();
     }
 
+    /**
+     * Cria uma nova Builder da Classe ControlStageBuilder, e recebe um Stage. Utilizando 
+     * a ideia do Design Pattern Builder
+     * @param palco
+     * @return 
+     * @see ControlStageBuilder
+     */
     public static ControlStageBuilder newBuilder(Stage palco) {
         return new ControlStageBuilder(palco);
     }
 
+    /**
+     * Exibi a Tela já pronta.
+     * Obs: ao chamar esse método pela segunda vez, ele não recarregara o arquivo FXML
+     * por motivo de desempenho, apenas exibira a Tela novamente.
+     * Recomendo que classes de controle implementem os métodos clearCampos entre outros.
+     * @see Inicializador
+     * @throws Exception 
+     */
     public void show() throws Exception {
         if (!super.isShowStage()) {
             super.setCorrectShowForEnableCampos(false);
@@ -53,11 +80,21 @@ public class ControlStage<T extends Inicializador> extends AuxIntern {
             this.palco.requestFocus();
             super.setShowStage(true);
         } else {
+            this.verificaConfiguracoes();
             this.palco.show();
             this.palco.requestFocus();
         }
     }
 
+    /**
+     * Exibi a Tela já pronta e chama o método EnableCampos da Classe de controller.
+     * Obs: ao chamar esse método pela segunda vez, ele não recarregara o arquivo FXML
+     * por motivo de desempenho, apenas exibira a Tela novamente.
+     * Recomendo que classes de controle implementem os métodos clearCampos entre outros.
+     * @see Inicializador
+     * @param enableCampos - o usuario informa se ativa ou não os campos
+     * @throws Exception 
+     */
     public void show(boolean enableCampos) throws Exception {
         if (!super.isShowStage()) {
             super.setCorrectShowForEnableCampos(true);
@@ -67,11 +104,21 @@ public class ControlStage<T extends Inicializador> extends AuxIntern {
             this.palco.requestFocus();
             super.setShowStage(true);
         } else {
+            this.verificaConfiguracoes();
             this.palco.show();
             this.palco.requestFocus();
         }
     }
 
+    /**
+     * Exibi a Tela já pronta e chama o método editMode da classe de Controller. Para exibir como tela de edição.
+     * Obs: ao chamar esse método pela segunda vez, ele não recarregara o arquivo FXML
+     * por motivo de desempenho, apenas exibira a Tela novamente.
+     * Recomendo que classes de controle implementem os métodos clearCampos entre outros.
+     * @see Inicializador
+     * @param data - dado que será usado pela classe de Controller implemetado pelo usuario.
+     * @throws Exception 
+     */
     public void showEditMode(Object data) throws Exception {
 
         if (!super.isShowStage()) {
@@ -88,6 +135,17 @@ public class ControlStage<T extends Inicializador> extends AuxIntern {
         }
     }
 
+    /**
+     * Exibi a Tela já pronta e chama o método editMode da classe de Controller e chama o método EnableCampos da Classe de controller
+     * . Para exibir a tela em modo de edição.
+     * Obs: ao chamar esse método pela segunda vez, ele não recarregara o arquivo FXML
+     * por motivo de desempenho, apenas exibira a Tela novamente.
+     * Recomendo que classes de controle implementem os métodos clearCampos entre outros.
+     * @see Inicializador
+     * @param data - dado que será usado pela classe de Controller implemetado pelo usuario.
+     * @param enablecampos - o usuario informa se ativa ou não os campos
+     * @throws Exception 
+     */
     public void showEditMode(Object data, boolean enablecampos) throws Exception {
         if (!super.isShowStage()) {
             super.setCorrectShowForEnableCampos(false);
@@ -104,9 +162,12 @@ public class ControlStage<T extends Inicializador> extends AuxIntern {
         }
     }
 
+    /**
+     * Faz as configurações do palco.
+     */
     private void configTela() {
         this.palco = this.configuracao.getPalco();
-        this.palco.setTitle(this.configuracao.getTitleStage());
+        this.palco.setTitle(this.configuracao.getTitleStage() == null ? "Sem titulo" : this.configuracao.getTitleStage());
         this.palco.setResizable(this.configuracao.isResizable());
         this.palco.setMaximized(this.configuracao.isShowMaximized());
         this.palco.setFullScreen(this.configuracao.isShowFullScreen());
@@ -117,28 +178,30 @@ public class ControlStage<T extends Inicializador> extends AuxIntern {
         this.palco.setScene(this.cena);
     }
 
+    /**
+     * Faz todas as preparações da Tela em sequencia correta.
+     * @throws IOException
+     * @throws Exception 
+     */
     private void prerapaTela() throws IOException, Exception {
         this.loaderFXML();
-        this.verificaController();
         this.configTela();
         this.verificaConfiguracoes();
     }
 
+    /**
+     * Carrega os arquivo FXML para exibição.
+     * @throws IOException 
+     */
     private void loaderFXML() throws IOException {
         this.loader = new FXMLLoader(getClass().getResource(this.configuracao.getUrlFromFXML()));
         this.root = this.loader.load();
         this.controller = this.loader.getController();
     }
 
-    private void verificaController() throws Exception {
-        if (!(this.controller instanceof Inicializador)) {
-            String msg = "A Classe: " + this.controller.getClass().getName()
-                    + " Não implementa a Classe: " + Inicializador.class.getName()
-                    + " Por favor faça a implementação!";
-            throw new Exception(msg);
-        }
-    }
-
+    /**
+     * Verifica as configurações de Clearcampos e EnableCampos e faz a execução dos mesmo.
+     */
     private void verificaConfiguracoes() {
         if (this.configuracao.isAutoClearCampos() && super.isShowStage()) {
             ((Inicializador) this.controller).clearCampos();
@@ -154,62 +217,133 @@ public class ControlStage<T extends Inicializador> extends AuxIntern {
         }
     }
 
+    /**
+     * Carrega novamente o FXML.
+     * @throws IOException 
+     */
     public void reloaderFXML() throws IOException {
-       if(super.isShowStage()) this.loaderFXML();
+        if (super.isShowStage()) {
+            this.loaderFXML();
+        }
     }
 
+    /**
+     * Carrega novamente as configurações.
+     */
     public void reloaderConfigStage() {
-       if(super.isShowStage()) this.configTela();
+        if (super.isShowStage()) {
+            this.configTela();
+        }
     }
-    
-    public void reloaderAll(){
+
+    /**
+     * Carrega novamente todos os processos de exibição da tela.
+     */
+    public void reloaderAll() {
         super.setShowStage(false);
     }
 
+    /**
+     *  Retorna a classe de Configuração Inicial.
+     * @see ConfigStage
+     * @return 
+     */
     public ConfigStage getConfiguracao() {
         return configuracao;
     }
 
+    /**
+     *  Troca a Classe de Configuração por outra.
+     * @see ConfigStage
+     * @param configuracao 
+     */
     public void setConfiguracao(ConfigStage configuracao) {
         this.configuracao = configuracao;
     }
 
+    /**
+     * Retorna o Stage usado.
+     * @return 
+     */
     public Stage getStage() {
         return this.palco;
     }
 
+    /**
+     * Troca o Stage por outro.
+     * @param palco 
+     */
     public void setStage(Stage palco) {
         this.palco = palco;
     }
 
+    /**
+     * Retorna o Parent.
+     * @see Parent
+     * @return 
+     */
     public Parent getParent() {
         return root;
     }
 
+    /**
+     * Troca o Parent por outro.
+     * @see Parent
+     * @param root 
+     */
     public void setParent(Parent root) {
         this.root = root;
     }
 
+    /**
+     * Retorna a Scene utilizada.
+     * @return 
+     */
     public Scene getScene() {
         return cena;
     }
 
+    /**
+     * Troca a Scene por outra.
+     * @see Scene
+     * @param cena 
+     */
     public void setScene(Scene cena) {
         this.cena = cena;
     }
 
+    /**
+     * Retorna a Classe do FXMLLoader usado para carregar os arquivos FXML.
+     * @see FXMLLoader
+     * @return 
+     */
     public FXMLLoader getFXMLLoader() {
         return loader;
     }
 
+    /**
+     * Troca a Classe FXMLLoader por outra.
+     * @see FXMLLoader
+     * @param loader 
+     */
     public void setFXMLLoader(FXMLLoader loader) {
         this.loader = loader;
     }
 
+    /**
+     * Retorna a Classe de Controller da tela.
+     * @see T
+     * @return 
+     */
     public T getController() {
         return controller;
     }
 
+    /**
+     * Troca a Classe de Controller por outra.
+     * @see T
+     * @param controller 
+     */
     public void setController(T controller) {
         this.controller = controller;
     }
