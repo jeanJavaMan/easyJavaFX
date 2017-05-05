@@ -16,6 +16,11 @@ public class ConfigStage {
     private String titleStage;
     private boolean autoClearCampos = true;
     private boolean autoEnableCampos = false;
+    
+    public static final boolean YES_AUTO_CLEAR = true;
+    public static final boolean NO_AUTO_CLEAR = false;
+    public static final boolean YES_AUTO_ENABLE = true;
+    public static final boolean NO_AUTO_ENABLE = false;
 
     /**
      * Construtor que recebe as configurações básicas.
