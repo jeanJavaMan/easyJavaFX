@@ -30,7 +30,6 @@ public class ControlStage<T extends Inicializador> extends AuxIntern {
     private Scene cena;
     private FXMLLoader loader;
     private T controller;
-    private boolean abriu_tela = false;
 
     public ControlStage(T controller, ConfigStage configuracao) {
         super();
@@ -69,6 +68,22 @@ public class ControlStage<T extends Inicializador> extends AuxIntern {
 
         if (!super.isShowStage()) {
             super.setCorrectShowForEnableCampos(false);
+            this.prerapaTela();
+            ((Inicializador)this.controller).editMode(data);
+            this.palco.show();
+            this.palco.requestFocus();
+            super.setShowStage(true);
+        } else {
+            ((Inicializador)this.controller).editMode(data);
+            this.palco.show();
+            this.palco.requestFocus();
+        }
+    }
+    
+    public void showEditMode(Object data, boolean enablecampos) throws Exception {
+        if (!super.isShowStage()) {
+            super.setCorrectShowForEnableCampos(false);
+            super.setEnableCampos(enablecampos);
             this.prerapaTela();
             ((Inicializador)this.controller).editMode(data);
             this.palco.show();
@@ -127,5 +142,54 @@ public class ControlStage<T extends Inicializador> extends AuxIntern {
             }
         }
     }
+
+    public ConfigStage getConfiguracao() {
+        return configuracao;
+    }
+
+    public void setConfiguracao(ConfigStage configuracao) {
+        this.configuracao = configuracao;
+    }
+
+    public Stage getStage() {
+        return palco;
+    }
+
+    public void setStage(Stage palco) {
+        this.palco = palco;
+    }
+
+    public Parent getParent() {
+        return root;
+    }
+
+    public void setParent(Parent root) {
+        this.root = root;
+    }
+
+    public Scene getScene() {
+        return cena;
+    }
+
+    public void setScene(Scene cena) {
+        this.cena = cena;
+    }
+
+    public FXMLLoader getFXMLLoader() {
+        return loader;
+    }
+
+    public void setFXMLLoader(FXMLLoader loader) {
+        this.loader = loader;
+    }
+
+    public T getController() {
+        return controller;
+    }
+
+    public void setController(T controller) {
+        this.controller = controller;
+    }
+    
 
 }
