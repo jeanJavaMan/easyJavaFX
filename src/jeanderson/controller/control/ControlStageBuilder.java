@@ -41,6 +41,11 @@ public class ControlStageBuilder<T extends Inicializador> {
         return this;
     }
     
+    public ControlStageBuilder addTitleStage(String title){
+        this.configuracao.setTitleStage(title);
+        return this;
+    }
+    
     public ControlStageBuilder setAutoEnableClear(boolean autoClear){
         this.configuracao.setAutoClearCampos(autoClear);
         return this;
