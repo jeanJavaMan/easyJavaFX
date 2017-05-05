@@ -248,7 +248,7 @@ public class ConfigStage {
      * Informa se é redimensionável.
      * @return 
      */
-    public boolean isIsResizable() {
+    public boolean isResizable() {
         return isResizable;
     }
 
