@@ -109,7 +109,7 @@ public class ConfigStage {
 
     /**
      * Retorna o Stage, se o Stage é null é criado uma nova instancia.
-     * @return 
+     * @return - Stage 
      */
     public Stage getPalco() {
         if(this.palco == null) this.palco = new Stage();
@@ -118,7 +118,7 @@ public class ConfigStage {
 
     /**
      * Altera o Stage passado.
-     * @param palco 
+     * @param palco - Stage.
      */
     public void setPalco(Stage palco) {
         this.palco = palco;
@@ -126,7 +126,7 @@ public class ConfigStage {
 
     /**
      * Retorna a URL passada.
-     * @return 
+     * @return - URL do arquivo FXML
      */
     public String getUrlFromFXML() {
         return urlFromFXML;
@@ -138,7 +138,7 @@ public class ConfigStage {
      * que o arquivo está em /view/ e sua extensão. Ex:
      * passado Home - montara a seguinte URL /view/Home.fxml
      * Caso preferir mudar a URL é só passar URL.
-     * @param urlOrName 
+     * @param urlOrName - URL or Name.
      */
     public void setUrlFromFXML(String urlOrName) {
         this.verificaUrlFromFXML(urlOrName);
@@ -146,7 +146,7 @@ public class ConfigStage {
 
     /**
      *  Retorna a URL do Icone.
-     * @return 
+     * @return - String
      */
     public String getUrlFromIcon() {
         return urlFromIcon;
@@ -162,7 +162,7 @@ public class ConfigStage {
 
     /**
      * Retorna o Titulo passado.
-     * @return 
+     * @return - String
      */
     public String getTitleStage() {
         return titleStage;
@@ -170,7 +170,7 @@ public class ConfigStage {
 
     /**
      * Altera o Titulo.
-     * @param titleStage 
+     * @param titleStage - String 
      */
     public void setTitleStage(String titleStage) {
         this.titleStage = titleStage;
@@ -179,7 +179,7 @@ public class ConfigStage {
     /**
      * Informa se o autoClearCampos está ativado.
      * @see Inicializador
-     * @return 
+     * @return - Boolean
      */
     public boolean isAutoClearCampos() {
         return autoClearCampos;
@@ -188,7 +188,7 @@ public class ConfigStage {
     /**
      * Desliga ou liga a chamada do método clearCampos.
      * @see Inicializador
-     * @param autoClearCampos 
+     * @param autoClearCampos - Boolean
      */
     public void setAutoClearCampos(boolean autoClearCampos) {
         this.autoClearCampos = autoClearCampos;
@@ -197,7 +197,7 @@ public class ConfigStage {
     /**
      * Informa se está ativo a chamada do método enableCampos.
      * @see Inicializador
-     * @return 
+     * @return - Boolean 
      */
     public boolean isAutoEnableCampos() {
         return autoEnableCampos;
@@ -206,7 +206,7 @@ public class ConfigStage {
     /**
      * Desliga ou liga a chamada do método enableCampos.
      * @see Inicializador
-     * @param autoEnableCampos 
+     * @param autoEnableCampos - Boolean 
      */
     public void setAutoEnableCampos(boolean autoEnableCampos) {
         this.autoEnableCampos = autoEnableCampos;
@@ -214,7 +214,7 @@ public class ConfigStage {
 
     /**
      * Informa se é para abrir a tela em FullScreen.
-     * @return 
+     * @return - Boolean
      */
     public boolean isShowFullScreen() {
         return showFullScreen;
@@ -222,7 +222,7 @@ public class ConfigStage {
 
     /**
      * Alterar para ser exibido em fullscreen ou nao.
-     * @param showFullScreen 
+     * @param showFullScreen - Boolean 
      */
     public void setShowFullScreen(boolean showFullScreen) {
         this.showFullScreen = showFullScreen;
@@ -230,7 +230,7 @@ public class ConfigStage {
 
     /**
      * Informa se é para abrir a maximizada.
-     * @return 
+     * @return - Boolean
      */
     public boolean isShowMaximized() {
         return showMaximized;
@@ -238,7 +238,7 @@ public class ConfigStage {
 
     /**
      * Alterar para ser exibido maximizado ou não.
-     * @param showMaximized 
+     * @param showMaximized - Boolean
      */
     public void setShowMaximized(boolean showMaximized) {
         this.showMaximized = showMaximized;
@@ -246,7 +246,7 @@ public class ConfigStage {
 
     /**
      * Informa se é redimensionável.
-     * @return 
+     * @return - Boolean 
      */
     public boolean isResizable() {
         return isResizable;
@@ -254,7 +254,7 @@ public class ConfigStage {
 
     /**
      * Alterar para ser redimensionável ou não.
-     * @param isResizable 
+     * @param isResizable - Boolean 
      */
     public void setIsResizable(boolean isResizable) {
         this.isResizable = isResizable;

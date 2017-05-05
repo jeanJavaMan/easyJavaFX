@@ -22,7 +22,7 @@ public class AuxIntern {
 
     /**
      * Informa se a Tela já foi carregada alguma vez.
-     * @return 
+     * @return - Boolean
      */
     public boolean isShowStage() {
         return showStage;
@@ -30,7 +30,7 @@ public class AuxIntern {
 
     /**
      * Altera informando se a Tela foi aberta ou não.
-     * @param showStage 
+     * @param showStage - Boolean
      */
     public void setShowStage(boolean showStage) {
         this.showStage = showStage;
@@ -38,7 +38,7 @@ public class AuxIntern {
 
     /**
      * Informa o que o usuario passou no método enableCampos.
-     * @return 
+     * @return - Boolean
      */
     public boolean isEnableCampos() {
         return enableCampos;
@@ -46,7 +46,7 @@ public class AuxIntern {
 
     /**
      * Faz alteração de acordo com o que o usuário passou.
-     * @param enableCampos 
+     * @param enableCampos - Boolean
      */
     public void setEnableCampos(boolean enableCampos) {
         this.enableCampos = enableCampos;
@@ -54,7 +54,7 @@ public class AuxIntern {
 
     /**
      * Verifica se o método Show é correto para o funcionando do EnableCampos.
-     * @return 
+     * @return - Boolean 
      */
     public boolean isCorrectShowForEnableCampos() {
         return correctShowForEnableCampos;
@@ -62,7 +62,7 @@ public class AuxIntern {
 
     /**
      * Informa se o método show é ideal para enableCampos ou não.
-     * @param correctShowForEnableCampos 
+     * @param correctShowForEnableCampos - Boolean
      */
     public void setCorrectShowForEnableCampos(boolean correctShowForEnableCampos) {
         this.correctShowForEnableCampos = correctShowForEnableCampos;

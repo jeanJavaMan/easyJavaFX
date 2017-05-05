@@ -46,8 +46,8 @@ public class ControlStage<T extends Inicializador> extends AuxIntern {
     /**
      * Cria uma nova Builder da Classe ControlStageBuilder. Utilizando 
      * a ideia do Design Pattern Builder
-     * @return 
-     * @see ControlStageBuilder
+     * @return - Classe ControlStageBuilder
+     * @see ControlStageBuilder 
      */
     public static ControlStageBuilder newBuilder() {
         return new ControlStageBuilder();
@@ -56,9 +56,9 @@ public class ControlStage<T extends Inicializador> extends AuxIntern {
     /**
      * Cria uma nova Builder da Classe ControlStageBuilder, e recebe um Stage. Utilizando 
      * a ideia do Design Pattern Builder
-     * @param palco
-     * @return 
+     * @param palco - Stage
      * @see ControlStageBuilder
+     * @return - Classe ControlStageBuilder      
      */
     public static ControlStageBuilder newBuilder(Stage palco) {
         return new ControlStageBuilder(palco);
@@ -70,7 +70,7 @@ public class ControlStage<T extends Inicializador> extends AuxIntern {
      * por motivo de desempenho, apenas exibira a Tela novamente.
      * Recomendo que classes de controle implementem os métodos clearCampos entre outros.
      * @see Inicializador
-     * @throws Exception 
+     * @throws Exception - Uma cadeia de Excecoes.
      */
     public void show() throws Exception {
         if (!super.isShowStage()) {
@@ -93,7 +93,7 @@ public class ControlStage<T extends Inicializador> extends AuxIntern {
      * Recomendo que classes de controle implementem os métodos clearCampos entre outros.
      * @see Inicializador
      * @param enableCampos - o usuario informa se ativa ou não os campos
-     * @throws Exception 
+     * @throws Exception - Uma cadeia de Excecoes.
      */
     public void show(boolean enableCampos) throws Exception {
         if (!super.isShowStage()) {
@@ -117,7 +117,7 @@ public class ControlStage<T extends Inicializador> extends AuxIntern {
      * Recomendo que classes de controle implementem os métodos clearCampos entre outros.
      * @see Inicializador
      * @param data - dado que será usado pela classe de Controller implemetado pelo usuario.
-     * @throws Exception 
+     * @throws Exception - Uma cadeia de Excecoes. 
      */
     public void showEditMode(Object data) throws Exception {
 
@@ -144,7 +144,7 @@ public class ControlStage<T extends Inicializador> extends AuxIntern {
      * @see Inicializador
      * @param data - dado que será usado pela classe de Controller implemetado pelo usuario.
      * @param enablecampos - o usuario informa se ativa ou não os campos
-     * @throws Exception 
+     * @throws Exception - Uma cadeia de Excecoes. 
      */
     public void showEditMode(Object data, boolean enablecampos) throws Exception {
         if (!super.isShowStage()) {
@@ -219,7 +219,7 @@ public class ControlStage<T extends Inicializador> extends AuxIntern {
 
     /**
      * Carrega novamente o FXML.
-     * @throws IOException 
+     * @throws IOException - Uma Excecao referente ao carregamento do FXML. 
      */
     public void reloaderFXML() throws IOException {
         if (super.isShowStage()) {
@@ -246,7 +246,7 @@ public class ControlStage<T extends Inicializador> extends AuxIntern {
     /**
      *  Retorna a classe de Configuração Inicial.
      * @see ConfigStage
-     * @return 
+     * @return - Classe ConfigStage 
      */
     public ConfigStage getConfiguracao() {
         return configuracao;
@@ -255,7 +255,7 @@ public class ControlStage<T extends Inicializador> extends AuxIntern {
     /**
      *  Troca a Classe de Configuração por outra.
      * @see ConfigStage
-     * @param configuracao 
+     * @param configuracao - ConfigStage
      */
     public void setConfiguracao(ConfigStage configuracao) {
         this.configuracao = configuracao;
@@ -263,7 +263,7 @@ public class ControlStage<T extends Inicializador> extends AuxIntern {
 
     /**
      * Retorna o Stage usado.
-     * @return 
+     * @return - Classe Stage.
      */
     public Stage getStage() {
         return this.palco;
@@ -271,7 +271,7 @@ public class ControlStage<T extends Inicializador> extends AuxIntern {
 
     /**
      * Troca o Stage por outro.
-     * @param palco 
+     * @param palco - Stage.
      */
     public void setStage(Stage palco) {
         this.palco = palco;
@@ -280,7 +280,7 @@ public class ControlStage<T extends Inicializador> extends AuxIntern {
     /**
      * Retorna o Parent.
      * @see Parent
-     * @return 
+     * @return - Parent
      */
     public Parent getParent() {
         return root;
@@ -289,7 +289,7 @@ public class ControlStage<T extends Inicializador> extends AuxIntern {
     /**
      * Troca o Parent por outro.
      * @see Parent
-     * @param root 
+     * @param root - Parent
      */
     public void setParent(Parent root) {
         this.root = root;
@@ -297,7 +297,7 @@ public class ControlStage<T extends Inicializador> extends AuxIntern {
 
     /**
      * Retorna a Scene utilizada.
-     * @return 
+     * @return - Scene
      */
     public Scene getScene() {
         return cena;
@@ -306,7 +306,7 @@ public class ControlStage<T extends Inicializador> extends AuxIntern {
     /**
      * Troca a Scene por outra.
      * @see Scene
-     * @param cena 
+     * @param cena - Scene
      */
     public void setScene(Scene cena) {
         this.cena = cena;
@@ -315,7 +315,7 @@ public class ControlStage<T extends Inicializador> extends AuxIntern {
     /**
      * Retorna a Classe do FXMLLoader usado para carregar os arquivos FXML.
      * @see FXMLLoader
-     * @return 
+     * @return - FXMLLoader
      */
     public FXMLLoader getFXMLLoader() {
         return loader;
@@ -324,7 +324,7 @@ public class ControlStage<T extends Inicializador> extends AuxIntern {
     /**
      * Troca a Classe FXMLLoader por outra.
      * @see FXMLLoader
-     * @param loader 
+     * @param loader - FXMLLoader
      */
     public void setFXMLLoader(FXMLLoader loader) {
         this.loader = loader;
@@ -333,7 +333,7 @@ public class ControlStage<T extends Inicializador> extends AuxIntern {
     /**
      * Retorna a Classe de Controller da tela.
      * @see T
-     * @return 
+     * @return - Uma Classe de Controller
      */
     public T getController() {
         return controller;
@@ -342,7 +342,7 @@ public class ControlStage<T extends Inicializador> extends AuxIntern {
     /**
      * Troca a Classe de Controller por outra.
      * @see T
-     * @param controller 
+     * @param controller - Uma Classe de Controller.
      */
     public void setController(T controller) {
         this.controller = controller;

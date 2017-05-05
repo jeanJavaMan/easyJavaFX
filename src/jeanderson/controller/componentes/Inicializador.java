@@ -24,7 +24,7 @@ public abstract class Inicializador implements Initializable {
      *  Método que ativa campos de uma Tela.
      * O usuario ao abrir a Tela deve informa se este método deve ser chamado ou não. Por padrão ele não
      * é chamado automaticamente.
-     * @param enable 
+     * @param enable - Boolean 
      */
     public void enableCampos(boolean enable){
         //deve ser implementado.
