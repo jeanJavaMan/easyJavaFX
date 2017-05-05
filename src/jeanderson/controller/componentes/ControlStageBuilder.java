@@ -49,6 +49,20 @@ public class ControlStageBuilder<T extends Inicializador> {
         return this;
     }
     
+    public ControlStageBuilder setFullScreen(boolean fullscreenMod){
+        this.configuracao.setShowFullScreen(fullscreenMod);
+        return this;
+    }
+    
+    public ControlStageBuilder setMaximized(boolean maximizedMod){
+        this.configuracao.setShowMaximized(maximizedMod);
+        return this;
+    }
+    
+    public ControlStageBuilder setResizable(boolean isResizable){
+        this.configuracao.setIsResizable(isResizable);
+        return this;
+    }
     public ControlStage build(){
         return new ControlStage(this.controller, this.configuracao);
     }
