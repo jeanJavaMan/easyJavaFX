@@ -16,12 +16,28 @@ public class ConfigStage {
     private String titleStage;
     private boolean autoClearCampos = true;
     private boolean autoEnableCampos = false;
+    private boolean showFullScreen  = false;
+    private boolean showMaximized = false;
+    private boolean isResizable = true;
     
     public static final boolean YES_AUTO_CLEAR = true;
     public static final boolean NO_AUTO_CLEAR = false;
     public static final boolean YES_AUTO_ENABLE = true;
     public static final boolean NO_AUTO_ENABLE = false;
-
+    public static final boolean YES_SHOW_FULLSCREEN = true;
+    public static final boolean NO_SHOW_FULLSCREEN = false;
+    public static final boolean YES_SHOW_MAXIMIZED = true;
+    public static final boolean NO_SHOW_MAXIMIZED = false;
+    public static final boolean YES_SHOW_RESIZABLE = true;
+    public static final boolean NO_SHOW_RESIZABLE = false;
+    /**
+     * Construtor Padrão.
+     */
+    public ConfigStage() {
+        this.urlFromIcon = "";
+        this.titleStage = "Sem Titulo";
+    }    
+    
     /**
      * Construtor que recebe as configurações básicas.
      * Obs: na urlOrName pode ser passado só o nome do arquivo FXML, pois ele vai colocar
@@ -31,6 +47,8 @@ public class ConfigStage {
      *@param urlOrName - Nome do arquivo FXML ou a URL dele.
      */
     public ConfigStage(String urlOrName) {        
+        this.urlFromIcon = "";
+        this.titleStage = "Sem Titulo";
         this.verificaUrlFromFXML(urlOrName);
     }
 
@@ -44,6 +62,8 @@ public class ConfigStage {
      * @param titleStage - Titulo da Janela.
      */
     public ConfigStage(String urlOrName, String titleStage) {
+        this.urlFromIcon = "";
+        this.titleStage = "Sem Titulo";
         this.verificaUrlFromFXML(urlOrName);
         this.titleStage = titleStage;
     }
@@ -59,6 +79,8 @@ public class ConfigStage {
      * @param urlFromIcon - URL do icone da Janela.
      */
     public ConfigStage(String urlOrName, String titleStage, String urlFromIcon) {       
+        this.urlFromIcon = "";
+        this.titleStage = "Sem Titulo";
         this.verificaUrlFromFXML(urlOrName);
         this.titleStage = titleStage;
         this.urlFromIcon = urlFromIcon;
@@ -76,6 +98,8 @@ public class ConfigStage {
      * @param autoEnableCampos - Se deve chamar o método EnableCampos.
      */
     public ConfigStage(String urlOrName, String titleStage, String urlFromIcon, boolean autoClearCampos, boolean autoEnableCampos) {       
+        this.urlFromIcon = "";
+        this.titleStage = "Sem Titulo";
         this.verificaUrlFromFXML(urlOrName);
         this.titleStage = titleStage;
         this.urlFromIcon = urlFromIcon;
@@ -187,9 +211,55 @@ public class ConfigStage {
     public void setAutoEnableCampos(boolean autoEnableCampos) {
         this.autoEnableCampos = autoEnableCampos;
     }
-    
-    
 
+    /**
+     * Informa se é para abrir a tela em FullScreen.
+     * @return 
+     */
+    public boolean isShowFullScreen() {
+        return showFullScreen;
+    }
+
+    /**
+     * Alterar para ser exibido em fullscreen ou nao.
+     * @param showFullScreen 
+     */
+    public void setShowFullScreen(boolean showFullScreen) {
+        this.showFullScreen = showFullScreen;
+    }
+
+    /**
+     * Informa se é para abrir a maximizada.
+     * @return 
+     */
+    public boolean isShowMaximized() {
+        return showMaximized;
+    }
+
+    /**
+     * Alterar para ser exibido maximizado ou não.
+     * @param showMaximized 
+     */
+    public void setShowMaximized(boolean showMaximized) {
+        this.showMaximized = showMaximized;
+    }
+
+    /**
+     * Informa se é redimensionável.
+     * @return 
+     */
+    public boolean isIsResizable() {
+        return isResizable;
+    }
+
+    /**
+     * Alterar para ser redimensionável ou não.
+     * @param isResizable 
+     */
+    public void setIsResizable(boolean isResizable) {
+        this.isResizable = isResizable;
+    }
+        
     /**
      * Método responsável para verificar se foi digitado somente o nome do
      * arquivo FXML ou se foi passado a URL do arquivo FXML.
