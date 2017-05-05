@@ -21,7 +21,7 @@ import jeanderson.controller.util.ConfigStage;
  * @author Jeanderson
  * @param <T> - Informa a Classe do Controller feito pelo usuário.
  */
-public class ControlStage<T> {
+public class ControlStage<T extends Inicializador> {
 
     private ConfigStage configuracao;
     private Stage palco;
@@ -35,7 +35,7 @@ public class ControlStage<T> {
         this.configuracao = configuracao;
         this.controller = controller;
     }
-
+    
     public void show() throws Exception {
         if (!abriu_tela) {
             mostrarTela(ConfigStage.NO_AUTO_ENABLE, false);
@@ -55,7 +55,7 @@ public class ControlStage<T> {
     }
 
     private void mostrarTela(boolean enableCampos,boolean isCorrectShow) throws IOException, Exception {
-        this.loader = FXMLLoader.load(getClass().getResource(this.configuracao.getUrlFromFXML()));
+        this.loader = new FXMLLoader(getClass().getResource(this.configuracao.getUrlFromFXML()));
         this.root = this.loader.load();
         this.cena = new Scene(this.root);
         this.controller = this.loader.getController();
@@ -65,7 +65,7 @@ public class ControlStage<T> {
         
         this.palco = this.configuracao.getPalco();
         this.palco.setTitle(this.configuracao.getTitleStage());
-        if (this.configuracao.getUrlFromIcon() != null || !this.configuracao.getUrlFromIcon().isEmpty()) {
+        if (!this.configuracao.getUrlFromIcon().isEmpty()) {
             this.palco.getIcons().add(new Image(getClass().getResourceAsStream(this.configuracao.getUrlFromIcon())));
         }
         this.palco.setScene(this.cena);
@@ -77,7 +77,7 @@ public class ControlStage<T> {
     private void verificaController() throws Exception {
         if (!(this.controller instanceof Inicializador)) {
             String msg = "A Classe: " + this.controller.getClass().getName()
-                    + " Não implementa a Classe easyJavaFX.jeanderson.controller.componentes.Inicializador"
+                    + " Não implementa a Classe: " + Inicializador.class.getName()
                     + " Por favor faça a implementação!";
             throw new Exception(msg);
         }
