@@ -1,0 +1,33 @@
+package jeanderson.controller.componentes;
+
+import javafx.fxml.Initializable;
+
+/**
+ * Classe que Ajuda na implementação das classes de Controller
+ *
+ * @author Jeanderson
+ */
+public abstract class Inicializador implements Initializable {
+
+    public Inicializador() {
+    }
+
+    /**
+     * Método que é chamado por padrão, quando abrir a Tela pela segunda vez.
+     * Deve ser implementado pela classe herdeira para que todos os campos sejam limpos da tela.
+     */
+    public void clearCampos() {
+        //deve ser implementado.
+    }
+    
+    /**
+     *  Método que ativa campos de uma Tela.
+     * O usuario ao abrir a Tela deve informa se este método deve ser chamado ou não. Por padrão ele não
+     * é chamado automaticamente.
+     * @param enable 
+     */
+    public void enableCampos(boolean enable){
+        //deve ser implementado.
+    }
+
+}
