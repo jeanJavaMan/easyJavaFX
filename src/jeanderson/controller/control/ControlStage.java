@@ -36,6 +36,14 @@ public class ControlStage<T extends Inicializador> extends AuxIntern {
         this.configuracao = configuracao;
         this.controller = controller;
     }
+    
+    public static ControlStageBuilder newBuilder(){
+        return new ControlStageBuilder();
+    }
+    
+    public static ControlStageBuilder newBuilder(Stage palco){
+        return new ControlStageBuilder(palco);
+    }
 
     public void show() throws Exception {
         if (!super.isShowStage()) {
