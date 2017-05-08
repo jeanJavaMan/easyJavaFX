@@ -11,6 +11,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import jeanderson.controller.componentes.AllSee;
 import jeanderson.controller.componentes.Inicializador;
 import jeanderson.controller.util.AuxIntern;
 import jeanderson.controller.util.ConfigStage;
@@ -327,5 +328,27 @@ public class ControlStage<T extends Inicializador> extends AuxIntern {
     public void setController(T controller) {
         this.controller = controller;
     }
-
+    
+    /**
+     * Define que está classe será mantida atraves de enum (estatico), possibilitando chamar está Classe
+     * em qualquer outra Classe em tempo de execução (runtime). É necessário informa o index em que a classe ficará mantida 
+     * para eventuais consultas, recomendado começar pelo index 0,1...
+     * @param index Possição em que ficará armazenada a classe. recomendado começar do index 0.
+     * @see AllSee
+     */
+    public void defineAllSee(int index) {
+        AllSee.CONTROLADORES.addControlador(index, this);
+    }
+    
+    /**
+     * Retorna uma Classe ControlStage salva em um enum (estático).
+     * Informa um index onde está armazenada a Classe.
+     * Obs: cuidado para não informa um index inválido, pois será lançada uma exceção.
+     * @param index Index de consulta.
+     * @return Uma classe ControlStage armezanada na memoria de forma estática.
+     * @see AllSee
+     */
+    public static ControlStage getAllSeeControl(int index){
+        return AllSee.CONTROLADORES.getControlador(index);
+    }
 }
