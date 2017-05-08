@@ -24,7 +24,6 @@ import jeanderson.controller.util.ConfigStage;
  */
 public class ControlStage<T extends Inicializador> extends AuxIntern {
 
-    private ConfigStage configuracao;
     private Stage palco;
     private Parent root;
     private Scene cena;
@@ -36,11 +35,24 @@ public class ControlStage<T extends Inicializador> extends AuxIntern {
      * @param controller - Classe do Controller
      * @param configuracao - Classe de Configuração
      * @see ConfigStage
+     * @deprecated Não utilizar mais esse construtor pois a classe ConfigStage se tornou deprecated.
      */
     public ControlStage(T controller, ConfigStage configuracao) {
         super();
-        this.configuracao = configuracao;
         this.controller = controller;
+    }
+    /**
+     * Construtor que recebe a Classe ControlStageBuilder já com configurações prontas.
+     * @see ControlStageBuilder
+     * @param controlBuilder 
+     */
+    public ControlStage(ControlStageBuilder<T> controlBuilder){
+        super();
+        this.palco = controlBuilder.getStage();
+        this.root = controlBuilder.getParentRoot();
+        this.cena = controlBuilder.getScene();
+        this.loader = controlBuilder.getfXMLLoader();
+        this.controller = controlBuilder.getController();
     }
 
     /**
@@ -74,8 +86,7 @@ public class ControlStage<T extends Inicializador> extends AuxIntern {
      */
     public void show() throws Exception {
         if (!super.isShowStage()) {
-            super.setCorrectShowForEnableCampos(false);
-            this.prerapaTela();
+            super.setCorrectShowForEnableCampos(false);            
             this.palco.show();
             this.palco.requestFocus();
             super.setShowStage(true);
@@ -123,7 +134,6 @@ public class ControlStage<T extends Inicializador> extends AuxIntern {
 
         if (!super.isShowStage()) {
             super.setCorrectShowForEnableCampos(false);
-            this.prerapaTela();
             ((Inicializador) this.controller).editMode(data);
             this.palco.show();
             this.palco.requestFocus();
@@ -150,7 +160,6 @@ public class ControlStage<T extends Inicializador> extends AuxIntern {
         if (!super.isShowStage()) {
             super.setCorrectShowForEnableCampos(false);
             super.setEnableCampos(enablecampos);
-            this.prerapaTela();
             ((Inicializador) this.controller).editMode(data);
             this.palco.show();
             this.palco.requestFocus();
@@ -164,49 +173,39 @@ public class ControlStage<T extends Inicializador> extends AuxIntern {
 
     /**
      * Faz as configurações do palco.
+     * @deprecated Não é mais necessário devido a nova implementação da Classe ControlStageBuilder.
      */
     private void configTela() {
-        this.palco = this.configuracao.getPalco();
-        this.palco.setTitle(this.configuracao.getTitleStage() == null ? "Sem titulo" : this.configuracao.getTitleStage());
-        this.palco.setResizable(this.configuracao.isResizable());
-        this.palco.setMaximized(this.configuracao.isShowMaximized());
-        this.palco.setFullScreen(this.configuracao.isShowFullScreen());
-        if (!this.configuracao.getUrlFromIcon().isEmpty()) {
-            this.palco.getIcons().add(new Image(getClass().getResourceAsStream(this.configuracao.getUrlFromIcon())));
-        }
-        this.cena = new Scene(this.root);
-        this.palco.setScene(this.cena);
+        //removido códigos não mais necessários.
     }
 
     /**
      * Faz todas as preparações da Tela em sequencia correta.
+     * @deprecated Não é mais necessária devido a nova implementação da Classe ControlStageBuilder
      * @throws IOException
      * @throws Exception 
      */
     private void prerapaTela() throws IOException, Exception {
-        this.loaderFXML();
-        this.configTela();
-        this.verificaConfiguracoes();
+        //removido códigos não mais necessários.
     }
 
     /**
      * Carrega os arquivo FXML para exibição.
+     * @deprecated Não é mais necessária devido a nova implementação da Classe ControlStageBuilder.
      * @throws IOException 
      */
     private void loaderFXML() throws IOException {
-        this.loader = new FXMLLoader(getClass().getResource(this.configuracao.getUrlFromFXML()));
-        this.root = this.loader.load();
-        this.controller = this.loader.getController();
+        //removido códigos não mais necessários.
     }
 
     /**
      * Verifica as configurações de Clearcampos e EnableCampos e faz a execução dos mesmo.
      */
     private void verificaConfiguracoes() {
-        if (this.configuracao.isAutoClearCampos() && super.isShowStage()) {
+        if (super.isAutoClearCampos() && super.isShowStage()) {
             ((Inicializador) this.controller).clearCampos();
         }
-        if (this.configuracao.isAutoEnableCampos()) {
+        if (super.isAutoEnableCampos()) {
             ((Inicializador) this.controller).enableCampos(super.isEnableCampos());
             if (!super.isCorrectShowForEnableCampos()) {
                 System.out.println("Você ativou o EnableCampos, mas está chamando a tela"
@@ -218,47 +217,23 @@ public class ControlStage<T extends Inicializador> extends AuxIntern {
     }
 
     /**
-     * Carrega novamente o FXML.
-     * @throws IOException - Uma Excecao referente ao carregamento do FXML. 
-     */
-    public void reloaderFXML() throws IOException {
-        if (super.isShowStage()) {
-            this.loaderFXML();
-        }
-    }
-
-    /**
-     * Carrega novamente as configurações.
-     */
-    public void reloaderConfigStage() {
-        if (super.isShowStage()) {
-            this.configTela();
-        }
-    }
-
-    /**
-     * Carrega novamente todos os processos de exibição da tela.
-     */
-    public void reloaderAll() {
-        super.setShowStage(false);
-    }
-
-    /**
      *  Retorna a classe de Configuração Inicial.
      * @see ConfigStage
-     * @return - Classe ConfigStage 
+     * @deprecated Não é mais utilizado a Classe de configuração
+     * @return - Devido ao se torna deprecated pode retorna null.
      */
     public ConfigStage getConfiguracao() {
-        return configuracao;
+        return null;
     }
 
     /**
      *  Troca a Classe de Configuração por outra.
      * @see ConfigStage
+     * @deprecated Não é mais necessário o uso da Classe ConfigStage.
      * @param configuracao - ConfigStage
      */
     public void setConfiguracao(ConfigStage configuracao) {
-        this.configuracao = configuracao;
+        //removido códigos não mais necessários.
     }
 
     /**
@@ -300,7 +275,7 @@ public class ControlStage<T extends Inicializador> extends AuxIntern {
      * @return - Scene
      */
     public Scene getScene() {
-        return cena;
+        return this.cena;
     }
 
     /**
@@ -318,7 +293,7 @@ public class ControlStage<T extends Inicializador> extends AuxIntern {
      * @return - FXMLLoader
      */
     public FXMLLoader getFXMLLoader() {
-        return loader;
+        return this.loader;
     }
 
     /**
@@ -336,7 +311,7 @@ public class ControlStage<T extends Inicializador> extends AuxIntern {
      * @return - Uma Classe de Controller
      */
     public T getController() {
-        return controller;
+        return this.controller;
     }
 
     /**
