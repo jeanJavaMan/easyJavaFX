@@ -110,7 +110,6 @@ public class ControlStage<T extends Inicializador> extends AuxIntern {
         if (!super.isShowStage()) {
             super.setCorrectShowForEnableCampos(true);
             super.setEnableCampos(enableCampos);
-            this.prerapaTela();
             this.palco.show();
             this.palco.requestFocus();
             super.setShowStage(true);
