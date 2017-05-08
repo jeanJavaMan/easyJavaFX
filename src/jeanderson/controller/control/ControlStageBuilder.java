@@ -5,6 +5,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import jeanderson.controller.componentes.AllSee;
 import jeanderson.controller.componentes.Inicializador;
 
 /**
@@ -28,6 +29,11 @@ public class ControlStageBuilder<T extends Inicializador> {
     private boolean showFullScreen = false;
     private boolean showMaximized = false;
     private boolean isResizable = true;
+    /**
+     * Variável que informa se foi usado o método defineAllSee
+     */
+    private boolean useAllSee = false;
+    private int indexForAllSee;
 
     /**
      * Contrutor Padrão.
@@ -153,14 +159,21 @@ public class ControlStageBuilder<T extends Inicializador> {
     /**
      * Executas todas as ações necessárias para iniciar a Tela. Obs: se não for
      * passado a nome ou a URL do arquivo FXML será exibido uma Tela Default.
-     *
+     * Se foi utilizado o método defineAllSee, então a classe será colocada em um enum.
      * @return Instancia da Classe ControlStage
      * @see ControlStage
+     * @see AllSee
      * @throws java.lang.Exception - Várias camadas de exceções.
      */
     public ControlStage build() throws Exception {
         this.configuracoesIniciais();
-        return new ControlStage(this);
+        if (this.useAllSee) {
+            ControlStage<T> control = new ControlStage(this);
+            AllSee.CONTROLADORES.addControlador(this.indexForAllSee, control);
+            return control;
+        } else {
+            return new ControlStage(this);
+        }
     }
 
     /**
@@ -385,4 +398,19 @@ public class ControlStageBuilder<T extends Inicializador> {
         this.controller = this.fXMLLoader.getController();
 
     }
+
+    /**
+     * Define que a classe construida será mantida atraves de enum (estatico), possibilitando chamar a classe construida
+     * de qualquer Classe em tempo de execução (runtime). É necessário informa o index em que a classe ficará mantida 
+     * para eventuais consultas, recomendado começar pelo index 0,1...
+     * @param index Possição em que ficará armazenada a classe. recomendado começar do index 0.
+     * @return retorna um ControlStageBuilder
+     * @see AllSee
+     */
+    public ControlStageBuilder defineAllSee(int index) {
+        this.useAllSee = true;
+        this.indexForAllSee = index;
+        return this;
+    }
+
 }
