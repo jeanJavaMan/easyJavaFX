@@ -2,10 +2,13 @@ package jeanderson.controller.util;
 
 import javafx.stage.Stage;
 import jeanderson.controller.componentes.Inicializador;
+import jeanderson.controller.control.ControlStageBuilder;
 
 /**
  * Classe que prepara as configurações básicas do Stage.
- *
+ *@deprecated Classe não será mais usada para configurações. Será Substituida
+ * pela Classe ControlStageBuilder
+ * @see ControlStageBuilder
  * @author Jeanderson
  */
 public class ConfigStage {
