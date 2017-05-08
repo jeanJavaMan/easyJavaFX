@@ -32,22 +32,28 @@ public class ControlStage<T extends Inicializador> extends AuxIntern {
     private T controller;
 
     /**
-     * Construtor padrão que recebe a Classe de Controller, e a configuração da Janela
+     * Construtor padrão que recebe a Classe de Controller, e a configuração da
+     * Janela
+     *
      * @param controller - Classe do Controller
      * @param configuracao - Classe de Configuração
      * @see ConfigStage
-     * @deprecated Não utilizar mais esse construtor pois a classe ConfigStage se tornou deprecated.
+     * @deprecated Não utilizar mais esse construtor pois a classe ConfigStage
+     * se tornou deprecated.
      */
     public ControlStage(T controller, ConfigStage configuracao) {
         super();
         this.controller = controller;
     }
+
     /**
-     * Construtor que recebe a Classe ControlStageBuilder já com configurações prontas.
+     * Construtor que recebe a Classe ControlStageBuilder já com configurações
+     * prontas.
+     *
      * @see ControlStageBuilder
-     * @param controlBuilder 
+     * @param controlBuilder
      */
-    public ControlStage(ControlStageBuilder<T> controlBuilder){
+    public ControlStage(ControlStageBuilder<T> controlBuilder) {
         super();
         this.palco = controlBuilder.getStage();
         this.root = controlBuilder.getParentRoot();
@@ -59,31 +65,34 @@ public class ControlStage<T extends Inicializador> extends AuxIntern {
     }
 
     /**
-     * Cria uma nova Builder da Classe ControlStageBuilder. Utilizando 
-     * a ideia do Design Pattern Builder
+     * Cria uma nova Builder da Classe ControlStageBuilder. Utilizando a ideia
+     * do Design Pattern Builder
+     *
      * @return - Classe ControlStageBuilder
-     * @see ControlStageBuilder 
+     * @see ControlStageBuilder
      */
     public static ControlStageBuilder newBuilder() {
         return new ControlStageBuilder();
     }
 
     /**
-     * Cria uma nova Builder da Classe ControlStageBuilder, e recebe um Stage. Utilizando 
-     * a ideia do Design Pattern Builder
+     * Cria uma nova Builder da Classe ControlStageBuilder, e recebe um Stage.
+     * Utilizando a ideia do Design Pattern Builder
+     *
      * @param palco - Stage
      * @see ControlStageBuilder
-     * @return - Classe ControlStageBuilder      
+     * @return - Classe ControlStageBuilder
      */
     public static ControlStageBuilder newBuilder(Stage palco) {
         return new ControlStageBuilder(palco);
     }
 
     /**
-     * Exibi a Tela já pronta.
-     * Obs: ao chamar esse método pela segunda vez, ele não recarregara o arquivo FXML
-     * por motivo de desempenho, apenas exibira a Tela novamente.
-     * Recomendo que classes de controle implementem os métodos clearCampos entre outros.
+     * Exibi a Tela já pronta. Obs: ao chamar esse método pela segunda vez, ele
+     * não recarregara o arquivo FXML por motivo de desempenho, apenas exibira a
+     * Tela novamente. Recomendo que classes de controle implementem os métodos
+     * clearCampos entre outros.
+     *
      * @see Inicializador
      * @throws Exception - Uma cadeia de Excecoes.
      */
@@ -102,10 +111,12 @@ public class ControlStage<T extends Inicializador> extends AuxIntern {
     }
 
     /**
-     * Exibi a Tela já pronta e chama o método EnableCampos da Classe de controller.
-     * Obs: ao chamar esse método pela segunda vez, ele não recarregara o arquivo FXML
-     * por motivo de desempenho, apenas exibira a Tela novamente.
-     * Recomendo que classes de controle implementem os métodos clearCampos entre outros.
+     * Exibi a Tela já pronta e chama o método EnableCampos da Classe de
+     * controller. Obs: ao chamar esse método pela segunda vez, ele não
+     * recarregara o arquivo FXML por motivo de desempenho, apenas exibira a
+     * Tela novamente. Recomendo que classes de controle implementem os métodos
+     * clearCampos entre outros.
+     *
      * @see Inicializador
      * @param enableCampos - o usuario informa se ativa ou não os campos
      * @throws Exception - Uma cadeia de Excecoes.
@@ -126,13 +137,16 @@ public class ControlStage<T extends Inicializador> extends AuxIntern {
     }
 
     /**
-     * Exibi a Tela já pronta e chama o método editMode da classe de Controller. Para exibir como tela de edição.
-     * Obs: ao chamar esse método pela segunda vez, ele não recarregara o arquivo FXML
-     * por motivo de desempenho, apenas exibira a Tela novamente.
-     * Recomendo que classes de controle implementem os métodos clearCampos entre outros.
+     * Exibi a Tela já pronta e chama o método editMode da classe de Controller.
+     * Para exibir como tela de edição. Obs: ao chamar esse método pela segunda
+     * vez, ele não recarregara o arquivo FXML por motivo de desempenho, apenas
+     * exibira a Tela novamente. Recomendo que classes de controle implementem
+     * os métodos clearCampos entre outros.
+     *
      * @see Inicializador
-     * @param data - dado que será usado pela classe de Controller implemetado pelo usuario.
-     * @throws Exception - Uma cadeia de Excecoes. 
+     * @param data - dado que será usado pela classe de Controller implemetado
+     * pelo usuario.
+     * @throws Exception - Uma cadeia de Excecoes.
      */
     public void showEditMode(Object data) throws Exception {
 
@@ -152,15 +166,18 @@ public class ControlStage<T extends Inicializador> extends AuxIntern {
     }
 
     /**
-     * Exibi a Tela já pronta e chama o método editMode da classe de Controller e chama o método EnableCampos da Classe de controller
-     * . Para exibir a tela em modo de edição.
-     * Obs: ao chamar esse método pela segunda vez, ele não recarregara o arquivo FXML
-     * por motivo de desempenho, apenas exibira a Tela novamente.
-     * Recomendo que classes de controle implementem os métodos clearCampos entre outros.
+     * Exibi a Tela já pronta e chama o método editMode da classe de Controller
+     * e chama o método EnableCampos da Classe de controller . Para exibir a
+     * tela em modo de edição. Obs: ao chamar esse método pela segunda vez, ele
+     * não recarregara o arquivo FXML por motivo de desempenho, apenas exibira a
+     * Tela novamente. Recomendo que classes de controle implementem os métodos
+     * clearCampos entre outros.
+     *
      * @see Inicializador
-     * @param data - dado que será usado pela classe de Controller implemetado pelo usuario.
+     * @param data - dado que será usado pela classe de Controller implemetado
+     * pelo usuario.
      * @param enablecampos - o usuario informa se ativa ou não os campos
-     * @throws Exception - Uma cadeia de Excecoes. 
+     * @throws Exception - Uma cadeia de Excecoes.
      */
     public void showEditMode(Object data, boolean enablecampos) throws Exception {
         if (!super.isShowStage()) {
@@ -179,7 +196,9 @@ public class ControlStage<T extends Inicializador> extends AuxIntern {
 
     /**
      * Faz as configurações do palco.
-     * @deprecated Não é mais necessário devido a nova implementação da Classe ControlStageBuilder.
+     *
+     * @deprecated Não é mais necessário devido a nova implementação da Classe
+     * ControlStageBuilder.
      */
     private void configTela() {
         //removido códigos não mais necessários.
@@ -187,9 +206,11 @@ public class ControlStage<T extends Inicializador> extends AuxIntern {
 
     /**
      * Faz todas as preparações da Tela em sequencia correta.
-     * @deprecated Não é mais necessária devido a nova implementação da Classe ControlStageBuilder
+     *
+     * @deprecated Não é mais necessária devido a nova implementação da Classe
+     * ControlStageBuilder
      * @throws IOException
-     * @throws Exception 
+     * @throws Exception
      */
     private void prerapaTela() throws IOException, Exception {
         //removido códigos não mais necessários.
@@ -197,15 +218,18 @@ public class ControlStage<T extends Inicializador> extends AuxIntern {
 
     /**
      * Carrega os arquivo FXML para exibição.
-     * @deprecated Não é mais necessária devido a nova implementação da Classe ControlStageBuilder.
-     * @throws IOException 
+     *
+     * @deprecated Não é mais necessária devido a nova implementação da Classe
+     * ControlStageBuilder.
+     * @throws IOException
      */
     private void loaderFXML() throws IOException {
         //removido códigos não mais necessários.
     }
 
     /**
-     * Verifica as configurações de Clearcampos e EnableCampos e faz a execução dos mesmo.
+     * Verifica as configurações de Clearcampos e EnableCampos e faz a execução
+     * dos mesmo.
      */
     private void verificaConfiguracoes() {
         if (super.isAutoClearCampos() && super.isShowStage()) {
@@ -223,7 +247,8 @@ public class ControlStage<T extends Inicializador> extends AuxIntern {
     }
 
     /**
-     *  Retorna a classe de Configuração Inicial.
+     * Retorna a classe de Configuração Inicial.
+     *
      * @see ConfigStage
      * @deprecated Não é mais utilizado a Classe de configuração
      * @return - Devido ao se torna deprecated pode retorna null.
@@ -233,7 +258,8 @@ public class ControlStage<T extends Inicializador> extends AuxIntern {
     }
 
     /**
-     *  Troca a Classe de Configuração por outra.
+     * Troca a Classe de Configuração por outra.
+     *
      * @see ConfigStage
      * @deprecated Não é mais necessário o uso da Classe ConfigStage.
      * @param configuracao - ConfigStage
@@ -244,6 +270,7 @@ public class ControlStage<T extends Inicializador> extends AuxIntern {
 
     /**
      * Retorna o Stage usado.
+     *
      * @return - Classe Stage.
      */
     public Stage getStage() {
@@ -252,6 +279,7 @@ public class ControlStage<T extends Inicializador> extends AuxIntern {
 
     /**
      * Troca o Stage por outro.
+     *
      * @param palco - Stage.
      */
     public void setStage(Stage palco) {
@@ -260,6 +288,7 @@ public class ControlStage<T extends Inicializador> extends AuxIntern {
 
     /**
      * Retorna o Parent.
+     *
      * @see Parent
      * @return - Parent
      */
@@ -269,6 +298,7 @@ public class ControlStage<T extends Inicializador> extends AuxIntern {
 
     /**
      * Troca o Parent por outro.
+     *
      * @see Parent
      * @param root - Parent
      */
@@ -278,6 +308,7 @@ public class ControlStage<T extends Inicializador> extends AuxIntern {
 
     /**
      * Retorna a Scene utilizada.
+     *
      * @return - Scene
      */
     public Scene getScene() {
@@ -286,6 +317,7 @@ public class ControlStage<T extends Inicializador> extends AuxIntern {
 
     /**
      * Troca a Scene por outra.
+     *
      * @see Scene
      * @param cena - Scene
      */
@@ -295,6 +327,7 @@ public class ControlStage<T extends Inicializador> extends AuxIntern {
 
     /**
      * Retorna a Classe do FXMLLoader usado para carregar os arquivos FXML.
+     *
      * @see FXMLLoader
      * @return - FXMLLoader
      */
@@ -304,6 +337,7 @@ public class ControlStage<T extends Inicializador> extends AuxIntern {
 
     /**
      * Troca a Classe FXMLLoader por outra.
+     *
      * @see FXMLLoader
      * @param loader - FXMLLoader
      */
@@ -313,6 +347,7 @@ public class ControlStage<T extends Inicializador> extends AuxIntern {
 
     /**
      * Retorna a Classe de Controller da tela.
+     *
      * @see T
      * @return - Uma Classe de Controller
      */
@@ -322,33 +357,38 @@ public class ControlStage<T extends Inicializador> extends AuxIntern {
 
     /**
      * Troca a Classe de Controller por outra.
+     *
      * @see T
      * @param controller - Uma Classe de Controller.
      */
     public void setController(T controller) {
         this.controller = controller;
     }
-    
+
     /**
-     * Define que está classe será mantida atraves de enum (estatico), possibilitando chamar está Classe
-     * em qualquer outra Classe em tempo de execução (runtime). É necessário informa o index em que a classe ficará mantida 
-     * para eventuais consultas, recomendado começar pelo index 0,1...
-     * @param index Possição em que ficará armazenada a classe. recomendado começar do index 0.
+     * Define que está classe será mantida atraves de enum (estatico),
+     * possibilitando chamar está Classe em qualquer outra Classe em tempo de
+     * execução (runtime). É necessário informa o index em que a classe ficará
+     * mantida para eventuais consultas, recomendado começar pelo index 0,1...
+     *
+     * @param index Possição em que ficará armazenada a classe. recomendado
+     * começar do index 0.
      * @see AllSee
      */
     public void defineAllSee(int index) {
         AllSee.CONTROLADORES.addControlador(index, this);
     }
-    
+
     /**
-     * Retorna uma Classe ControlStage salva em um enum (estático).
-     * Informa um index onde está armazenada a Classe.
-     * Obs: cuidado para não informa um index inválido, pois será lançada uma exceção.
+     * Retorna uma Classe ControlStage salva em um enum (estático). Informa um
+     * index onde está armazenada a Classe. Obs: cuidado para não informa um
+     * index inválido, pois será lançada uma exceção.
+     *
      * @param index Index de consulta.
      * @return Uma classe ControlStage armezanada na memoria de forma estática.
      * @see AllSee
      */
-    public static ControlStage getAllSeeControl(int index){
+    public static ControlStage getAllSeeControl(int index) {
         return AllSee.CONTROLADORES.getControlador(index);
     }
 }
