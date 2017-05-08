@@ -53,6 +53,8 @@ public class ControlStage<T extends Inicializador> extends AuxIntern {
         this.cena = controlBuilder.getScene();
         this.loader = controlBuilder.getfXMLLoader();
         this.controller = controlBuilder.getController();
+        super.setAutoClearCampos(controlBuilder.isAutoClearCampos());
+        super.setAutoEnableCampos(controlBuilder.isAutoEnableCampos());
     }
 
     /**
@@ -86,7 +88,8 @@ public class ControlStage<T extends Inicializador> extends AuxIntern {
      */
     public void show() throws Exception {
         if (!super.isShowStage()) {
-            super.setCorrectShowForEnableCampos(false);            
+            super.setCorrectShowForEnableCampos(false);
+            this.verificaConfiguracoes();
             this.palco.show();
             this.palco.requestFocus();
             super.setShowStage(true);
@@ -110,6 +113,7 @@ public class ControlStage<T extends Inicializador> extends AuxIntern {
         if (!super.isShowStage()) {
             super.setCorrectShowForEnableCampos(true);
             super.setEnableCampos(enableCampos);
+            this.verificaConfiguracoes();
             this.palco.show();
             this.palco.requestFocus();
             super.setShowStage(true);
@@ -134,11 +138,13 @@ public class ControlStage<T extends Inicializador> extends AuxIntern {
         if (!super.isShowStage()) {
             super.setCorrectShowForEnableCampos(false);
             ((Inicializador) this.controller).editMode(data);
+            this.verificaConfiguracoes();
             this.palco.show();
             this.palco.requestFocus();
             super.setShowStage(true);
         } else {
             ((Inicializador) this.controller).editMode(data);
+            this.verificaConfiguracoes();
             this.palco.show();
             this.palco.requestFocus();
         }
@@ -209,7 +215,7 @@ public class ControlStage<T extends Inicializador> extends AuxIntern {
             if (!super.isCorrectShowForEnableCampos()) {
                 System.out.println("Você ativou o EnableCampos, mas está chamando a tela"
                         + " utilizando o método show() que não tem como parâmetro enablecampos, por favor utilize um método"
-                        + " show que tenha como parâmetro EnableCampos para informar atráves dos parâmetros se os campos"
+                        + " show que tenha como parâmetro EnableCampos\n para informar atráves dos parâmetros se os campos"
                         + " devem ser ativados ou não!");
             }
         }
