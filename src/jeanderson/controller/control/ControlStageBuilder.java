@@ -18,7 +18,7 @@ import jeanderson.controller.util.ConfigStage;
  * @author Jeanderson
  */
 public class ControlStageBuilder<T extends Inicializador> {
-    
+
     private T controller;
     private Stage stage;
     private Parent parentRoot;
@@ -155,8 +155,9 @@ public class ControlStageBuilder<T extends Inicializador> {
     }
 
     /**
-     * Executas todas as ações necessárias para iniciar a Tela.
-     * Obs: se não for passado a nome ou a URL do arquivo FXML será exibido uma Tela Default.
+     * Executas todas as ações necessárias para iniciar a Tela. Obs: se não for
+     * passado a nome ou a URL do arquivo FXML será exibido uma Tela Default.
+     *
      * @return Instancia da Classe ControlStage
      * @see ControlStage
      * @throws java.lang.Exception - Várias camadas de exceções.
@@ -274,7 +275,6 @@ public class ControlStageBuilder<T extends Inicializador> {
     public boolean isShowMaximized() {
         return showMaximized;
     }
-    
 
     /**
      * Informa se a Tela é redimensionável.
@@ -284,35 +284,40 @@ public class ControlStageBuilder<T extends Inicializador> {
     public boolean isIsResizable() {
         return isResizable;
     }
+
     /**
      * Adiciona uma instancia da Classe FXMLLoader.
+     *
      * @param fXMLLoader
      * @return retorna a Classe ControlStageBuilder.
      */
-    public ControlStageBuilder addClassFXMLLoader(FXMLLoader fXMLLoader){
+    public ControlStageBuilder addClassFXMLLoader(FXMLLoader fXMLLoader) {
         this.fXMLLoader = fXMLLoader;
         return this;
     }
+
     /**
      * Adiciona uma instancia da Classe Scene.
+     *
      * @param scene
      * @return retorna a Classe ControlStageBuilder.
      */
-    public ControlStageBuilder addClassScene(Scene scene){
+    public ControlStageBuilder addClassScene(Scene scene) {
         this.scene = scene;
         return this;
     }
+
     /**
      * Adiciona uma instancia da Classe Parent.
+     *
      * @param parent
      * @return retorna a Classe ControlStageBuilder.
      */
-    public ControlStageBuilder addClassParent(Parent parent){
+    public ControlStageBuilder addClassParent(Parent parent) {
         this.parentRoot = parent;
         return this;
     }
-    
-    
+
     /**
      * Método responsável para verificar se foi digitado somente o nome do
      * arquivo FXML ou se foi passado a URL do arquivo FXML.
@@ -332,8 +337,11 @@ public class ControlStageBuilder<T extends Inicializador> {
     }
 
     /**
-     * Faz as verificações inicias antes de começar a contrução da Classe ControlStage.
-     * @throws Exception Caso não seja passado uma classe de Controller, ou problemas relacionados com o FXML.
+     * Faz as verificações inicias antes de começar a contrução da Classe
+     * ControlStage.
+     *
+     * @throws Exception Caso não seja passado uma classe de Controller, ou
+     * problemas relacionados com o FXML.
      */
     private void verificacaoInicial() throws Exception {
         if (this.controller == null) {
@@ -344,30 +352,41 @@ public class ControlStageBuilder<T extends Inicializador> {
         }
         if (this.urlOrNameFromFXML == null && this.fXMLLoader == null) {
             this.fXMLLoader = new FXMLLoader(getClass().getResource("/jeanderson/view/DefaultView.fxml"));
-        }else if(this.fXMLLoader == null){
+        } else if (this.fXMLLoader == null) {
             this.fXMLLoader = new FXMLLoader(getClass().getResource(this.urlOrNameFromFXML));
         }
-        if(this.parentRoot == null) this.parentRoot = this.fXMLLoader.load();
-        if(this.scene == null) this.scene = new Scene(this.parentRoot);
-        if(this.stageTitle == null) this.stageTitle = "Sem Titulo";
-        if(this.urlFromIcon == null) this.urlFromIcon = "/jeanderson/view/img/java-icon-default.png";
+        if (this.parentRoot == null) {
+            this.parentRoot = this.fXMLLoader.load();
+        }
+        if (this.scene == null) {
+            this.scene = new Scene(this.parentRoot);
+        }
+        if (this.stageTitle == null) {
+            this.stageTitle = "Sem Titulo";
+        }
+        if (this.urlFromIcon == null) {
+            this.urlFromIcon = "/jeanderson/view/img/java-icon-default.png";
+        }
     }
+
     /**
-     * Faz todas as configurações do Stage e carrega a classe de Controller, ultima etapa antes da contrução da Classe ControlStage.
+     * Faz todas as configurações do Stage e carrega a classe de Controller,
+     * ultima etapa antes da contrução da Classe ControlStage.
+     *
      * @see ControlStage
      * @throws Exception Várias exceções.
      */
-    private void configuracoesIniciais() throws Exception{
+    private void configuracoesIniciais() throws Exception {
         this.verificacaoInicial();
-        
+
         this.stage.setTitle(this.stageTitle);
         this.stage.setFullScreen(this.showFullScreen);
         this.stage.setMaximized(this.showMaximized);
         this.stage.setResizable(this.isResizable);
         this.stage.setScene(this.scene);
         this.stage.getIcons().add(new Image(getClass().getResourceAsStream(this.urlFromIcon)));
-        
+
         this.controller = this.fXMLLoader.getController();
-                
+
     }
 }
