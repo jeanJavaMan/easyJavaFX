@@ -1,15 +1,11 @@
 package jeanderson.controller.control;
 
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import jeanderson.controller.componentes.Inicializador;
-import jeanderson.controller.util.ConfigStage;
-import jeanderson.controller.util.ConfigStage;
 
 /**
  * Classe complementar de ControlStage. Utilizando o design pattern builder
