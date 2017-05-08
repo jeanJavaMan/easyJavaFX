@@ -13,6 +13,9 @@ public class AuxIntern {
     private boolean showStage;
     private boolean enableCampos;
     private boolean correctShowForEnableCampos;
+    
+    private boolean autoClearCampos = true;
+    private boolean autoEnableCampos = false;
 
     /**
      * Construtor padrão.
@@ -67,5 +70,40 @@ public class AuxIntern {
     public void setCorrectShowForEnableCampos(boolean correctShowForEnableCampos) {
         this.correctShowForEnableCampos = correctShowForEnableCampos;
     }    
+
+    /**
+     * Verifica de o ClearCampos está ativado.
+     * Obs: por padrão é ativado
+     * @return boolean informando se está ativado ou não.
+     */
+    public boolean isAutoClearCampos() {
+        return autoClearCampos;
+    }
+
+    /**
+     * Ativa e Desativa a função ClearCampos.     
+     * @param autoClearCampos boolean informando se ativa ou não.
+     */
+    public void setAutoClearCampos(boolean autoClearCampos) {
+        this.autoClearCampos = autoClearCampos;
+    }
+
+    /**
+     * Verifica se o EnableCampos está ativado.
+     * Obs: é desativado por padrão.
+     * @return boolean informando situação (Ativado ou Desativado).
+     */
+    public boolean isAutoEnableCampos() {
+        return autoEnableCampos;
+    }
+
+    /**
+     * Ativa ou Desativa a chamada da função EnableCampos.
+     * @param autoEnableCampos boolean informando se ativa ou não.
+     */
+    public void setAutoEnableCampos(boolean autoEnableCampos) {
+        this.autoEnableCampos = autoEnableCampos;
+    }
+    
     
 }
