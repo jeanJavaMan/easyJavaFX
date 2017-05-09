@@ -21,7 +21,7 @@ public enum MaskType {
      */
     CPF_DIG,
     /**
-     * Informa que é um campo para dígitos no formato RG. Ex: 1111.222
+     * Informa que é um campo para dígitos no formato RG. Ex: 1.111.222-3
      */
     RG_DIG,
     /**
