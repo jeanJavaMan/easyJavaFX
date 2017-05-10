@@ -61,7 +61,7 @@ public class ControlStageBuilder<T extends Inicializador> {
      * @param urlOrName - Nome ou a URL do arquivo FXML.
      * @return - Classe ControlStageBuilder
      */
-    public ControlStageBuilder addNameFromFXML(String urlOrName) {
+    public ControlStageBuilder<T> addNameFromFXML(String urlOrName) {
         this.verificaUrlFromFXML(urlOrName);
         return this;
     }
@@ -72,7 +72,7 @@ public class ControlStageBuilder<T extends Inicializador> {
      * @param controller - classe de Controller.
      * @return - Classe ControlStageBuilder
      */
-    public ControlStageBuilder addClassController(T controller) {
+    public ControlStageBuilder<T> addClassController(T controller) {
         this.controller = controller;
         return this;
     }
@@ -83,7 +83,7 @@ public class ControlStageBuilder<T extends Inicializador> {
      * @param urlFromIcon - String
      * @return - Classe ControlStageBuilder
      */
-    public ControlStageBuilder addUrlFromIcon(String urlFromIcon) {
+    public ControlStageBuilder<T> addUrlFromIcon(String urlFromIcon) {
         this.urlFromIcon = urlFromIcon;
         return this;
     }
@@ -94,7 +94,7 @@ public class ControlStageBuilder<T extends Inicializador> {
      * @param title - String
      * @return - Classe ControlStageBuilder
      */
-    public ControlStageBuilder addTitleStage(String title) {
+    public ControlStageBuilder<T> addTitleStage(String title) {
         this.stageTitle = title;
         return this;
     }
@@ -107,7 +107,7 @@ public class ControlStageBuilder<T extends Inicializador> {
      * @param autoClear - Boolean
      * @return - Classe ControlStageBuilder
      */
-    public ControlStageBuilder setAutoEnableClear(boolean autoClear) {
+    public ControlStageBuilder<T> setAutoEnableClear(boolean autoClear) {
         this.autoClearCampos = autoClear;
         return this;
     }
@@ -118,7 +118,7 @@ public class ControlStageBuilder<T extends Inicializador> {
      * @param autoEnablecampos - Boolean
      * @return - Classe ControlStageBuilder
      */
-    public ControlStageBuilder setAutoEnableCampos(boolean autoEnablecampos) {
+    public ControlStageBuilder<T> setAutoEnableCampos(boolean autoEnablecampos) {
         this.autoEnableCampos = autoEnablecampos;
         return this;
     }
@@ -129,7 +129,7 @@ public class ControlStageBuilder<T extends Inicializador> {
      * @param fullscreenMod - Boolean
      * @return - Classe ControlStageBuilder
      */
-    public ControlStageBuilder setFullScreen(boolean fullscreenMod) {
+    public ControlStageBuilder<T> setFullScreen(boolean fullscreenMod) {
         this.showFullScreen = fullscreenMod;
         return this;
     }
@@ -140,7 +140,7 @@ public class ControlStageBuilder<T extends Inicializador> {
      * @param maximizedMod - Boolean
      * @return - Classe ControlStageBuilder
      */
-    public ControlStageBuilder setMaximized(boolean maximizedMod) {
+    public ControlStageBuilder<T> setMaximized(boolean maximizedMod) {
         this.showMaximized = maximizedMod;
         return this;
     }
@@ -151,7 +151,7 @@ public class ControlStageBuilder<T extends Inicializador> {
      * @param isResizable - Boolean
      * @return - Classe ControlStageBuilder
      */
-    public ControlStageBuilder setResizable(boolean isResizable) {
+    public ControlStageBuilder<T> setResizable(boolean isResizable) {
         this.isResizable = isResizable;
         return this;
     }
@@ -167,14 +167,14 @@ public class ControlStageBuilder<T extends Inicializador> {
      * @see AllSee
      * @throws java.lang.Exception - Várias camadas de exceções.
      */
-    public ControlStage build() throws Exception {
+    public ControlStage<T> build() throws Exception {
         this.configuracoesIniciais();
         if (this.useAllSee) {
-            ControlStage<T> control = new ControlStage(this);
+            ControlStage<T> control = new ControlStage<T>(this);
             AllSee.CONTROLADORES.addControlador(this.indexForAllSee, control);
             return control;
         } else {
-            return new ControlStage(this);
+            return new ControlStage<T>(this);
         }
     }
 
@@ -302,7 +302,7 @@ public class ControlStageBuilder<T extends Inicializador> {
      * @param fXMLLoader
      * @return retorna a Classe ControlStageBuilder.
      */
-    public ControlStageBuilder addClassFXMLLoader(FXMLLoader fXMLLoader) {
+    public ControlStageBuilder<T> addClassFXMLLoader(FXMLLoader fXMLLoader) {
         this.fXMLLoader = fXMLLoader;
         return this;
     }
@@ -313,7 +313,7 @@ public class ControlStageBuilder<T extends Inicializador> {
      * @param scene
      * @return retorna a Classe ControlStageBuilder.
      */
-    public ControlStageBuilder addClassScene(Scene scene) {
+    public ControlStageBuilder<T> addClassScene(Scene scene) {
         this.scene = scene;
         return this;
     }
@@ -324,7 +324,7 @@ public class ControlStageBuilder<T extends Inicializador> {
      * @param parent
      * @return retorna a Classe ControlStageBuilder.
      */
-    public ControlStageBuilder addClassParent(Parent parent) {
+    public ControlStageBuilder<T> addClassParent(Parent parent) {
         this.parentRoot = parent;
         return this;
     }
@@ -412,7 +412,7 @@ public class ControlStageBuilder<T extends Inicializador> {
      * @return retorna um ControlStageBuilder
      * @see AllSee
      */
-    public ControlStageBuilder defineAllSee(int index) {
+    public ControlStageBuilder<T> defineAllSee(int index) {
         this.useAllSee = true;
         this.indexForAllSee = index;
         return this;
