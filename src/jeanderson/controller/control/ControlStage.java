@@ -5,16 +5,13 @@
  */
 package jeanderson.controller.control;
 
-import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import jeanderson.controller.componentes.AllSee;
 import jeanderson.controller.componentes.Inicializador;
 import jeanderson.controller.util.AuxIntern;
-import jeanderson.controller.util.ConfigStage;
 
 /**
  * Classe responsável por todo o trabalho feito para inicializar uma Tela em
@@ -30,21 +27,6 @@ public class ControlStage<T extends Inicializador> extends AuxIntern {
     private Scene cena;
     private FXMLLoader loader;
     private T controller;
-
-    /**
-     * Construtor padrão que recebe a Classe de Controller, e a configuração da
-     * Janela
-     *
-     * @param controller - Classe do Controller
-     * @param configuracao - Classe de Configuração
-     * @see ConfigStage
-     * @deprecated Não utilizar mais esse construtor pois a classe ConfigStage
-     * se tornou deprecated.
-     */
-    public ControlStage(T controller, ConfigStage configuracao) {
-        super();
-        this.controller = controller;
-    }
 
     /**
      * Construtor que recebe a Classe ControlStageBuilder já com configurações
