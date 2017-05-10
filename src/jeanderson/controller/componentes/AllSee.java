@@ -31,8 +31,8 @@ public enum AllSee {
     /**
      * Adiciona uma Classe a Lista colocando no index informado.
      *
-     *@param index posição onde será armazenada a classe na lista.
--    * @param controlador Classe que será armazenada.
+     *@param index posição onde será armazenada a classe na lista.    
+     *@param controlador Classe que será armazenada.  
      */
     public void addControlador(int index, ControlStage<?> controlador) {
         this.controladores.add(index, controlador);
