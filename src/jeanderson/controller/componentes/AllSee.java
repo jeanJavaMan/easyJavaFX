@@ -19,7 +19,7 @@ public enum AllSee {
     /**
      * Lista que vai conter as classes.
      */
-    private final List<ControlStage<?>> controladores;
+    private final List<ControlStage> controladores;
 
     /**
      * Construtor Padrão.
@@ -31,10 +31,10 @@ public enum AllSee {
     /**
      * Adiciona uma Classe a Lista colocando no index informado.
      *
-     *@param index posição onde será armazenada a classe na lista.    
-     *@param controlador Classe que será armazenada.  
+     * @param index posição onde será armazenada a classe na lista.
+     * @param controlador Classe que será armazenada.
      */
-    public void addControlador(int index, ControlStage<?> controlador) {
+    public void addControlador(int index, ControlStage controlador) {
         this.controladores.add(index, controlador);
     }
 
@@ -44,7 +44,7 @@ public enum AllSee {
      * @param index Index de consulta.
      * @return Uma classe ControlStage.
      */
-    public ControlStage<?> getControlador(int index) {
+    public ControlStage getControlador(int index) {
         return this.controladores.get(index);
     }
 }

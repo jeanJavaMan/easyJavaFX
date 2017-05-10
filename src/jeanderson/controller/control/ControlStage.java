@@ -5,9 +5,11 @@
  */
 package jeanderson.controller.control;
 
+import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import jeanderson.controller.componentes.AllSee;
 import jeanderson.controller.componentes.Inicializador;
@@ -21,7 +23,6 @@ import jeanderson.controller.util.ConfigStage;
  * @author Jeanderson
  * @param <T> - Informa a Classe do Controller feito pelo usuário.
  */
-@SuppressWarnings("deprecation")
 public class ControlStage<T extends Inicializador> extends AuxIntern {
 
     private Stage palco;
@@ -70,8 +71,8 @@ public class ControlStage<T extends Inicializador> extends AuxIntern {
      * @return - Classe ControlStageBuilder
      * @see ControlStageBuilder
      */
-    public static ControlStageBuilder<?> newBuilder() {
-        return new ControlStageBuilder<>();
+    public static ControlStageBuilder newBuilder() {
+        return new ControlStageBuilder();
     }
 
     /**
@@ -82,8 +83,8 @@ public class ControlStage<T extends Inicializador> extends AuxIntern {
      * @see ControlStageBuilder
      * @return - Classe ControlStageBuilder
      */
-    public static ControlStageBuilder<?> newBuilder(Stage palco) {
-        return new ControlStageBuilder<>(palco);
+    public static ControlStageBuilder newBuilder(Stage palco) {
+        return new ControlStageBuilder(palco);
     }
 
     /**
@@ -191,6 +192,39 @@ public class ControlStage<T extends Inicializador> extends AuxIntern {
             this.palco.show();
             this.palco.requestFocus();
         }
+    }
+
+    /**
+     * Faz as configurações do palco.
+     *
+     * @deprecated Não é mais necessário devido a nova implementação da Classe
+     * ControlStageBuilder.
+     */
+    private void configTela() {
+        //removido códigos não mais necessários.
+    }
+
+    /**
+     * Faz todas as preparações da Tela em sequencia correta.
+     *
+     * @deprecated Não é mais necessária devido a nova implementação da Classe
+     * ControlStageBuilder
+     * @throws IOException
+     * @throws Exception
+     */
+    private void prerapaTela() throws IOException, Exception {
+        //removido códigos não mais necessários.
+    }
+
+    /**
+     * Carrega os arquivo FXML para exibição.
+     *
+     * @deprecated Não é mais necessária devido a nova implementação da Classe
+     * ControlStageBuilder.
+     * @throws IOException
+     */
+    private void loaderFXML() throws IOException {
+        //removido códigos não mais necessários.
     }
 
     /**
@@ -354,7 +388,7 @@ public class ControlStage<T extends Inicializador> extends AuxIntern {
      * @return Uma classe ControlStage armezanada na memoria de forma estática.
      * @see AllSee
      */
-    public static ControlStage<?> getAllSeeControl(int index) {
+    public static ControlStage getAllSeeControl(int index) {
         return AllSee.CONTROLADORES.getControlador(index);
     }
 }

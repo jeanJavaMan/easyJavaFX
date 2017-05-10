@@ -65,8 +65,6 @@ public class MaskFormatter {
                 case RG_DIG:
                     txtField.setPromptText("_.___.___-_");
                     break;
-			default:
-				break;
             }
         }
     }
@@ -80,8 +78,6 @@ public class MaskFormatter {
                 case DATA_TRACO_DIG:
                     datePicker.setPromptText("__-__-____");
                     break;
-			default:
-				break;
             }
         }
     }
