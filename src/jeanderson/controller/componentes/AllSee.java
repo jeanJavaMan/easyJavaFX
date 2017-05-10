@@ -10,7 +10,7 @@ import java.util.List;
 import jeanderson.controller.control.ControlStage;
 
 /**
- * Classe que mantÃ©m salvo Classes ControlStage em modo estÃ¡tico.
+ * Classe que mantém salvo Classes ControlStage em modo estático.
  *
  * @author Jeanderson
  */
@@ -22,7 +22,7 @@ public enum AllSee {
     private final List<ControlStage<?>> controladores;
 
     /**
-     * Construtor PadrÃ£o.
+     * Construtor Padrão.
      */
     AllSee() {
         this.controladores = new ArrayList<>();
@@ -31,8 +31,8 @@ public enum AllSee {
     /**
      * Adiciona uma Classe a Lista colocando no index informado.
      *
-     * @param index posiÃ§Ã£o onde serÃ¡ armazenada a classe na lista.
-     * @param controlador Classe que serÃ¡ armazenada.
+     *@param index posição onde será armazenada a classe na lista.
+-    * @param controlador Classe que será armazenada.
      */
     public void addControlador(int index, ControlStage<?> controlador) {
         this.controladores.add(index, controlador);
