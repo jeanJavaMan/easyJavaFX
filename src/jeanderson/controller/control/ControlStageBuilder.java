@@ -170,11 +170,11 @@ public class ControlStageBuilder<T extends Inicializador> {
     public ControlStage build() throws Exception {
         this.configuracoesIniciais();
         if (this.useAllSee) {
-            ControlStage<T> control = new ControlStage(this);
+            ControlStage<T> control = new ControlStage<T>(this);
             AllSee.CONTROLADORES.addControlador(this.indexForAllSee, control);
             return control;
         } else {
-            return new ControlStage(this);
+            return new ControlStage<T>(this);
         }
     }
 
