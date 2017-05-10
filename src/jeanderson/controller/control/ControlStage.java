@@ -195,39 +195,6 @@ public class ControlStage<T extends Inicializador> extends AuxIntern {
     }
 
     /**
-     * Faz as configurações do palco.
-     *
-     * @deprecated Não é mais necessário devido a nova implementação da Classe
-     * ControlStageBuilder.
-     */
-    private void configTela() {
-        //removido códigos não mais necessários.
-    }
-
-    /**
-     * Faz todas as preparações da Tela em sequencia correta.
-     *
-     * @deprecated Não é mais necessária devido a nova implementação da Classe
-     * ControlStageBuilder
-     * @throws IOException
-     * @throws Exception
-     */
-    private void prerapaTela() throws IOException, Exception {
-        //removido códigos não mais necessários.
-    }
-
-    /**
-     * Carrega os arquivo FXML para exibição.
-     *
-     * @deprecated Não é mais necessária devido a nova implementação da Classe
-     * ControlStageBuilder.
-     * @throws IOException
-     */
-    private void loaderFXML() throws IOException {
-        //removido códigos não mais necessários.
-    }
-
-    /**
      * Verifica as configurações de Clearcampos e EnableCampos e faz a execução
      * dos mesmo.
      */
@@ -244,28 +211,6 @@ public class ControlStage<T extends Inicializador> extends AuxIntern {
                         + " devem ser ativados ou não!");
             }
         }
-    }
-
-    /**
-     * Retorna a classe de Configuração Inicial.
-     *
-     * @see ConfigStage
-     * @deprecated Não é mais utilizado a Classe de configuração
-     * @return - Devido ao se torna deprecated pode retorna null.
-     */
-    public ConfigStage getConfiguracao() {
-        return null;
-    }
-
-    /**
-     * Troca a Classe de Configuração por outra.
-     *
-     * @see ConfigStage
-     * @deprecated Não é mais necessário o uso da Classe ConfigStage.
-     * @param configuracao - ConfigStage
-     */
-    public void setConfiguracao(ConfigStage configuracao) {
-        //removido códigos não mais necessários.
     }
 
     /**
