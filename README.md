@@ -23,6 +23,7 @@ Preparando a exibição da Janela: Utilizaremos uma Classe chamada ControlStage 
 //utilizamos para o instanciamento a Classe ControlStageBuilder
 //Informamos que a Classe ControlStage tem como parametro o controller da Tela que é o TelaHomeController
  ControlStage<TelaHomeController> controlHome = new ControlStageBuilder<>()
+     //Aqui passamos a nossa Classe de Controle da Tela
      .addClassController(new TelaHomeController())
      //aqui passamos o nome do arquivo FXML que será carregado, podemos passar também sua URL
      .addNameFromFXML("TelaHome")
