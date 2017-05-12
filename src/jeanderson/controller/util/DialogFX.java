@@ -28,7 +28,7 @@ public class DialogFX {
      * @param title Titulo do Dialog.
      * @param header Mensagem de Header do Dialog.
      * @param dialogType Tipo de Dialog
-     * @return
+     * @return Retorna uma Alert da Classe do JavaFX.
      */
     private static Alert createDialog(String msg, String title, String header, DialogType dialogType) {
         Alert dialog;
