@@ -72,7 +72,7 @@ public class DialogFX {
         }
         dialog.setTitle(title);
         dialog.setHeaderText(header);
-        dialog.setContentText(msg);
+        dialog.setContentText(msg);        
         return dialog;
     }
     
