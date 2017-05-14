@@ -10,6 +10,7 @@ import jeanderson.controller.control.ControlStage;
 
 /**
  * Classe que mantém salvo Classes ControlStage em modo estático.
+ *
  * @version 2.0 Utilizando HashMap
  * @author Jeanderson
  */
@@ -18,7 +19,7 @@ public enum AllSee {
     /**
      * Lista que vai conter as classes.
      */
-    private final HashMap<String,ControlStage> controladores;
+    private final HashMap<String, ControlStage> controladores;
 
     /**
      * Construtor Padrão.
@@ -30,7 +31,8 @@ public enum AllSee {
     /**
      * Adiciona uma Classe a Lista colocando no index informado.
      *
-     * @param classController Informe qual a Classe de controller que está sendo passada. Ex: TelaHomeController.class
+     * @param classController Informe qual a Classe de controller que está sendo
+     * passada. Ex: TelaHomeController.class
      * @param controlador Classe do ControlStage que será armazenado.
      */
     public void addControlador(Class<? extends Inicializador> classController, ControlStage controlador) {
@@ -40,10 +42,16 @@ public enum AllSee {
     /**
      * Retorna a classe do Index Informado.
      *
-     * @param className Informe qual a nome da Classe de Controller de identificação. Ex: TelaHomeController.class
+     * @param className Informe qual a nome da Classe de Controller de
+     * identificação. Ex: TelaHomeController.class
+     * Obs: pode retorna uma exceção caso não seja encontrado a classe armazenada no HashMap.
      * @return Uma classe ControlStage.
      */
-    public ControlStage getControlador(Class<? extends Inicializador> className) {
-        return this.controladores.get(className.getName());
+    public ControlStage getControlador(Class<? extends Inicializador> className) throws Exception {
+        ControlStage control = this.controladores.get(className.getName());
+        if (control == null) {
+            throw new Exception("Não foi encontrado nenhum ControlStage que tenha como identificação a classe: " + className);
+        }
+        return control;
     }
 }
