@@ -7,12 +7,7 @@ package jeanderson.controller.util;
 
 import java.util.Optional;
 import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 /**
  * Classe que exibi uma Dialog do JavaFX.
@@ -31,52 +26,10 @@ public class DialogFX {
      * @return Retorna uma Alert da Classe do JavaFX.
      */
     private static Alert createDialog(String msg, String title, String header, DialogType dialogType) {
-        Alert dialog;
-        Stage stage;
-        switch (dialogType) {
-            case INFORMATION:
-                dialog = new Alert(Alert.AlertType.INFORMATION);
-                stage = (Stage) dialog.getDialogPane().getScene().getWindow();
-                stage.getIcons().add(new Image(DialogFX.class.getResourceAsStream("/jeanderson/view/img/information-icon.png")));
-                break;
-            case WARNING:
-                dialog = new Alert(Alert.AlertType.WARNING);
-                stage = (Stage) dialog.getDialogPane().getScene().getWindow();
-                stage.getIcons().add(new Image(DialogFX.class.getResourceAsStream("/jeanderson/view/img/warning-icon.png")));
-                break;
-            case ERRO:
-                dialog = new Alert(Alert.AlertType.ERROR);
-                stage = (Stage) dialog.getDialogPane().getScene().getWindow();
-                stage.getIcons().add(new Image(DialogFX.class.getResourceAsStream("/jeanderson/view/img/error-icon.png")));
-                break;
-            case SUCESS:
-                dialog = new Alert(Alert.AlertType.NONE);
-                /*Alteramos o icone(Imagem) que aparece junto com o Dialog*/
-                Image icon = new Image(DialogFX.class.getResourceAsStream("/jeanderson/view/img/sucess.png"));
-                dialog.setGraphic(new ImageView(icon));
-                /*Alteramos o icone da Janela*/
-                stage = (Stage) dialog.getDialogPane().getScene().getWindow();
-                stage.getIcons().add(icon);
-
-                dialog.getButtonTypes().add(new ButtonType("OK", ButtonBar.ButtonData.CANCEL_CLOSE));
-                break;
-            case CONFIRMATION:
-                dialog = new Alert(Alert.AlertType.CONFIRMATION);
-                stage = (Stage) dialog.getDialogPane().getScene().getWindow();
-                stage.getIcons().add(new Image(DialogFX.class.getResourceAsStream("/jeanderson/view/img/confirmation-icon.png")));
-                break;
-            default:
-                dialog = new Alert(Alert.AlertType.NONE);
-                dialog.initStyle(StageStyle.UTILITY);
-                break;
-        }
-        dialog.setTitle(title);
-        dialog.setHeaderText(header);
-        dialog.setContentText(msg);        
-        return dialog;
+        return dialogType.createDialog(msg, title, header);
     }
-    
-      /**
+
+    /**
      * Exibi uma mensagem do tipo INFORMATION(informação)e não para a execução
      * de comandos.
      *
@@ -148,14 +101,8 @@ public class DialogFX {
      */
     public static boolean showConfirmation(String question) {
         Alert dialog = createDialog(question, "Mensagem", "", DialogType.CONFIRMATION);
-        /*Criamos os botões personalizados*/
-        ButtonType btnSim = new ButtonType("Sim", ButtonBar.ButtonData.YES);
-        ButtonType btnNao = new ButtonType("Não", ButtonBar.ButtonData.NO);
-       // ButtonType btnCancelar = new ButtonType("Cancelar", ButtonBar.ButtonData.CANCEL_CLOSE);
-        /*Substituimos todos os botões do Dialog pelo o nosso*/
-        dialog.getButtonTypes().setAll(btnSim, btnNao);
         Optional<ButtonType> resultado = dialog.showAndWait();
-        return resultado.get() == btnSim;
+        return resultado.get() == ButtonType.YES;
     }
 
     /**
@@ -167,11 +114,7 @@ public class DialogFX {
      */
     public static boolean showConfirmation(String question, String title) {
         Alert dialog = createDialog(question, title, "", DialogType.CONFIRMATION);
-        ButtonType btnSim = new ButtonType("Sim", ButtonBar.ButtonData.YES);
-        ButtonType btnNao = new ButtonType("Não", ButtonBar.ButtonData.NO);
-        //ButtonType btnCancelar = new ButtonType("Cancelar", ButtonBar.ButtonData.CANCEL_CLOSE);
-        dialog.getButtonTypes().setAll(btnSim, btnNao);
         Optional<ButtonType> resultado = dialog.showAndWait();
-        return resultado.get() == btnSim;
+        return resultado.get() == ButtonType.YES;
     }
 }
