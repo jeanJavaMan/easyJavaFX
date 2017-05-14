@@ -12,5 +12,12 @@ import javafx.scene.control.Alert;
  * @author Jeanderson
  */
 public interface DialogAssembly {
+    /**
+     *  Faz a implementação do Dialog (Alert).
+     * @param msg  Mensagem do Dialog
+     * @param title Titulo do Dialog
+     * @param header Header do Dialog
+     * @return Um Dialog (Alert) pronto.
+     */
     public Alert createDialog(String msg , String title, String header);
 }
