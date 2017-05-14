@@ -328,9 +328,10 @@ public class ControlStage<T extends Inicializador> extends AuxIntern {
      *
      * @param classNameIdentity Chave de Identificação:  Informe a Classe de Controller para pesquisa. Ex: TelaHomeController.
      * @return Uma classe ControlStage armezanada na memoria de forma estática.
+     * @throws java.lang.Exception Caso não seja encontrado a Classe Armazenada é lançada uma Exception.
      * @see AllSee
      */
-    public static ControlStage getAllSeeControl(Class<? extends Inicializador> classNameIdentity) {
+    public static ControlStage getAllSeeControl(Class<? extends Inicializador> classNameIdentity) throws Exception {
         return AllSee.CONTROLADORES.getControlador(classNameIdentity);
     }
 }
