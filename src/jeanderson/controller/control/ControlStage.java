@@ -298,24 +298,39 @@ public class ControlStage<T extends Inicializador> extends AuxIntern {
      * execução (runtime). É necessário informa o index em que a classe ficará
      * mantida para eventuais consultas, recomendado começar pelo index 0,1...
      *
-     * @param index Possição em que ficará armazenada a classe. recomendado
-     * começar do index 0.
+     * @param classNameIdentity Chave de Identificação: Classe de Controller que será usada como Identificação. Ex: TelaHomeController.class
      * @see AllSee
      */
-    public void defineAllSee(int index) {
-        AllSee.CONTROLADORES.addControlador(index, this);
+    public void defineAllSee(Class<? extends Inicializador> classNameIdentity) {
+        AllSee.CONTROLADORES.addControlador(classNameIdentity, this);
     }
 
+    /**
+     * Define que está classe será mantida atraves de enum (estatico),
+     * possibilitando chamar está Classe em qualquer outra Classe em tempo de
+     * execução (runtime). É necessário informa o index em que a classe ficará
+     * mantida para eventuais consultas, recomendado começar pelo index 0,1...
+     * Obs: Será usada a Classe de Controller passada como Parâmetro na Classe, como chave de identificação para usar o método
+     * getAllSeeControl.
+     * Atenção: Se você alterar a Classe de Controller, este método deverá ser usado após alteração da Classe. E se
+     * vc utilizou este método e posteriomente alterou a Classe de Controller, Você perdera a referência para a pesquisa no método getAllSeeControl.
+     * Pois é utilizado como chave de identificação a Classe de Controller usada como parâmetro na Classe.
+     * @see AllSee
+     * 
+     */
+    public void defineAllSee() {
+        AllSee.CONTROLADORES.addControlador(this.controller.getClass(), this);
+    }
     /**
      * Retorna uma Classe ControlStage salva em um enum (estático). Informa um
      * index onde está armazenada a Classe. Obs: cuidado para não informa um
      * index inválido, pois será lançada uma exceção.
      *
-     * @param index Index de consulta.
+     * @param classNameIdentity Chave de Identificação:  Informe a Classe de Controller para pesquisa. Ex: TelaHomeController.
      * @return Uma classe ControlStage armezanada na memoria de forma estática.
      * @see AllSee
      */
-    public static ControlStage getAllSeeControl(int index) {
-        return AllSee.CONTROLADORES.getControlador(index);
+    public static ControlStage getAllSeeControl(Class<? extends Inicializador> classNameIdentity) {
+        return AllSee.CONTROLADORES.getControlador(classNameIdentity);
     }
 }

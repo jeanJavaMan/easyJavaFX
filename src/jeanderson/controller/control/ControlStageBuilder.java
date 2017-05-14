@@ -30,10 +30,13 @@ public class ControlStageBuilder<T extends Inicializador> {
     private boolean showMaximized = false;
     private boolean isResizable = true;
     /**
-     * Variável que informa se foi usado o método defineAllSee
+     * Variável que informa se foi usado o método defineAllSee.
      */
     private boolean useAllSee = false;
-    private int indexForAllSee;
+    /**
+     * Classe que será usada como Chave de Identificação no método defineAllsee.
+     */
+    private Class<? extends Inicializador> classNameIdentity;
 
     /**
      * Contrutor Padrão.
@@ -170,11 +173,11 @@ public class ControlStageBuilder<T extends Inicializador> {
     public ControlStage build() throws Exception {
         this.configuracoesIniciais();
         if (this.useAllSee) {
-            ControlStage<T> control = new ControlStage<T>(this);
-            AllSee.CONTROLADORES.addControlador(this.indexForAllSee, control);
+            ControlStage<T> control = new ControlStage<>(this);
+            AllSee.CONTROLADORES.addControlador(this.classNameIdentity ,control);
             return control;
         } else {
-            return new ControlStage<T>(this);
+            return new ControlStage<>(this);
         }
     }
 
@@ -407,14 +410,13 @@ public class ControlStageBuilder<T extends Inicializador> {
      * execução (runtime). É necessário informa o index em que a classe ficará
      * mantida para eventuais consultas, recomendado começar pelo index 0,1...
      *
-     * @param index Posição em que ficará armazenada a classe. recomendado
-     * começar do index 0.
+     * @param classNameIdentity Chave de Identificação: Classe de Controller que será usada como Identificação. Ex: TelaHomeController.class
      * @return retorna um ControlStageBuilder
      * @see AllSee
      */
-    public ControlStageBuilder defineAllSee(int index) {
+    public ControlStageBuilder defineAllSee(Class<? extends Inicializador> classNameIdentity) {
         this.useAllSee = true;
-        this.indexForAllSee = index;
+        this.classNameIdentity = classNameIdentity;
         return this;
     }
 
