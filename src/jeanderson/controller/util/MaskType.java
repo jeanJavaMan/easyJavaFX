@@ -33,5 +33,9 @@ public enum MaskType {
      * Informa que é um campo para dígitos no formato Data separada por traco.
      * Ex: 08-05-2017
      */
-    DATA_TRACO_DIG;
+    DATA_TRACO_DIG,
+    /**
+     * Informa que aceita apenas digitos numericos.
+     */
+    NUMBER_ONLY;
 }
