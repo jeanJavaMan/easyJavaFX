@@ -33,6 +33,9 @@ public class MaskFormatter {
             case RG_DIG:
                 this.setTypeRGdig(txtField);
                 break;
+            case NUMBER_ONLY:
+                this.setTypeNumberOnly(txtField);
+                break;
             default:
                 System.out.println("Nenhum tipo de máscara informada! Por favor informa o tipo da máscara usando o enum MaskType");
         }
@@ -336,6 +339,18 @@ public class MaskFormatter {
                     break;
             }
             
+        });
+    }
+    /**
+     * Chama um evento que permite somente a entrada de números.
+     * @param textField 
+     */
+    private void setTypeNumberOnly(TextField textField){
+        textField.setOnKeyTyped(evento ->{
+            if(!"0123456789".contains(evento.getCharacter())){
+                evento.consume();
+            }
+        
         });
     }
 }
