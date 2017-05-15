@@ -29,6 +29,7 @@ public class ControlStageBuilder<T extends Inicializador> {
     private boolean showFullScreen = false;
     private boolean showMaximized = false;
     private boolean isResizable = true;
+   
     /**
      * Variável que informa se foi usado o método defineAllSee.
      */
@@ -37,6 +38,7 @@ public class ControlStageBuilder<T extends Inicializador> {
      * Classe que será usada como Chave de Identificação no método defineAllsee.
      */
     private Class<? extends Inicializador> classNameIdentity;
+  
 
     /**
      * Contrutor Padrão.
@@ -401,7 +403,6 @@ public class ControlStageBuilder<T extends Inicializador> {
         this.stage.getIcons().add(new Image(getClass().getResourceAsStream(this.urlFromIcon)));
 
         this.controller = this.fXMLLoader.getController();
-
     }
 
     /**
