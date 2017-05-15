@@ -8,6 +8,7 @@ package jeanderson.controller.control;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import jeanderson.controller.componentes.AllSee;
 import jeanderson.controller.componentes.Inicializador;
@@ -74,12 +75,20 @@ public class ControlStage<T extends Inicializador> extends AuxIntern {
      * não recarregara o arquivo FXML por motivo de desempenho, apenas exibira a
      * Tela novamente. Recomendo que classes de controle implementem os métodos
      * clearCampos entre outros.
+     * Obs: Se houver alguma Tela Pai, que vc queria que está tela filha tenha dependencia(InitOwner), passa como
+     * parâmetro a Classe de Controller da Tela Pai. Caso não houve passe null.
      *
+     * @param classControlParent Classe de Controller pai, se não houver passar null no parâmetro.
      * @see Inicializador
      * @throws Exception - Uma cadeia de Excecoes.
      */
-    public void show() throws Exception {
+    public void show(Class<? extends Inicializador> classControlParent) throws Exception {
+
         if (!super.isShowStage()) {
+            if (classControlParent != null) {
+                Stage primaryStage = AllSee.CONTROLADORES.getControlador(classControlParent).getStage();
+                this.palco.initOwner(primaryStage);
+            }
             super.setCorrectShowForEnableCampos(false);
             this.verificaConfiguracoes();
             this.palco.show();
@@ -103,8 +112,12 @@ public class ControlStage<T extends Inicializador> extends AuxIntern {
      * @param enableCampos - o usuario informa se ativa ou não os campos
      * @throws Exception - Uma cadeia de Excecoes.
      */
-    public void show(boolean enableCampos) throws Exception {
+    public void show(Class<? extends Inicializador> classControlParent,boolean enableCampos) throws Exception {
         if (!super.isShowStage()) {
+            if (classControlParent != null) {
+                Stage primaryStage = AllSee.CONTROLADORES.getControlador(classControlParent).getStage();
+                this.palco.initOwner(primaryStage);
+            }
             super.setCorrectShowForEnableCampos(true);
             super.setEnableCampos(enableCampos);
             this.verificaConfiguracoes();
@@ -130,9 +143,13 @@ public class ControlStage<T extends Inicializador> extends AuxIntern {
      * pelo usuario.
      * @throws Exception - Uma cadeia de Excecoes.
      */
-    public void showEditMode(Object data) throws Exception {
+    public void showEditMode(Class<? extends Inicializador> classControlParent,Object data) throws Exception {
 
         if (!super.isShowStage()) {
+            if (classControlParent != null) {
+                Stage primaryStage = AllSee.CONTROLADORES.getControlador(classControlParent).getStage();
+                this.palco.initOwner(primaryStage);
+            }
             super.setCorrectShowForEnableCampos(false);
             ((Inicializador) this.controller).editMode(data);
             this.verificaConfiguracoes();
@@ -161,8 +178,12 @@ public class ControlStage<T extends Inicializador> extends AuxIntern {
      * @param enablecampos - o usuario informa se ativa ou não os campos
      * @throws Exception - Uma cadeia de Excecoes.
      */
-    public void showEditMode(Object data, boolean enablecampos) throws Exception {
+    public void showEditMode(Class<? extends Inicializador> classControlParent,Object data, boolean enablecampos) throws Exception {
         if (!super.isShowStage()) {
+            if (classControlParent != null) {
+                Stage primaryStage = AllSee.CONTROLADORES.getControlador(classControlParent).getStage();
+                this.palco.initOwner(primaryStage);
+            }
             super.setCorrectShowForEnableCampos(false);
             super.setEnableCampos(enablecampos);
             ((Inicializador) this.controller).editMode(data);
@@ -298,7 +319,8 @@ public class ControlStage<T extends Inicializador> extends AuxIntern {
      * execução (runtime). É necessário informa o index em que a classe ficará
      * mantida para eventuais consultas, recomendado começar pelo index 0,1...
      *
-     * @param classNameIdentity Chave de Identificação: Classe de Controller que será usada como Identificação. Ex: TelaHomeController.class
+     * @param classNameIdentity Chave de Identificação: Classe de Controller que
+     * será usada como Identificação. Ex: TelaHomeController.class
      * @see AllSee
      */
     public void defineAllSee(Class<? extends Inicializador> classNameIdentity) {
@@ -310,25 +332,31 @@ public class ControlStage<T extends Inicializador> extends AuxIntern {
      * possibilitando chamar está Classe em qualquer outra Classe em tempo de
      * execução (runtime). É necessário informa o index em que a classe ficará
      * mantida para eventuais consultas, recomendado começar pelo index 0,1...
-     * Obs: Será usada a Classe de Controller passada como Parâmetro na Classe, como chave de identificação para usar o método
-     * getAllSeeControl.
-     * Atenção: Se você alterar a Classe de Controller, este método deverá ser usado após alteração da Classe. E se
-     * vc utilizou este método e posteriomente alterou a Classe de Controller, Você perdera a referência para a pesquisa no método getAllSeeControl.
-     * Pois é utilizado como chave de identificação a Classe de Controller usada como parâmetro na Classe.
+     * Obs: Será usada a Classe de Controller passada como Parâmetro na Classe,
+     * como chave de identificação para usar o método getAllSeeControl. Atenção:
+     * Se você alterar a Classe de Controller, este método deverá ser usado após
+     * alteração da Classe. E se vc utilizou este método e posteriomente alterou
+     * a Classe de Controller, Você perdera a referência para a pesquisa no
+     * método getAllSeeControl. Pois é utilizado como chave de identificação a
+     * Classe de Controller usada como parâmetro na Classe.
+     *
      * @see AllSee
-     * 
+     *
      */
     public void defineAllSee() {
         AllSee.CONTROLADORES.addControlador(this.controller.getClass(), this);
     }
+
     /**
      * Retorna uma Classe ControlStage salva em um enum (estático). Informa um
      * index onde está armazenada a Classe. Obs: cuidado para não informa um
      * index inválido, pois será lançada uma exceção.
      *
-     * @param classNameIdentity Chave de Identificação:  Informe a Classe de Controller para pesquisa. Ex: TelaHomeController.
+     * @param classNameIdentity Chave de Identificação: Informe a Classe de
+     * Controller para pesquisa. Ex: TelaHomeController.
      * @return Uma classe ControlStage armezanada na memoria de forma estática.
-     * @throws java.lang.Exception Caso não seja encontrado a Classe Armazenada é lançada uma Exception.
+     * @throws java.lang.Exception Caso não seja encontrado a Classe Armazenada
+     * é lançada uma Exception.
      * @see AllSee
      */
     public static ControlStage getAllSeeControl(Class<? extends Inicializador> classNameIdentity) throws Exception {
