@@ -74,11 +74,15 @@ public class ControlStage<T extends Inicializador> extends AuxIntern {
      * Exibi a Tela já pronta. Obs: ao chamar esse método pela segunda vez, ele
      * não recarregara o arquivo FXML por motivo de desempenho, apenas exibira a
      * Tela novamente. Recomendo que classes de controle implementem os métodos
-     * clearCampos entre outros.
-     * Obs: Se houver alguma Tela Pai, que vc queria que está tela filha tenha dependencia(InitOwner), passa como
-     * parâmetro a Classe de Controller da Tela Pai. Caso não houve passe null.
+     * clearCampos entre outros. Atenção: Se for passar um Classe de Controle
+     * Pai, a mesma deve está definada como Allsee(Todos ver). Caso não utilize
+     * o método na contrução do ControlStage chamado defineAllSee. Obs: Se
+     * houver alguma Tela Pai, que vc queria que está tela filha tenha
+     * dependencia(InitOwner), passa como parâmetro a Classe de Controller da
+     * Tela Pai. Caso não houve passe null.
      *
-     * @param classControlParent Classe de Controller pai, se não houver passar null no parâmetro.
+     * @param classControlParent Classe de Controller pai, se não houver passar
+     * null no parâmetro.
      * @see Inicializador
      * @throws Exception - Uma cadeia de Excecoes.
      */
@@ -106,13 +110,20 @@ public class ControlStage<T extends Inicializador> extends AuxIntern {
      * controller. Obs: ao chamar esse método pela segunda vez, ele não
      * recarregara o arquivo FXML por motivo de desempenho, apenas exibira a
      * Tela novamente. Recomendo que classes de controle implementem os métodos
-     * clearCampos entre outros.
+     * clearCampos entre outros. Atenção: Se for passar um Classe de Controle
+     * Pai, a mesma deve está definada como Allsee(Todos ver). Caso não utilize
+     * o método na contrução do ControlStage chamado defineAllSee. Obs: Se
+     * houver alguma Tela Pai, que vc queria que está tela filha tenha
+     * dependencia(InitOwner), passa como parâmetro a Classe de Controller da
+     * Tela Pai. Caso não houve passe null.
      *
+     * @param classControlParent Classe de Controller pai, se não houver passar
+     * null no parâmetro.
      * @see Inicializador
      * @param enableCampos - o usuario informa se ativa ou não os campos
      * @throws Exception - Uma cadeia de Excecoes.
      */
-    public void show(Class<? extends Inicializador> classControlParent,boolean enableCampos) throws Exception {
+    public void show(Class<? extends Inicializador> classControlParent, boolean enableCampos) throws Exception {
         if (!super.isShowStage()) {
             if (classControlParent != null) {
                 Stage primaryStage = AllSee.CONTROLADORES.getControlador(classControlParent).getStage();
@@ -136,14 +147,21 @@ public class ControlStage<T extends Inicializador> extends AuxIntern {
      * Para exibir como tela de edição. Obs: ao chamar esse método pela segunda
      * vez, ele não recarregara o arquivo FXML por motivo de desempenho, apenas
      * exibira a Tela novamente. Recomendo que classes de controle implementem
-     * os métodos clearCampos entre outros.
+     * os métodos clearCampos entre outros. Atenção: Se for passar um Classe de
+     * Controle Pai, a mesma deve está definada como Allsee(Todos ver). Caso não,
+     * utilize o método na contrução do ControlStage chamado defineAllSee. Obs:
+     * Se houver alguma Tela Pai, que vc queria que está tela filha tenha
+     * dependencia(InitOwner), passar como parâmetro a Classe de Controller da
+     * Tela Pai. Caso não houve passe null.
      *
+     * @param classControlParent Classe de Controller pai, se não houver passar
+     * null no parâmetro.
      * @see Inicializador
      * @param data - dado que será usado pela classe de Controller implemetado
      * pelo usuario.
      * @throws Exception - Uma cadeia de Excecoes.
      */
-    public void showEditMode(Class<? extends Inicializador> classControlParent,Object data) throws Exception {
+    public void showEditMode(Class<? extends Inicializador> classControlParent, Object data) throws Exception {
 
         if (!super.isShowStage()) {
             if (classControlParent != null) {
@@ -170,15 +188,22 @@ public class ControlStage<T extends Inicializador> extends AuxIntern {
      * tela em modo de edição. Obs: ao chamar esse método pela segunda vez, ele
      * não recarregara o arquivo FXML por motivo de desempenho, apenas exibira a
      * Tela novamente. Recomendo que classes de controle implementem os métodos
-     * clearCampos entre outros.
+     * clearCampos entre outros. Atenção: Se for passar um Classe de Controle
+     * Pai, a mesma deve está definada como Allsee(Todos ver). Caso não utilize
+     * o método na contrução do ControlStage chamado defineAllSee. Obs: Se
+     * houver alguma Tela Pai, que vc queria que está tela filha tenha
+     * dependencia(InitOwner), passa como parâmetro a Classe de Controller da
+     * Tela Pai. Caso não houve passe null.
      *
+     * @param classControlParent Classe de Controller pai, se não houver passar
+     * null no parâmetro.
      * @see Inicializador
      * @param data - dado que será usado pela classe de Controller implemetado
      * pelo usuario.
      * @param enablecampos - o usuario informa se ativa ou não os campos
      * @throws Exception - Uma cadeia de Excecoes.
      */
-    public void showEditMode(Class<? extends Inicializador> classControlParent,Object data, boolean enablecampos) throws Exception {
+    public void showEditMode(Class<? extends Inicializador> classControlParent, Object data, boolean enablecampos) throws Exception {
         if (!super.isShowStage()) {
             if (classControlParent != null) {
                 Stage primaryStage = AllSee.CONTROLADORES.getControlador(classControlParent).getStage();
