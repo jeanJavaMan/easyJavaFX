@@ -50,7 +50,7 @@ public enum AllSee {
     public ControlStage getControlador(Class<? extends Inicializador> className) throws Exception {
         ControlStage control = this.controladores.get(className.getName());
         if (control == null) {
-            throw new Exception("Não foi encontrado nenhum ControlStage que tenha como identificação a classe: " + className);
+            throw new Exception("Não foi encontrado nenhum ControlStage que tenha como chave de identificação a classe: " + className);
         }
         return control;
     }
