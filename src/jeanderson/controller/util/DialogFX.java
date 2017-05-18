@@ -7,6 +7,7 @@ package jeanderson.controller.util;
 
 import java.util.Optional;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 
 /**
@@ -102,7 +103,7 @@ public class DialogFX {
     public static boolean showConfirmation(String question) {
         Alert dialog = createDialog(question, "Mensagem", "", DialogType.CONFIRMATION);
         Optional<ButtonType> resultado = dialog.showAndWait();
-        return resultado.get() == ButtonType.YES;
+        return resultado.get().getButtonData().YES == ButtonBar.ButtonData.YES;
     }
 
     /**
@@ -115,6 +116,6 @@ public class DialogFX {
     public static boolean showConfirmation(String question, String title) {
         Alert dialog = createDialog(question, title, "", DialogType.CONFIRMATION);
         Optional<ButtonType> resultado = dialog.showAndWait();
-        return resultado.get() == ButtonType.YES;
+        return resultado.get().getButtonData().YES == ButtonBar.ButtonData.YES;
     }
 }
