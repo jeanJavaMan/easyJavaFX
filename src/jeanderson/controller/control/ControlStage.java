@@ -8,7 +8,6 @@ package jeanderson.controller.control;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import jeanderson.controller.componentes.AllSee;
 import jeanderson.controller.componentes.Inicializador;
@@ -169,14 +168,14 @@ public class ControlStage<T extends Inicializador> extends AuxIntern {
                 this.palco.initOwner(primaryStage);
             }
             super.setCorrectShowForEnableCampos(false);
-            ((Inicializador) this.controller).editMode(data);
             this.verificaConfiguracoes();
+            ((Inicializador) this.controller).editMode(data);            
             this.palco.show();
             this.palco.requestFocus();
             super.setShowStage(true);
         } else {
-            ((Inicializador) this.controller).editMode(data);
             this.verificaConfiguracoes();
+            ((Inicializador) this.controller).editMode(data);            
             this.palco.show();
             this.palco.requestFocus();
         }
@@ -210,12 +209,14 @@ public class ControlStage<T extends Inicializador> extends AuxIntern {
                 this.palco.initOwner(primaryStage);
             }
             super.setCorrectShowForEnableCampos(false);
+            this.verificaConfiguracoes();
             super.setEnableCampos(enablecampos);
             ((Inicializador) this.controller).editMode(data);
             this.palco.show();
             this.palco.requestFocus();
             super.setShowStage(true);
         } else {
+            this.verificaConfiguracoes();
             ((Inicializador) this.controller).editMode(data);
             this.palco.show();
             this.palco.requestFocus();
