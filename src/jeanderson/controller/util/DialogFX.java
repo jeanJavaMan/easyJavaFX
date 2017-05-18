@@ -103,7 +103,7 @@ public class DialogFX {
     public static boolean showConfirmation(String question) {
         Alert dialog = createDialog(question, "Mensagem", "", DialogType.CONFIRMATION);
         Optional<ButtonType> resultado = dialog.showAndWait();
-        return resultado.get().getButtonData().YES == ButtonBar.ButtonData.YES;
+        return resultado.get().getButtonData().equals(ButtonBar.ButtonData.YES);
     }
 
     /**
@@ -116,6 +116,6 @@ public class DialogFX {
     public static boolean showConfirmation(String question, String title) {
         Alert dialog = createDialog(question, title, "", DialogType.CONFIRMATION);
         Optional<ButtonType> resultado = dialog.showAndWait();
-        return resultado.get().getButtonData().YES == ButtonBar.ButtonData.YES;
+        return resultado.get().getButtonData().equals(ButtonBar.ButtonData.YES) ;
     }
 }
