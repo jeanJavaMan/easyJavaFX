@@ -7,7 +7,6 @@ package jeanderson.controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.fxml.Initializable;
 import jeanderson.controller.componentes.Inicializador;
 
 /**
