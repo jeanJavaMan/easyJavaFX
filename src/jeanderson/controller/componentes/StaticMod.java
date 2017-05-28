@@ -28,7 +28,7 @@ public enum StaticMod {
         ControlWindow controlador =  this.controladores.get(classController.getName());
         if(controlador == null){
             throw new Exception("Classe não definida como static: Não foi encontrado a seguinte classe de controller: " + classController.getName()
-            +" verifique se a classe que você está requisitando foi definida como static utilizando o método defineHowStatic()."
+            +" verifique se a classe que você está requisitando foi definida como static utilizando o método defineHowStaticClass()."
             );
         }
         return controlador;
