@@ -8,6 +8,11 @@
 
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jeanderson.controller.DefaultController">
    <children>
+      <ImageView fitHeight="456.0" fitWidth="582.0" layoutX="115.0" layoutY="5.0" opacity="0.3" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@img/easyJavaFXbackground.png" />
+         </image>
+      </ImageView>
       <Label layoutX="172.0" layoutY="14.0" text="Default View EasyJavaFX">
          <font>
             <Font size="24.0" />
