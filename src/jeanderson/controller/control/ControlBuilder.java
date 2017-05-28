@@ -31,7 +31,7 @@ public class ControlBuilder<T extends Inicializador> {
     private String urlOrNameFromFXML;
     private String urlFromIcon;
     private String stageTitle;
-
+    private boolean staticMod;
     public ControlBuilder(Stage stage) {
         this.stage = stage;
         this.urlFromIcon = "/jeanderson/view/img/easyJavaFX.png";
@@ -73,9 +73,15 @@ public class ControlBuilder<T extends Inicializador> {
         return this;
     }
 
+    public ControlBuilder defineHowStaticClass(){
+        //quem vai definir como classe estatic é a propria classe controlWindow.
+        this.staticMod = true;
+        return this;
+    }
+    
     public ControlWindow<T> build() {
        this.prepararConfigStage();
-        return new ControlWindow<>(this);
+        return new ControlWindow<>(this,this.staticMod);
     }
 
     //gets
@@ -101,6 +107,14 @@ public class ControlBuilder<T extends Inicializador> {
 
     public String getStageTitle() {
         return stageTitle;
+    }
+
+    public FXMLLoader getFXMLLoader() {
+        return fXMLLoader;
+    }
+    
+    public String getUrlFromFXML(){
+        return this.urlOrNameFromFXML;
     }
 
     //métodos para auxilio interno.
