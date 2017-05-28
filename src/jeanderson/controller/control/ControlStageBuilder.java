@@ -375,7 +375,7 @@ public class ControlStageBuilder<T extends Inicializador> {
             this.parentRoot = this.fXMLLoader.load();
         }
         if (this.scene == null) {
-            this.scene = new Scene(this.parentRoot);
+            this.scene = new Scene(this.parentRoot);            
         }
         if (this.stageTitle == null) {
             this.stageTitle = "Sem Titulo";
