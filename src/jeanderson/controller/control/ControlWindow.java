@@ -21,6 +21,7 @@ import jeanderson.controller.util.DialogType;
 public class ControlWindow<T extends Inicializador> implements Exibicao {
 
     private final ControlBuilder<T> controlBuilder;
+    private boolean atribuiuInitOwner;
 
     /**
      * Construtor que recebe um controlBuilder já pronto, e também informa se a
@@ -117,10 +118,11 @@ public class ControlWindow<T extends Inicializador> implements Exibicao {
      * para informa o usuário.
      */
     private void definirStagePai(Class<? extends Inicializador> windowReference, String methodName) {
-        if (!this.controlBuilder.getStage().isShowing()) {
+        if (!this.atribuiuInitOwner) {
             try {
                 Stage father = StaticMod.CONTROLADOR.getControlador(windowReference).controlBuilder.getStage();
                 this.controlBuilder.getStage().initOwner(father);
+                this.atribuiuInitOwner = true;
             } catch (Exception ex) {
                 System.err.println("Houve um exceção no método " + methodName + ", classe passada como parâmetro não encontrada. Exceção: " + ex);
             }
