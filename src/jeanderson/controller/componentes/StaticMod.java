@@ -20,8 +20,8 @@ public enum StaticMod {
         this.controladores = new HashMap<>();
     }
     
-    public void addControlador(Class<? extends Inicializador> classController, ControlWindow controlador){
-        this.controladores.put(classController.getName(), controlador);
+    public void addControlador(ControlWindow controlador){
+        this.controladores.put(controlador.getWindow().getController().getClass().getName(), controlador);
     }
     
     public ControlWindow getControlador(Class<? extends Inicializador> classController) throws Exception{
