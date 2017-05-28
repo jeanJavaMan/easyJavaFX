@@ -6,7 +6,6 @@
 package jeanderson.controller.control;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.fxml.FXMLLoader;
@@ -15,10 +14,10 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import jeanderson.controller.componentes.Inicializador;
-import jeanderson.controller.util.Configuration;
 
 /**
- *
+ * Classe que auxilia na construção da classe ControlWindow. Possibilitando várias configurações iniciais.
+ * @see ControlWindow
  * @author Jeanderson
  * @param <T>
  */
@@ -32,17 +31,10 @@ public class ControlBuilder<T extends Inicializador> {
     private String urlOrNameFromFXML;
     private String urlFromIcon;
     private String stageTitle;
-    private final HashMap<Configuration, Boolean> configuracoes;
 
     public ControlBuilder(Stage stage) {
-        this.configuracoes = new HashMap<>();
         this.stage = stage;
-        //configurações iniciais.
-        this.configuracoes.put(Configuration.FULLSCREEN, false);
-        this.configuracoes.put(Configuration.MAXIMIZED, false);
-        this.configuracoes.put(Configuration.RESIZABLE, true);
-        //icone por default.
-        this.urlFromIcon = "/jeanderson/view/img/javafx-logo.png";
+        this.urlFromIcon = "/jeanderson/view/img/easyJavaFX.png";
         this.urlOrNameFromFXML = "/jeanderson/view/DefaultView.fxml";
         this.stageTitle = "Janela";
     }
@@ -53,11 +45,6 @@ public class ControlBuilder<T extends Inicializador> {
 
     public ControlBuilder addNameOrUrlFXML(String nameOrUrl) {
         this.verificaUrlFromFXML(nameOrUrl);
-        return this;
-    }
-
-    public ControlBuilder addClassController(T controller) {
-        this.controller = controller;
         return this;
     }
 
@@ -72,17 +59,17 @@ public class ControlBuilder<T extends Inicializador> {
     }
 
     public ControlBuilder fullScreen(boolean fullscreenMod) {
-        this.configuracoes.put(Configuration.FULLSCREEN, fullscreenMod);
+        this.stage.setFullScreen(fullscreenMod);
         return this;
     }
 
     public ControlBuilder maximized(boolean maximizedMod) {
-        this.configuracoes.put(Configuration.MAXIMIZED, maximizedMod);
+       this.stage.setMaximized(maximizedMod);
         return this;
     }
 
     public ControlBuilder resizable(boolean resizable) {
-        this.configuracoes.put(Configuration.RESIZABLE, resizable);
+        this.stage.setResizable(resizable);
         return this;
     }
 
@@ -114,10 +101,6 @@ public class ControlBuilder<T extends Inicializador> {
 
     public String getStageTitle() {
         return stageTitle;
-    }
-
-    public HashMap<Configuration, Boolean> getConfiguracoes() {
-        return configuracoes;
     }
 
     //métodos para auxilio interno.
