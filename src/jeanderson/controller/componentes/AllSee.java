@@ -7,11 +7,13 @@ package jeanderson.controller.componentes;
 
 import java.util.HashMap;
 import jeanderson.controller.control.ControlStage;
+import jeanderson.controller.control.ControlWindow;
 
 /**
  * Classe que mantém salvo Classes ControlStage em modo estático.
- *
- * @version 2.0 Utilizando HashMap
+ * @deprecated Seu uso não é necessário devido a implementação da nova classe de Controle de Stage, chamada ControlWindow.
+ * @see ControlWindow
+ * @version 2.1 Será abandonada.
  * @author Jeanderson
  */
 public enum AllSee {

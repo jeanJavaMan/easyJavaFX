@@ -7,6 +7,7 @@ package jeanderson.controller.util;
 
 /**
  * Classe para auxilo interno da classes filhas.
+ * @deprecated Seu uso não é mais necessário.
  * @author Jeanderson
  */
 public class AuxIntern {

@@ -16,7 +16,8 @@ import jeanderson.controller.util.AuxIntern;
 /**
  * Classe responsável por todo o trabalho feito para inicializar uma Tela em
  * JavaFX.
- *
+ *@deprecated Classe foi substituida pela Classe ControlWindow pois está mais otimizada.
+ * @see ControlWindow
  * @author Jeanderson
  * @param <T> - Informa a Classe do Controller feito pelo usuário.
  */

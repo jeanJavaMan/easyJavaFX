@@ -10,7 +10,8 @@ import jeanderson.controller.componentes.Inicializador;
 
 /**
  * Classe complementar de ControlStage. Utilizando o design pattern builder
- *
+ * @deprecated Substituido pela Classe ControlBuider.
+ * @see ControlBuilder
  * @param <T> - Classe de Controller
  * @author Jeanderson
  */
