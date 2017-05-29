@@ -37,7 +37,8 @@ public class ControlBuilder<T extends Inicializador> {
     private String stageTitle;
     private boolean staticMod;
     private final HashMap<Configuration, Boolean> configuracoes;
-
+    private Image imgIcon;
+    
     public ControlBuilder(Stage stage) {
         this.configuracoes = new HashMap<>();
         this.stage = stage;
@@ -99,7 +100,7 @@ public class ControlBuilder<T extends Inicializador> {
         this.stage.setResizable(configuracoes.get(Configuration.RESIZABLE));
         this.stage.setFullScreen(this.configuracoes.get(Configuration.FULLSCREEN));
         this.stage.setMaximized(this.configuracoes.get(Configuration.MAXIMIZED));
-        this.stage.getIcons().add(new Image(getClass().getResourceAsStream(this.urlFromIcon)));
+        this.stage.getIcons().add(this.imgIcon);
         this.stage.setTitle(stageTitle);
         this.stage.setScene(this.scene);
     }
@@ -147,6 +148,7 @@ public class ControlBuilder<T extends Inicializador> {
 
     public void setUrlFromIcon(String urlFromIcon) {
         this.urlFromIcon = urlFromIcon;
+        this.imgIcon = new Image(getClass().getResourceAsStream(this.urlFromIcon));
     }
 
     public void setStageTitle(String stageTitle) {
@@ -188,6 +190,7 @@ public class ControlBuilder<T extends Inicializador> {
         this.scene = new Scene(parentRoot);
         this.stage.setScene(scene);
         this.stage.setTitle(stageTitle);
-        this.stage.getIcons().add(new Image(getClass().getResourceAsStream(this.urlFromIcon)));
+        this.imgIcon = new Image(getClass().getResourceAsStream(this.urlFromIcon));
+        this.stage.getIcons().add(this.imgIcon);
     }
 }
