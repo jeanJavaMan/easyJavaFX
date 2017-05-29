@@ -39,19 +39,14 @@ public class ControlBuilder<T extends Inicializador> {
     private final HashMap<Configuration, Boolean> configuracoes;
     private Image imgIcon;
     
-    public ControlBuilder(Stage stage) {
+    public ControlBuilder() {
         this.configuracoes = new HashMap<>();
-        this.stage = stage;
         this.urlFromIcon = "/jeanderson/view/img/easyJavaFX.png";
         this.urlOrNameFromFXML = "/jeanderson/view/DefaultView.fxml";
         this.stageTitle = "Janela";
         this.configuracoes.put(Configuration.FULLSCREEN, false);
         this.configuracoes.put(Configuration.RESIZABLE, true);
         this.configuracoes.put(Configuration.MAXIMIZED, false);
-    }
-
-    public ControlBuilder() {
-        this(new Stage());
     }
 
     public ControlBuilder addNameOrUrlFXML(String nameOrUrl) {
@@ -188,9 +183,6 @@ public class ControlBuilder<T extends Inicializador> {
             System.err.println(ex);
         }
         this.scene = new Scene(parentRoot);
-        this.stage.setScene(scene);
-        this.stage.setTitle(stageTitle);
         this.imgIcon = new Image(getClass().getResourceAsStream(this.urlFromIcon));
-        this.stage.getIcons().add(this.imgIcon);
     }
 }
