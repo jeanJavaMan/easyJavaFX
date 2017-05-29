@@ -38,4 +38,32 @@ public interface Exibicao {
     public void showSecurityEditAndEnable(boolean hasAccess, boolean showMessage, boolean enableFields, Object data);
     
     public void showSecurityEditAndEnable(boolean hasAccess, boolean showMessage, boolean enableFields, Object data, Class<? extends Inicializador> windowReference);
+    
+    public void showModality();
+    
+     public void showModality(Class<? extends Inicializador> windowReference);
+     
+     public void showEnableFieldsModality(boolean enableFields);
+     
+     public void showEnableFieldsModality(boolean enableFields,Class<? extends Inicializador> windowReference);
+     
+     public void showEditModeModality(Object data);
+     
+     public void showEditModeModality(Object data, Class<? extends Inicializador> windowReference);
+     
+     public void showEditAndEnableModality(Object data, boolean enableFields);         
+    
+    public void showEditAndEnableModality(Object data, boolean enableFields, Class<? extends Inicializador> windowReference);
+    
+    public void showSecurityModeModality(boolean hasAccess, boolean showMessage);
+    
+    public void showSecurityModeModality(boolean hasAccess, boolean showMessage,Class<? extends Inicializador> windowReference);
+    
+    public void showSecurityAndEditModality(boolean hasAccess, boolean showMessage, Object data);
+    
+    public void showSecurityAndEditModality(boolean hasAccess, boolean showMessage, Object data, Class<? extends Inicializador> windowReference);
+    
+    public void showSecurityEditAndEnableModality(boolean hasAccess, boolean showMessage, boolean enableFields, Object data);
+    
+    public void showSecurityEditAndEnableModality(boolean hasAccess, boolean showMessage, boolean enableFields, Object data, Class<? extends Inicializador> windowReference);
 }
