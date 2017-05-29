@@ -56,7 +56,7 @@ public class ControlWindow<T extends Inicializador> implements Exibicao {
      * @return Classe ControlBuilder com configurações padrões.
      */
     public static ControlBuilder prepareBuilder(Stage primaryStage) {
-        return new ControlBuilder<>(primaryStage);
+        return new ControlBuilder<>();
     }
 
     /**
