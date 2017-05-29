@@ -5,6 +5,7 @@
  */
 package jeanderson.controller.control;
 
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import jeanderson.controller.componentes.Exibicao;
 import jeanderson.controller.componentes.Inicializador;
@@ -19,7 +20,7 @@ import jeanderson.controller.util.DialogType;
  * @param <T>
  */
 public class ControlWindow<T extends Inicializador> implements Exibicao {
-
+    
     private final ControlBuilder<T> controlBuilder;
     private boolean atribuiuInitOwner;
 
@@ -118,14 +119,13 @@ public class ControlWindow<T extends Inicializador> implements Exibicao {
      * para informa o usuário.
      */
     private void definirStagePai(Class<? extends Inicializador> windowReference, String methodName) {
-        if (!this.atribuiuInitOwner) {
-            try {
-                Stage father = StaticMod.CONTROLADOR.getControlador(windowReference).controlBuilder.getStage();
-                this.controlBuilder.getStage().initOwner(father);
-                this.atribuiuInitOwner = true;
-            } catch (Exception ex) {
-                System.err.println("Houve um exceção no método " + methodName + ", classe passada como parâmetro não encontrada. Exceção: " + ex);
-            }
+        this.controlBuilder.newStage();
+        try {
+            Stage father = StaticMod.CONTROLADOR.getControlador(windowReference).controlBuilder.getStage();
+            this.controlBuilder.getStage().initOwner(father);
+            this.atribuiuInitOwner = true;
+        } catch (Exception ex) {
+            System.err.println("Houve um exceção no método " + methodName + ", classe passada como parâmetro não encontrada. Exceção: " + ex);
         }
     }
 
@@ -136,6 +136,22 @@ public class ControlWindow<T extends Inicializador> implements Exibicao {
     private void exibirMsgSemAcesso() {
         DialogFX.showMessage("Você não tem acesso a está janela.", "Acesso Negado", DialogType.WARNING);
     }
+    
+    private void preparaShowEnableFields(boolean enableFields) {
+        this.controlBuilder.getController().clearFields();
+        this.controlBuilder.getController().enableFields(enableFields);
+    }
+    
+    private void preparaShowEditMode(Object data) {
+        this.controlBuilder.getController().clearFields();
+        this.controlBuilder.getController().editMode(data);
+    }
+    
+    private void preparaShowEditAndEnable(Object data, boolean enableFields) {
+        this.controlBuilder.getController().clearFields();
+        this.controlBuilder.getController().enableFields(enableFields);
+        this.controlBuilder.getController().editMode(data);
+    }
 
     /**
      * Primeiro é chamado o método clearFields e logo após é feito a exibição da
@@ -145,6 +161,7 @@ public class ControlWindow<T extends Inicializador> implements Exibicao {
      */
     @Override
     public void show() {
+        this.controlBuilder.newStage();
         this.controlBuilder.getController().clearFields();
         this.fazerExibicao();
     }
@@ -162,7 +179,8 @@ public class ControlWindow<T extends Inicializador> implements Exibicao {
     @Override
     public void show(Class<? extends Inicializador> windowReference) {
         this.definirStagePai(windowReference, "show()");
-        this.show();
+        this.controlBuilder.getController().clearFields();
+        this.fazerExibicao();
     }
 
     /**
@@ -175,8 +193,8 @@ public class ControlWindow<T extends Inicializador> implements Exibicao {
      */
     @Override
     public void showEnableFields(boolean enableFields) {
-        this.controlBuilder.getController().clearFields();
-        this.controlBuilder.getController().enableFields(enableFields);
+        this.controlBuilder.newStage();
+        this.preparaShowEnableFields(enableFields);
         this.fazerExibicao();
     }
 
@@ -195,7 +213,8 @@ public class ControlWindow<T extends Inicializador> implements Exibicao {
     @Override
     public void showEnableFields(boolean enableFields, Class<? extends Inicializador> windowReference) {
         this.definirStagePai(windowReference, "showEnableFields()");
-        this.showEnableFields(enableFields);
+        this.preparaShowEnableFields(enableFields);
+        this.fazerExibicao();
     }
 
     /**
@@ -211,8 +230,8 @@ public class ControlWindow<T extends Inicializador> implements Exibicao {
      */
     @Override
     public void showEditMode(Object data) {
-        this.controlBuilder.getController().clearFields();
-        this.controlBuilder.getController().editMode(data);
+        this.controlBuilder.newStage();
+        this.preparaShowEditMode(data);
         this.fazerExibicao();
     }
 
@@ -234,23 +253,24 @@ public class ControlWindow<T extends Inicializador> implements Exibicao {
     @Override
     public void showEditMode(Object data, Class<? extends Inicializador> windowReference) {
         this.definirStagePai(windowReference, "showEditMode()");
-        this.showEditMode(data);
-    }
-
-    @Override
-    public void showEditAndEnable(Object data, boolean enableFields) {
-        this.controlBuilder.getController().clearFields();
-        this.controlBuilder.getController().enableFields(enableFields);
-        this.controlBuilder.getController().editMode(data);
+        this.preparaShowEditMode(data);
         this.fazerExibicao();
     }
-
+    
+    @Override
+    public void showEditAndEnable(Object data, boolean enableFields) {
+        this.controlBuilder.newStage();
+        this.preparaShowEditAndEnable(data, enableFields);
+        this.fazerExibicao();
+    }
+    
     @Override
     public void showEditAndEnable(Object data, boolean enableFields, Class<? extends Inicializador> windowReference) {
         this.definirStagePai(windowReference, "showEditAndEnable()");
-        this.showEditAndEnable(data, enableFields);
+        this.preparaShowEditAndEnable(data, enableFields);
+        this.fazerExibicao();
     }
-
+    
     @Override
     public void showSecurityMode(boolean hasAccess, boolean showMessage) {
         if (hasAccess) {
@@ -259,7 +279,7 @@ public class ControlWindow<T extends Inicializador> implements Exibicao {
             this.exibirMsgSemAcesso();
         }
     }
-
+    
     @Override
     public void showSecurityMode(boolean hasAccess, boolean showMessage, Class<? extends Inicializador> windowReference) {
         if (hasAccess) {
@@ -268,7 +288,7 @@ public class ControlWindow<T extends Inicializador> implements Exibicao {
             this.exibirMsgSemAcesso();
         }
     }
-
+    
     @Override
     public void showSecurityAndEdit(boolean hasAccess, boolean showMessage, Object data) {
         if (hasAccess) {
@@ -277,7 +297,7 @@ public class ControlWindow<T extends Inicializador> implements Exibicao {
             this.exibirMsgSemAcesso();
         }
     }
-
+    
     @Override
     public void showSecurityAndEdit(boolean hasAccess, boolean showMessage, Object data, Class<? extends Inicializador> windowReference) {
         if (hasAccess) {
@@ -286,7 +306,7 @@ public class ControlWindow<T extends Inicializador> implements Exibicao {
             this.exibirMsgSemAcesso();
         }
     }
-
+    
     @Override
     public void showSecurityEditAndEnable(boolean hasAccess, boolean showMessage, boolean enableFields, Object data) {
         if (hasAccess) {
@@ -295,7 +315,7 @@ public class ControlWindow<T extends Inicializador> implements Exibicao {
             this.exibirMsgSemAcesso();
         }
     }
-
+    
     @Override
     public void showSecurityEditAndEnable(boolean hasAccess, boolean showMessage, boolean enableFields, Object data, Class<? extends Inicializador> windowReference) {
         if (hasAccess) {
@@ -304,5 +324,121 @@ public class ControlWindow<T extends Inicializador> implements Exibicao {
             this.exibirMsgSemAcesso();
         }
     }
-
+    
+    @Override
+    public void showModality() {
+        this.controlBuilder.newStage();
+        this.controlBuilder.getStage().initModality(Modality.APPLICATION_MODAL);
+        this.fazerExibicao();
+    }
+    
+    @Override
+    public void showModality(Class<? extends Inicializador> windowReference) {
+        this.definirStagePai(windowReference, "showModality(class reference)");
+        this.controlBuilder.getStage().initModality(Modality.APPLICATION_MODAL);
+        this.fazerExibicao();
+    }
+    
+    @Override
+    public void showEnableFieldsModality(boolean enableFields) {
+        this.controlBuilder.newStage();
+        this.controlBuilder.getStage().initModality(Modality.APPLICATION_MODAL);
+        this.preparaShowEnableFields(enableFields);
+        this.fazerExibicao();
+    }
+    
+    @Override
+    public void showEnableFieldsModality(boolean enableFields, Class<? extends Inicializador> windowReference) {
+        this.definirStagePai(windowReference, "showEnableFieldsModality(boolean enableFields, Class<? extends Inicializador> windowReference)");
+        this.controlBuilder.getStage().initModality(Modality.APPLICATION_MODAL);
+        this.preparaShowEnableFields(enableFields);
+        this.fazerExibicao();
+    }
+    
+    @Override
+    public void showEditModeModality(Object data) {
+        this.controlBuilder.newStage();
+        this.controlBuilder.getStage().initModality(Modality.APPLICATION_MODAL);
+        this.preparaShowEditMode(data);
+        this.fazerExibicao();
+    }
+    
+    @Override
+    public void showEditModeModality(Object data, Class<? extends Inicializador> windowReference) {
+        this.definirStagePai(windowReference, "showEditModeModality(Object data, Class<? extends Inicializador> windowReference)");
+        this.controlBuilder.getStage().initModality(Modality.APPLICATION_MODAL);
+        this.preparaShowEditMode(data);
+        this.fazerExibicao();
+    }
+    
+    @Override
+    public void showEditAndEnableModality(Object data, boolean enableFields) {
+        this.controlBuilder.newStage();
+        this.controlBuilder.getStage().initModality(Modality.APPLICATION_MODAL);
+        this.preparaShowEditAndEnable(data, enableFields);
+        this.fazerExibicao();
+    }
+    
+    @Override
+    public void showEditAndEnableModality(Object data, boolean enableFields, Class<? extends Inicializador> windowReference) {
+        this.definirStagePai(windowReference, "showEditAndEnableModality(Object data, boolean enableFields, Class<? extends Inicializador> windowReference)");
+        this.controlBuilder.getStage().initModality(Modality.APPLICATION_MODAL);
+        this.preparaShowEditAndEnable(data, enableFields);
+        this.fazerExibicao();
+    }
+    
+    @Override
+    public void showSecurityModeModality(boolean hasAccess, boolean showMessage) {
+        if (hasAccess) {
+            this.showModality();
+        } else if (showMessage) {
+            this.exibirMsgSemAcesso();
+        }
+    }
+    
+    @Override
+    public void showSecurityModeModality(boolean hasAccess, boolean showMessage, Class<? extends Inicializador> windowReference) {
+        if (hasAccess) {
+            this.showModality(windowReference);
+        } else if (showMessage) {
+            this.exibirMsgSemAcesso();
+        }
+    }
+    
+    @Override
+    public void showSecurityAndEditModality(boolean hasAccess, boolean showMessage, Object data) {
+        if (hasAccess) {
+            this.showEditModeModality(data);
+        } else if (showMessage) {
+            this.exibirMsgSemAcesso();
+        }
+    }
+    
+    @Override
+    public void showSecurityAndEditModality(boolean hasAccess, boolean showMessage, Object data, Class<? extends Inicializador> windowReference) {
+        if (hasAccess) {
+            this.showEditModeModality(data, windowReference);
+        } else if (showMessage) {
+            this.exibirMsgSemAcesso();
+        }
+    }
+    
+    @Override
+    public void showSecurityEditAndEnableModality(boolean hasAccess, boolean showMessage, boolean enableFields, Object data) {
+        if (hasAccess) {
+            this.showEditAndEnableModality(data, enableFields);
+        } else if (showMessage) {
+            this.exibirMsgSemAcesso();
+        }
+    }
+    
+    @Override
+    public void showSecurityEditAndEnableModality(boolean hasAccess, boolean showMessage, boolean enableFields, Object data, Class<? extends Inicializador> windowReference) {
+        if (hasAccess) {
+            this.showEditAndEnableModality(data, enableFields, windowReference);
+        } else if (showMessage) {
+            this.exibirMsgSemAcesso();
+        }
+    }
+    
 }
