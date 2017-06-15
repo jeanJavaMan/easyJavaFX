@@ -48,7 +48,7 @@ public abstract class Inicializador implements Initializable {
      * Contém as configurações necessárias para construção da Tela.
      * @return Configuraçõe da Janela.
      */
-    public HashMap<Configuration, Object> defineConfigurationWindow(){
+    protected HashMap<Configuration, Object> defineConfigurationWindow(){
         //este método só é utilizado para uma construção baseada na classe de controller.
         return null;
     }
