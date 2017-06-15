@@ -38,7 +38,7 @@ public class ControlBuilder<T extends Inicializador> {
     private boolean staticMod;
     private final HashMap<Configuration, Boolean> configuracoes;
     private Image imgIcon;
-    
+
     public ControlBuilder() {
         this.configuracoes = new HashMap<>();
         this.urlFromIcon = "/jeanderson/view/img/easyJavaFX.png";
@@ -90,7 +90,7 @@ public class ControlBuilder<T extends Inicializador> {
         return new ControlWindow<>(this, this.staticMod);
     }
 
-    public void newStage(){
+    public void newStage() {
         this.stage = new Stage();
         this.stage.setResizable(configuracoes.get(Configuration.RESIZABLE));
         this.stage.setFullScreen(this.configuracoes.get(Configuration.FULLSCREEN));
@@ -99,7 +99,7 @@ public class ControlBuilder<T extends Inicializador> {
         this.stage.setTitle(stageTitle);
         this.stage.setScene(this.scene);
     }
-    
+
     //gets e sets
     public T getController() {
         return controller;
@@ -149,16 +149,16 @@ public class ControlBuilder<T extends Inicializador> {
     public void setStageTitle(String stageTitle) {
         this.stageTitle = stageTitle;
     }
-    
-    public void setResizable(boolean resizable){
+
+    public void setResizable(boolean resizable) {
         this.configuracoes.put(Configuration.RESIZABLE, resizable);
     }
-    
-    public void setFullscreen(boolean fullscreen){
+
+    public void setFullscreen(boolean fullscreen) {
         this.configuracoes.put(Configuration.FULLSCREEN, fullscreen);
     }
-    
-    public void setMaximized(boolean maximized){
+
+    public void setMaximized(boolean maximized) {
         this.configuracoes.put(Configuration.MAXIMIZED, maximized);
     }
 
