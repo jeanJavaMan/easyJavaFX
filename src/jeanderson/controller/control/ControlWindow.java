@@ -22,8 +22,7 @@ import jeanderson.controller.util.DialogType;
 public class ControlWindow<T extends Inicializador> implements Exibicao {
     
     private final ControlBuilder<T> controlBuilder;
-    private boolean atribuiuInitOwner;
-
+    
     /**
      * Construtor que recebe um controlBuilder já pronto, e também informa se a
      * classe deve ser mantida de maneira estática.
@@ -122,8 +121,7 @@ public class ControlWindow<T extends Inicializador> implements Exibicao {
         this.controlBuilder.newStage();
         try {
             Stage father = StaticMod.CONTROLADOR.getControlador(windowReference).controlBuilder.getStage();
-            this.controlBuilder.getStage().initOwner(father);
-            this.atribuiuInitOwner = true;
+            this.controlBuilder.getStage().initOwner(father);            
         } catch (Exception ex) {
             System.err.println("Houve um exceção no método " + methodName + ", classe passada como parâmetro não encontrada. Exceção: " + ex);
         }
