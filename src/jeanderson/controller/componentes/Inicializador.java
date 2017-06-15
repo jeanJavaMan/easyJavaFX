@@ -1,7 +1,9 @@
 package jeanderson.controller.componentes;
 
+import java.util.HashMap;
 import javafx.fxml.Initializable;
 import jeanderson.controller.control.ControlWindow;
+import jeanderson.controller.util.Configuration;
 
 /**
  * Classe que Ajuda na implementação das classes de Controller
@@ -42,4 +44,12 @@ public abstract class Inicializador implements Initializable {
         //deve ser implementado.
     }
 
+    /**
+     * Contém as configurações necessárias para construção da Tela.
+     * @return Configuraçõe da Janela.
+     */
+    public HashMap<Configuration, Object> defineConfigurationWindow(){
+        //este método só é utilizado para uma construção baseada na classe de controller.
+        return null;
+    }
 }
