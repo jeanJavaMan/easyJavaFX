@@ -2,7 +2,6 @@ package jeanderson.controller.componentes;
 
 import java.util.HashMap;
 import javafx.fxml.Initializable;
-import jeanderson.controller.control.ControlWindow;
 import jeanderson.controller.util.Configuration;
 
 /**
