@@ -257,6 +257,14 @@ public class ControlWindow<T extends Inicializador> implements Exibicao {
         this.fazerExibicao();
     }
     
+    /**
+     * Faz a exibição da Janela. Implementa duas funções em uma: EditMode e EnableFields, ou seja
+     *  ele chama o método enableFields e logo após é chamado o método EditMode.
+     * Obs: Sua classe de controle tem q sobreescrever este dois método, caso contrário nada acontecerá.
+     * @param data Dados que será passado para a classe de Controller que
+     * sobreescreveu o método EditMode.
+     * @param enableFields Informa se ativar os campos ou não.
+     */
     @Override
     public void showEditAndEnable(Object data, boolean enableFields) {
         this.controlBuilder.newStage();
@@ -264,13 +272,27 @@ public class ControlWindow<T extends Inicializador> implements Exibicao {
         this.fazerExibicao();
     }
     
+    /**
+     * Faz a exibição da Janela com dependencia de outra janela. Implementa duas funções em uma: EditMode e EnableFields, ou seja
+     *  ele chama o método enableFields e logo após é chamado o método EditMode.
+     * Obs: Sua classe de controle tem q sobreescrever este dois método, caso contrário nada acontecerá.
+     * @param data Dados que será passado para a classe de Controller que
+     * sobreescreveu o método EditMode.
+     * @param enableFields Informa se ativar os campos ou não.
+     * @param windowReference Classe de Controller referente a Janela que possui
+     * o Stage.
+     */
     @Override
     public void showEditAndEnable(Object data, boolean enableFields, Class<? extends Inicializador> windowReference) {
         this.definirStagePai(windowReference, "showEditAndEnable()");
         this.preparaShowEditAndEnable(data, enableFields);
         this.fazerExibicao();
     }
-    
+    /**
+     * Faz a exibição da janela, mas com a condição informada.
+     * @param hasAccess Informa se tem acesso a Janela.
+     * @param showMessage Informa se Exibe uma mensagem falando que não tem acesso.
+     */
     @Override
     public void showSecurityMode(boolean hasAccess, boolean showMessage) {
         if (hasAccess) {
@@ -279,7 +301,12 @@ public class ControlWindow<T extends Inicializador> implements Exibicao {
             this.exibirMsgSemAcesso();
         }
     }
-    
+    /**
+     * Faz a exibição da janela tendo como dependencia outra Janela, mas com a condição informada.
+     * @param hasAccess Informa se tem acesso a Janela.
+     * @param showMessage Informa se Exibe uma mensagem falando que não tem acesso.
+     * @param windowReference Informa a classe de controller que é referente a Janela que terá como dependencia.
+     */
     @Override
     public void showSecurityMode(boolean hasAccess, boolean showMessage, Class<? extends Inicializador> windowReference) {
         if (hasAccess) {
@@ -288,7 +315,13 @@ public class ControlWindow<T extends Inicializador> implements Exibicao {
             this.exibirMsgSemAcesso();
         }
     }
-    
+    /**
+     * Faz a exibição da Janela e chama o método EditMode na classe de Controle da Janela, mas só é exibido com a condição informada.
+     * Obs: Sua classe de Controller deve sobreescrever o método EditMode.
+     * @param hasAccess Informa se tem acesso a Janela.
+     * @param showMessage Informa se Exibe uma mensagem falando que não tem acesso.
+     * @param data Dados que serão passados para a classe de Controller referente a Janela.
+     */
     @Override
     public void showSecurityAndEdit(boolean hasAccess, boolean showMessage, Object data) {
         if (hasAccess) {
@@ -297,7 +330,14 @@ public class ControlWindow<T extends Inicializador> implements Exibicao {
             this.exibirMsgSemAcesso();
         }
     }
-    
+     /**
+     * Faz a exibição da Janela com dependencia de outra Janela e chama o método EditMode na classe de Controle da Janela, mas só é exibido com a condição informada.
+     * Obs: Sua classe de Controller deve sobreescrever o método EditMode.
+     * @param hasAccess Informa se tem acesso a Janela.
+     * @param showMessage Informa se Exibe uma mensagem falando que não tem acesso.
+     * @param data Dados que serão passados para a classe de Controller atráves do método editMode.
+     * @param windowReference Informa a classe de controller que é referente a Janela que terá como dependencia.
+     */
     @Override
     public void showSecurityAndEdit(boolean hasAccess, boolean showMessage, Object data, Class<? extends Inicializador> windowReference) {
         if (hasAccess) {
@@ -307,6 +347,13 @@ public class ControlWindow<T extends Inicializador> implements Exibicao {
         }
     }
     
+    /**
+     * Exibi a Janela e chama dois métodos na classe de controller, EditMode e EnableFields.
+     * @param hasAccess Informa se tem acesso a Janela.
+     * @param showMessage Informa se Exibe uma mensagem falando que não tem acesso.
+     * @param enableFields É passada para a classe de controller atráves do método enableFields
+     * @param data Dados que serão passados para a classe de Controller atráves do método editMode.
+     */
     @Override
     public void showSecurityEditAndEnable(boolean hasAccess, boolean showMessage, boolean enableFields, Object data) {
         if (hasAccess) {
