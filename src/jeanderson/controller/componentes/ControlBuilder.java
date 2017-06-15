@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package jeanderson.controller.control;
+package jeanderson.controller.componentes;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -15,6 +15,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import jeanderson.controller.componentes.Inicializador;
+import jeanderson.controller.control.ControlWindow;
 import jeanderson.controller.util.Configuration;
 
 /**
