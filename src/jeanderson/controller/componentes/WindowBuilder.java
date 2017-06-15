@@ -45,13 +45,16 @@ public class WindowBuilder {
      */
     public static <U extends Inicializador> ControlWindow<U> construct(U controller, boolean defineHowStatic) {
         HashMap<Configuration, Object> configuration = controller.defineConfigurationWindow();
+        String title = configuration.containsKey(Configuration.TITLE) ? (String) configuration.get(Configuration.TITLE) : "Janela";
+        String icon = configuration.containsKey(Configuration.ICON_URL) ? (String) configuration.get(Configuration.TITLE) : "/jeanderson/view/img/easyJavaFX.png";
+        String fxml = configuration.containsKey(Configuration.FXML_URL) ? (String) configuration.get(Configuration.FXML_URL) : "/jeanderson/view/DefaultView.fxml";
         boolean fullscreen = configuration.containsKey(Configuration.FULLSCREEN) ? (Boolean) configuration.get(Configuration.FULLSCREEN) : false;
         boolean maximized = configuration.containsKey(Configuration.MAXIMIZED) ? (Boolean) configuration.get(Configuration.MAXIMIZED) : false;
         boolean resizable = configuration.containsKey(Configuration.RESIZABLE) ? (Boolean) configuration.get(Configuration.RESIZABLE) : true;
         ControlBuilder<U> controlBuilder = ControlWindow.prepareBuilder()
-                .addNameOrUrlFXML((String) configuration.get(Configuration.FXML_URL))
-                .addTitle((String) configuration.get(Configuration.TITLE))
-                .addUrlFromIcon((String) configuration.get(Configuration.ICON_URL))
+                .addNameOrUrlFXML(fxml)
+                .addTitle(title)
+                .addUrlFromIcon(icon)
                 .fullScreen(fullscreen)
                 .maximized(maximized)
                 .resizable(resizable);
