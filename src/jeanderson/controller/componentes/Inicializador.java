@@ -49,6 +49,7 @@ public abstract class Inicializador implements Initializable {
      */
     public HashMap<Configuration, Object> defineConfigurationWindow(){
         //este método só é utilizado para uma construção baseada na classe de controller.
+        System.err.println("Não foi sobreescrito o método defineConfigurationWindow() em sua classe de controller.");
         return null;
     }
 }
