@@ -5,6 +5,7 @@
  */
 package jeanderson.controller.control;
 
+import jeanderson.controller.componentes.ControlBuilder;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import jeanderson.controller.componentes.Exibicao;
