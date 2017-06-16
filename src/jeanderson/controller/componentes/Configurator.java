@@ -5,6 +5,7 @@
  */
 package jeanderson.controller.componentes;
 
+import jeanderson.controller.control.ControlWindow;
 import jeanderson.controller.util.ConfigurationEasyJavaFX;
 
 /**
@@ -73,5 +74,11 @@ public abstract class Configurator implements WindowConfiguration{
     public boolean isMaximized() {
         return this.isMaximized;
     }
-        
+    /**
+     * Recebe o ControlWindow apos sua construção.
+     * @param control ControlWindow construido.
+     */
+    public void afterConstruct(ControlWindow control){
+        //recebe o controlWindow construido da janela. 
+    }
 }
