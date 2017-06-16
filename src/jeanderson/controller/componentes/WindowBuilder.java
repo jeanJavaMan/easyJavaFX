@@ -5,10 +5,7 @@
  */
 package jeanderson.controller.componentes;
 
-import java.util.HashMap;
 import jeanderson.controller.control.ControlWindow;
-import jeanderson.controller.util.Configuration;
-import jeanderson.controller.util.ConfigurationEasyJavaFX;
 
 /**
  * Classe responsavel pela construção do ControlWindow baseado nas configuraçõe
