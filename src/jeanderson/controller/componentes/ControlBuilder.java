@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 import jeanderson.controller.componentes.Inicializador;
 import jeanderson.controller.control.ControlWindow;
 import jeanderson.controller.util.Configuration;
+import jeanderson.controller.util.ConfigurationEasyJavaFX;
 
 /**
  * Classe que auxilia na construção da classe ControlWindow. Possibilitando
@@ -42,9 +43,9 @@ public class ControlBuilder<T extends Inicializador> {
 
     public ControlBuilder() {
         this.configuracoes = new HashMap<>();
-        this.urlFromIcon = "/jeanderson/view/img/easyJavaFX.png";
-        this.urlOrNameFromFXML = "/jeanderson/view/DefaultView.fxml";
-        this.stageTitle = "Janela";
+        this.urlFromIcon = ConfigurationEasyJavaFX.getDEFAULT_URL_ICON();
+        this.urlOrNameFromFXML = ConfigurationEasyJavaFX.getDEFAULT_FXML();
+        this.stageTitle = ConfigurationEasyJavaFX.getDEFAULT_TITLE();
         this.configuracoes.put(Configuration.FULLSCREEN, false);
         this.configuracoes.put(Configuration.RESIZABLE, true);
         this.configuracoes.put(Configuration.MAXIMIZED, false);
