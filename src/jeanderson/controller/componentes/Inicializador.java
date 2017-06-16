@@ -53,7 +53,7 @@ public abstract class Inicializador implements Initializable {
             @Override
             public String url_Fxml() {
                 return ConfigurationEasyJavaFX.getDEFAULT_FXML();
-            }
+            }            
         };
     }
 }
