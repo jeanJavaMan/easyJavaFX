@@ -88,13 +88,8 @@ public class ControlBuilder<T extends Inicializador> {
     }
 
     public ControlWindow<T> build() {
-        this.prepararConfigScene(null);
+        this.prepararConfigScene();
         return new ControlWindow<>(this, this.staticMod);
-    }
-    
-    public ControlWindow<T> build(T controller){
-        this.prepararConfigScene(controller);
-        return new ControlWindow<>(this,this.staticMod);
     }
 
     public void newStage() {
@@ -180,16 +175,11 @@ public class ControlBuilder<T extends Inicializador> {
         }
     }
 
-    private void prepararConfigScene(T controller) {
+    private void prepararConfigScene() {
         this.fXMLLoader = new FXMLLoader(getClass().getResource(this.urlOrNameFromFXML));
         try {
             this.parentRoot = this.fXMLLoader.load();
-            if(controller == null){
             this.controller = this.fXMLLoader.getController();
-            }else{
-                this.controller = controller;
-                this.fXMLLoader.setController(controller);
-            }
         } catch (IOException ex) {
             Logger.getLogger(ControlBuilder.class.getName()).log(Level.SEVERE, null, ex);
             System.err.println(ex);
