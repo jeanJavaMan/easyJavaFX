@@ -1,6 +1,7 @@
 package jeanderson.controller.componentes;
 
 import javafx.fxml.Initializable;
+import jeanderson.controller.control.ControlWindow;
 import jeanderson.controller.util.ConfigurationEasyJavaFX;
 
 /**
@@ -55,5 +56,13 @@ public abstract class Inicializador implements Initializable {
                 return ConfigurationEasyJavaFX.getDEFAULT_FXML();
             }            
         };
+    }
+    /**
+     * Apos a construcao de um ControlWindow, ele é passado como parâmetro para sua classe
+     * de controller.
+     * @param control ControlWindow referente a classe de controller.
+     */
+    public void afterConstruct(ControlWindow control){
+        //deve ser implementado.
     }
 }
