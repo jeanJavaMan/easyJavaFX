@@ -13,6 +13,9 @@ public  class ConfigurationEasyJavaFX {
     private final static String DEFAULT_URL_ICON = "/jeanderson/view/img/easyJavaFX.png";
     private final static String DEFAULT_FXML = "/jeanderson/view/DefaultView.fxml";
     private final static String DEFAULT_TITLE = "Janela";
+    private final static boolean DEFAULT_FULLSCREEN = false;
+    private final static boolean DEFAULT_RESIZABLE = true;
+    private final static boolean DEFAULT_MAXIMIZED = false;
 
     public static String getDEFAULT_URL_ICON() {
         return DEFAULT_URL_ICON;
@@ -26,6 +29,19 @@ public  class ConfigurationEasyJavaFX {
         return DEFAULT_TITLE;
     }
 
+    public static boolean isDEFAULT_FULLSCREEN() {
+        return DEFAULT_FULLSCREEN;
+    }
+
+    public static boolean isDEFAULT_RESIZABLE() {
+        return DEFAULT_RESIZABLE;
+    }
+
+    public static boolean isDEFAULT_MAXIMIZED() {
+        return DEFAULT_MAXIMIZED;
+    }
+
+    
     
     
     
