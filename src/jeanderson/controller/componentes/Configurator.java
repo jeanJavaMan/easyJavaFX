@@ -74,11 +74,4 @@ public abstract class Configurator implements WindowConfiguration{
     public boolean isMaximized() {
         return this.isMaximized;
     }
-    /**
-     * Recebe o ControlWindow apos sua construção.
-     * @param control ControlWindow construido.
-     */
-    public void afterConstruct(ControlWindow control){
-        //recebe o controlWindow construido da janela. 
-    }
 }
