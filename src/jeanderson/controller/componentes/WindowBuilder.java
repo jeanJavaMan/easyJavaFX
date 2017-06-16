@@ -45,20 +45,14 @@ public class WindowBuilder {
      * @return Classe ControlWindow referente a janela.
      */
     public static <U extends Inicializador> ControlWindow<U> construct(U controller, boolean defineHowStatic) {
-        HashMap<Configuration, Object> configuration = controller.defineConfigurationWindow();
-        String title = configuration.containsKey(Configuration.TITLE) ? (String) configuration.get(Configuration.TITLE) : ConfigurationEasyJavaFX.getDEFAULT_TITLE();
-        String icon = configuration.containsKey(Configuration.ICON_URL) ? (String) configuration.get(Configuration.ICON_URL) : ConfigurationEasyJavaFX.getDEFAULT_URL_ICON();
-        String fxml = configuration.containsKey(Configuration.FXML_URL) ? (String) configuration.get(Configuration.FXML_URL) : ConfigurationEasyJavaFX.getDEFAULT_FXML();
-        boolean fullscreen = configuration.containsKey(Configuration.FULLSCREEN) ? (Boolean) configuration.get(Configuration.FULLSCREEN) : false;
-        boolean maximized = configuration.containsKey(Configuration.MAXIMIZED) ? (Boolean) configuration.get(Configuration.MAXIMIZED) : false;
-        boolean resizable = configuration.containsKey(Configuration.RESIZABLE) ? (Boolean) configuration.get(Configuration.RESIZABLE) : true;
+        Configurator configuration = controller.defineConfigurationWindow();        
         ControlBuilder<U> controlBuilder = ControlWindow.prepareBuilder()
-                .addNameOrUrlFXML(fxml)
-                .addTitle(title)
-                .addUrlFromIcon(icon)
-                .fullScreen(fullscreen)
-                .maximized(maximized)
-                .resizable(resizable);
+                .addNameOrUrlFXML(configuration.url_Fxml())
+                .addTitle(configuration.title())
+                .addUrlFromIcon(configuration.url_Icon())
+                .fullScreen(configuration.isFullscreen())
+                .maximized(configuration.isMaximized())
+                .resizable(configuration.isResizable());
         if (defineHowStatic) {
             controlBuilder.defineHowStaticClass();
         }
