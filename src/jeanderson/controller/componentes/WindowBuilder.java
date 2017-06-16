@@ -54,7 +54,6 @@ public class WindowBuilder {
             controlBuilder.defineHowStaticClass();
         }
         ControlWindow<U> controlWindow = controlBuilder.build();
-        configuration.afterConstruct(controlWindow);
         return controlWindow;
     }
 }
