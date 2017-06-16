@@ -1,8 +1,7 @@
 package jeanderson.controller.componentes;
 
-import java.util.HashMap;
 import javafx.fxml.Initializable;
-import jeanderson.controller.util.Configuration;
+import jeanderson.controller.util.ConfigurationEasyJavaFX;
 
 /**
  * Classe que Ajuda na implementação das classes de Controller
@@ -47,9 +46,14 @@ public abstract class Inicializador implements Initializable {
      * Contém as configurações necessárias para construção da Tela.
      * @return Configuraçõe da Janela.
      */
-    public HashMap<Configuration, Object> defineConfigurationWindow(){
+    public Configurator defineConfigurationWindow(){
         //este método só é utilizado para uma construção baseada na classe de controller.
         System.err.println("Não foi sobreescrito o método defineConfigurationWindow() em sua classe de controller.");
-        return null;
+        return new Configurator() {
+            @Override
+            public String url_Fxml() {
+                return ConfigurationEasyJavaFX.getDEFAULT_FXML();
+            }
+        };
     }
 }
