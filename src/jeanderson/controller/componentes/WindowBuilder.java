@@ -8,6 +8,7 @@ package jeanderson.controller.componentes;
 import java.util.HashMap;
 import jeanderson.controller.control.ControlWindow;
 import jeanderson.controller.util.Configuration;
+import jeanderson.controller.util.ConfigurationEasyJavaFX;
 
 /**
  * Classe responsavel pela construção do ControlWindow baseado nas configuraçõe
@@ -45,9 +46,9 @@ public class WindowBuilder {
      */
     public static <U extends Inicializador> ControlWindow<U> construct(U controller, boolean defineHowStatic) {
         HashMap<Configuration, Object> configuration = controller.defineConfigurationWindow();
-        String title = configuration.containsKey(Configuration.TITLE) ? (String) configuration.get(Configuration.TITLE) : "Janela";
-        String icon = configuration.containsKey(Configuration.ICON_URL) ? (String) configuration.get(Configuration.TITLE) : "/jeanderson/view/img/easyJavaFX.png";
-        String fxml = configuration.containsKey(Configuration.FXML_URL) ? (String) configuration.get(Configuration.FXML_URL) : "/jeanderson/view/DefaultView.fxml";
+        String title = configuration.containsKey(Configuration.TITLE) ? (String) configuration.get(Configuration.TITLE) : ConfigurationEasyJavaFX.getDEFAULT_TITLE();
+        String icon = configuration.containsKey(Configuration.ICON_URL) ? (String) configuration.get(Configuration.ICON_URL) : ConfigurationEasyJavaFX.getDEFAULT_URL_ICON();
+        String fxml = configuration.containsKey(Configuration.FXML_URL) ? (String) configuration.get(Configuration.FXML_URL) : ConfigurationEasyJavaFX.getDEFAULT_FXML();
         boolean fullscreen = configuration.containsKey(Configuration.FULLSCREEN) ? (Boolean) configuration.get(Configuration.FULLSCREEN) : false;
         boolean maximized = configuration.containsKey(Configuration.MAXIMIZED) ? (Boolean) configuration.get(Configuration.MAXIMIZED) : false;
         boolean resizable = configuration.containsKey(Configuration.RESIZABLE) ? (Boolean) configuration.get(Configuration.RESIZABLE) : true;
