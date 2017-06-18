@@ -89,7 +89,9 @@ public class ControlBuilder<T extends Inicializador> {
 
     public ControlWindow<T> build() {
         this.prepararConfigScene();
-        return new ControlWindow<>(this, this.staticMod);
+        ControlWindow control = new ControlWindow<>(this, this.staticMod);
+        this.controller.afterConstruct(control);
+        return control;
     }
 
     public void newStage() {
