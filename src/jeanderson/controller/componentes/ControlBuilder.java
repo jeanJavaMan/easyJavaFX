@@ -120,6 +120,18 @@ public class ControlBuilder<T extends Inicializador> {
     }
 
     /**
+     * Define se toda vez que for exibida uma Janela, um novo stage sejá criado.
+     * Obs: se vc desativar o autoNewStage, a sua janela não pode sofrer mudanças como abrir em modo Modality ou atribuir uma nova
+     * janela de dependencia.
+     * @param auto Ativa ou não.
+     * @return ControlBuider.
+     */
+    public ControlBuilder autoNewStage(boolean auto){
+        this.configuracao.setAutoNewStage(auto);
+        return this;
+    }
+    
+    /**
      * Define se o ControlWindow que será construido deverá ser mantido como
      * estatico. Obs: fazendo esta definição é possivel chamar em qualquer outra
      * Classe em runtime atráves do método getStaticClass.
