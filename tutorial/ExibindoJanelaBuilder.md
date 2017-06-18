@@ -9,3 +9,5 @@ Este é o passo mais importante de todos para que a biblioteca funcione corretam
 ```java
 public class JanelaController extends Inicializador{}
 ```
+Ao fazer isto sua classe deve implementar o método abstrato Initialize, pois Inicializador implementa a Interface **Initializable** do JavaFX.
+**Obs:** _Não esqueça de atribuir sua classe de controller ao seu arquivo FXML_
