@@ -8,6 +8,7 @@ package jeanderson.controller.control;
 import jeanderson.controller.componentes.ControlBuilder;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import jeanderson.controller.componentes.Configurator;
 import jeanderson.controller.componentes.Exibicao;
 import jeanderson.controller.componentes.Inicializador;
 import jeanderson.controller.componentes.StaticMod;
@@ -30,11 +31,10 @@ public class ControlWindow<T extends Inicializador> implements Exibicao {
      *
      * @param controlBuilder Classe com todas as configurações importante da
      * Janela.
-     * @param staticMod Informa se a classe deve ser mantida estática ou não.
      */
-    public ControlWindow(ControlBuilder<T> controlBuilder, boolean staticMod) {
+    public ControlWindow(ControlBuilder<T> controlBuilder) {
         this.controlBuilder = controlBuilder;
-        this.defineHowStatic(staticMod);
+        
     }
 
     //métodos estáticos.
@@ -42,23 +42,23 @@ public class ControlWindow<T extends Inicializador> implements Exibicao {
      * Retorna uma instancia da classe ControlBuilder que será usada para
      * auxiliar na construção da classe ControlWindow.
      *
+     * @param urlOrNameFromFXML Nome ou URL do arquivo FXML.
      * @return Classe ControlBuilder com configurações padrões.
      */
-    public static ControlBuilder prepareBuilder() {
-        return new ControlBuilder<>();
+    public static ControlBuilder prepareBuilder(String urlOrNameFromFXML) {
+        return new ControlBuilder<>(urlOrNameFromFXML);
     }
-
+    
     /**
      * Retorna uma instancia da classe ControlBuilder que será usada para
      * auxiliar na construção da classe ControlWindow.
-     *
-     * @param primaryStage Será usado como o Stage da Janela.
+     * @param configurator Configuração referente a Janela.
      * @return Classe ControlBuilder com configurações padrões.
      */
-    public static ControlBuilder prepareBuilder(Stage primaryStage) {
-        return new ControlBuilder<>();
+    public static ControlBuilder prepareBuilder(Configurator configurator){
+        return new ControlBuilder(configurator);
     }
-
+    
     /**
      * Retorna um ControlWindow que foi definido como estático anteriormente
      * atráves do método defineHowStaticClass. Deve ser passado como parâmetro a
@@ -124,7 +124,7 @@ public class ControlWindow<T extends Inicializador> implements Exibicao {
             Stage father = StaticMod.CONTROLADOR.getControlador(windowReference).controlBuilder.getStage();
             this.controlBuilder.getStage().initOwner(father);
         } catch (Exception ex) {
-            System.err.println("Houve um exceção no método " + methodName + ", classe passada como parâmetro não encontrada. Exceção: " + ex);
+            System.err.println("Houve um exceção no método " + methodName + " Exceção: " + ex);
         }
     }
 
