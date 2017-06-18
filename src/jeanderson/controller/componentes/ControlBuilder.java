@@ -45,6 +45,7 @@ public class ControlBuilder<T extends Inicializador> {
      */
     public ControlBuilder(String urlOrnameFromFXML) {
         String urlFromFXMLVerificada = this.verificaUrlFromFXML(urlOrnameFromFXML);
+        this.stage = new Stage();
         this.configuracao = new Configurator() {
             @Override
             public String url_Fxml() {
@@ -61,6 +62,7 @@ public class ControlBuilder<T extends Inicializador> {
      */
     public ControlBuilder(Configurator configurator) {
         this.configuracao = configurator;
+        this.stage = new Stage();
         this.oldUrlIcon = this.configuracao.url_Icon();
     }
 
@@ -121,16 +123,18 @@ public class ControlBuilder<T extends Inicializador> {
 
     /**
      * Define se toda vez que for exibida uma Janela, um novo stage sejá criado.
-     * Obs: se vc desativar o autoNewStage, a sua janela não pode sofrer mudanças como abrir em modo Modality ou atribuir uma nova
-     * janela de dependencia.
+     * Obs: se vc desativar o autoNewStage, a sua janela não pode sofrer
+     * mudanças como abrir em modo Modality ou atribuir uma nova janela de
+     * dependencia.
+     *
      * @param auto Ativa ou não.
      * @return ControlBuider.
      */
-    public ControlBuilder autoNewStage(boolean auto){
+    public ControlBuilder autoNewStage(boolean auto) {
         this.configuracao.setAutoNewStage(auto);
         return this;
     }
-    
+
     /**
      * Define se o ControlWindow que será construido deverá ser mantido como
      * estatico. Obs: fazendo esta definição é possivel chamar em qualquer outra
@@ -151,27 +155,19 @@ public class ControlBuilder<T extends Inicializador> {
      */
     public ControlWindow<T> build() {
         this.prepararConfigScene();
+        this.preparaStage();
         ControlWindow control = new ControlWindow<>(this);
         this.controller.afterConstruct(control);
         return control;
     }
 
     /**
-     * Atribui um novo Stage.
-     * Obs: somente se o AutoNewStage for true.
+     * Atribui um novo Stage. Obs: somente se o AutoNewStage for true.
      */
     public void newStage() {
         if (this.configuracao.isAutoNewStage()) {
             this.stage = new Stage();
-            this.stage.setResizable(this.configuracao.isResizable());
-            this.stage.setFullScreen(this.configuracao.isFullscreen());
-            this.stage.setMaximized(this.configuracao.isMaximized());
-            if (!this.oldUrlIcon.equals(this.configuracao.url_Icon())) {
-                this.imgIcon = new Image(getClass().getResourceAsStream(this.configuracao.url_Icon()));
-            }
-            this.stage.getIcons().add(this.imgIcon);
-            this.stage.setTitle(this.configuracao.title());
-            this.stage.setScene(this.scene);
+            this.preparaStage();
         }
     }
 
@@ -190,14 +186,15 @@ public class ControlBuilder<T extends Inicializador> {
      *
      * @return Stage da janela.
      */
-    public Stage getStage() {
+    public Stage getStage() {        
         return stage;
     }
 
     /**
      * Retorna um Configurator que possui configurações referente a janela.
      *
-     * @return Configurator Classe que possui algumas configurações referente a janela.
+     * @return Configurator Classe que possui algumas configurações referente a
+     * janela.
      */
     public Configurator getConfigurator() {
         return this.configuracao;
@@ -262,5 +259,17 @@ public class ControlBuilder<T extends Inicializador> {
         }
         this.scene = new Scene(parentRoot);
         this.imgIcon = new Image(getClass().getResourceAsStream(this.configuracao.url_Icon()));
+    }
+
+    private void preparaStage() {
+        this.stage.setResizable(this.configuracao.isResizable());
+        this.stage.setFullScreen(this.configuracao.isFullscreen());
+        this.stage.setMaximized(this.configuracao.isMaximized());
+        if (!this.oldUrlIcon.equals(this.configuracao.url_Icon())) {
+            this.imgIcon = new Image(getClass().getResourceAsStream(this.configuracao.url_Icon()));
+        }
+        this.stage.getIcons().add(this.imgIcon);
+        this.stage.setTitle(this.configuracao.title());
+        this.stage.setScene(this.scene);
     }
 }
