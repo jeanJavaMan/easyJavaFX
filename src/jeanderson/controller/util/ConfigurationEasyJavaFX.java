@@ -19,6 +19,7 @@ public class ConfigurationEasyJavaFX {
     private final static boolean DEFAULT_RESIZABLE = true;
     private final static boolean DEFAULT_MAXIMIZED = false;
     private final static boolean DEFAULT_AUTO_NEW_STAGE = true;
+    private final static boolean DEFAULT_STATIC_CLASS = false;
 
     public static String getDEFAULT_URL_ICON() {
         return DEFAULT_URL_ICON;
@@ -48,4 +49,7 @@ public class ConfigurationEasyJavaFX {
         return DEFAULT_AUTO_NEW_STAGE;
     }
 
+    public static boolean isDEFAULT_STATIC_CLASS() {
+        return DEFAULT_STATIC_CLASS;
+    }    
 }
