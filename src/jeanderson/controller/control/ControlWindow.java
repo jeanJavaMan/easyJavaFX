@@ -24,6 +24,8 @@ import jeanderson.controller.util.DialogType;
 public class ControlWindow<T extends Inicializador> implements Exibicao {
 
     private final ControlBuilder<T> controlBuilder;
+    //informa se o Stage possui um Stage pai, ele só é necessário quando o autoNewStage está desativado.
+    private boolean atribuiuDependenciaStage;
 
     /**
      * Construtor que recebe um controlBuilder já pronto, e também informa se a
@@ -34,7 +36,7 @@ public class ControlWindow<T extends Inicializador> implements Exibicao {
      */
     public ControlWindow(ControlBuilder<T> controlBuilder) {
         this.controlBuilder = controlBuilder;
-        
+        this.defineHowStatic(this.controlBuilder.getConfigurator().isStaticClass());
     }
 
     //métodos estáticos.
@@ -48,17 +50,18 @@ public class ControlWindow<T extends Inicializador> implements Exibicao {
     public static ControlBuilder prepareBuilder(String urlOrNameFromFXML) {
         return new ControlBuilder<>(urlOrNameFromFXML);
     }
-    
+
     /**
      * Retorna uma instancia da classe ControlBuilder que será usada para
      * auxiliar na construção da classe ControlWindow.
+     *
      * @param configurator Configuração referente a Janela.
      * @return Classe ControlBuilder com configurações padrões.
      */
-    public static ControlBuilder prepareBuilder(Configurator configurator){
+    public static ControlBuilder prepareBuilder(Configurator configurator) {
         return new ControlBuilder(configurator);
     }
-    
+
     /**
      * Retorna um ControlWindow que foi definido como estático anteriormente
      * atráves do método defineHowStaticClass. Deve ser passado como parâmetro a
@@ -121,11 +124,22 @@ public class ControlWindow<T extends Inicializador> implements Exibicao {
     private void definirStagePai(Class<? extends Inicializador> windowReference, String methodName) {
         this.controlBuilder.newStage();
         try {
-            Stage father = StaticMod.CONTROLADOR.getControlador(windowReference).controlBuilder.getStage();
-            this.controlBuilder.getStage().initOwner(father);
+            if (this.controlBuilder.getConfigurator().isAutoNewStage()) {
+
+                Stage father = StaticMod.CONTROLADOR.getControlador(windowReference).controlBuilder.getStage();
+                this.controlBuilder.getStage().initOwner(father);
+
+            } else if (!this.atribuiuDependenciaStage) {
+                Stage father = StaticMod.CONTROLADOR.getControlador(windowReference).controlBuilder.getStage();
+                this.controlBuilder.getStage().initOwner(father);
+                this.atribuiuDependenciaStage = true;
+            } else {
+                System.out.println("Não foi atribuido uma janela pai, pois o provavel motivo é que o autoNewStage foi desativado ou já foi atribuido um Janela pai!");
+            }
         } catch (Exception ex) {
             System.err.println("Houve um exceção no método " + methodName + " Exceção: " + ex);
         }
+
     }
 
     /**
