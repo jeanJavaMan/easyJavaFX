@@ -16,6 +16,7 @@ import jeanderson.controller.control.ControlWindow;
  */
 public class WindowBuilder {
 
+    
     /**
      * Faz a construção do controlWindow baseado nas configurações definidas
      * atráves do método defineConfigurationWindow() sobreescrito na classe de
@@ -27,33 +28,7 @@ public class WindowBuilder {
      * @return Classe ControlWindow referente a janela.
      */
     public static <U extends Inicializador> ControlWindow<U> construct(U controller) {
-        return WindowBuilder.construct(controller, false);
-    }
-
-    /**
-     * Faz a construção do controlWindow baseado nas configurações definidas
-     * atráves do método defineConfigurationWindow() sobreescrito na classe de
-     * Controller.
-     *
-     * @param <U> Generico, seu tipo será do tipo da classe de controller
-     * passada.
-     * @param controller Classe de Controller.
-     * @param defineHowStatic Se deve ou não definir está classe como estática.
-     * @return Classe ControlWindow referente a janela.
-     */
-    public static <U extends Inicializador> ControlWindow<U> construct(U controller, boolean defineHowStatic) {
-        Configurator configuration = controller.defineConfigurationWindow();        
-        ControlBuilder<U> controlBuilder = ControlWindow.prepareBuilder()
-                .addNameOrUrlFXML(configuration.url_Fxml())
-                .addTitle(configuration.title())
-                .addUrlFromIcon(configuration.url_Icon())
-                .fullScreen(configuration.isFullscreen())
-                .maximized(configuration.isMaximized())
-                .resizable(configuration.isResizable());
-        if (defineHowStatic) {
-            controlBuilder.defineHowStaticClass();
-        }
-        ControlWindow<U> controlWindow = controlBuilder.build();
-        return controlWindow;
+        Configurator configuration = controller.defineConfigurationWindow();                
+        return ControlWindow.prepareBuilder(configuration).build();
     }
 }
