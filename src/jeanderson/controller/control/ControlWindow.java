@@ -125,7 +125,6 @@ public class ControlWindow<T extends Inicializador> implements Exibicao {
         this.controlBuilder.newStage();
         try {
             if (this.controlBuilder.getConfigurator().isAutoNewStage()) {
-
                 Stage father = StaticMod.CONTROLADOR.getControlador(windowReference).controlBuilder.getStage();
                 this.controlBuilder.getStage().initOwner(father);
 
