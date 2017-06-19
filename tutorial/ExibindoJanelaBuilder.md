@@ -66,4 +66,5 @@ public class Executor extends Application {
 }
 ```
 Então é isso galera, até o próximo tutorial.
-[Voltar](https://github.com/jeanJavaMan/easyJavaFX)
+
+[Voltar](https://github.com/jeanJavaMan/easyJavaFX)                                       [Próximo]()
