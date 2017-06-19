@@ -1,4 +1,4 @@
-# Exibindo Janela 1º Método: Builder
+# Exibindo Janela, 1º Método: Builder
 
 Neste tutorial vou mostrar como fazer a exibição da Janela, existe duas formas de montar um código para esta exibição que são **Builder** e **Construct.**
  Neste eu irei mostrar o Buider, então sem mais delongas vamos nessa.
