@@ -67,4 +67,4 @@ public class Executor extends Application {
 ```
 Então é isso galera, até o próximo tutorial.
 
-[Voltar](https://github.com/jeanJavaMan/easyJavaFX)                                       [Próximo]()
+[Voltar](https://github.com/jeanJavaMan/easyJavaFX)        [Próximo: Exibindo Janela, 2º Método: Construct](https://github.com/jeanJavaMan/easyJavaFX/blob/master/tutorial/ExibindoJanelaConstruct.md)
