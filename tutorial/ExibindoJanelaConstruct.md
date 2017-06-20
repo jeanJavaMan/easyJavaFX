@@ -2,7 +2,7 @@
 Como havia falando existe dois tipos de métodos para a construção de um Objeto da Classe **ControlWindow** referente a Janela, já apresentei o método builder, agora
 vamos para a segunda forma de fazer essa construção chamada de **Construct**
 ##### Diferença do Builder:
-No builder nós configuramos nossa janela atráves dos métodos existentes na Classe **ControlBuilder** que é responsável pela construção do objeto da Classe **ControlWindow**
+No builder nós configuramos nossa janela atráves dos métodos existentes na Classe **ControlBuilder** que é responsável pela construção do objeto da Classe **ControlWindow**,
 no builder fazemos da seguinte maneira:
 ```java
 ControlWindow<JanelaController> controladorDaJanela = ControlWindow.prepareBuilder("/view/Janela.fxml")
@@ -26,7 +26,7 @@ public class JanelaController extends Inicializador {
 }
 ```
 Veja que não é necessário implementar nenhuma outra coisa para que ela funcione no método **builder**, pois definimos as configurações utilizando os métodos das classe **ControlBuilder**
-Mas agora que vamos utilizar o método **Construct** para fazer a construção do objeto da classe **ControlWindow** será nossa classe de controller que vai definir as configurações. 
+,mas agora que vamos utilizar o método **Construct** para fazer a construção do objeto da classe **ControlWindow** será nossa classe de controller que vai definir as configurações. 
 
 ## 1º Passo:
 Devemos sobreescrever um método da **Classe Pai Inicializador** este método se chama `defineConfigurationWindow()`
@@ -64,15 +64,15 @@ vocês utilizarem diretamente. O código por si só já é auto explicativo, est
 controller referente a Janela.
 ## 2º Passo:
 
-##### Mas ai você me pergunta, cade o objeto do ControlWindow?
+##### Mas ai você me pergunta, cadê o objeto do ControlWindow?
 Bom como agora a configuração fica na nossa classe de controller referente a Janela, para construimos um objeto da classe **ControlWindow** fica mais fácil. Faremos isso da
 seguinte maneira:
 ```java
 ControlWindow<JanelaController> controladorDaJanela = WindowBuilder.construct(new JanelaController());
 ```
 **Explicações:** vamos então as explicações para você entender o que aconteceu. Agora que as configurações estão na classe de controller referente a sua Janela, vamos utilizar
-uma classe chamda **WindowBuilder** do pacote `jeanderson.controller.componentes` que é responsável por fazer a construção do objeto da classe **ControlWindow** utilizando
-as configurações da Classe de controller referente a Janela. o método estático `construct()` recebe uma instancia da classe de controller que tem as configurações, e com base nessas
+uma classe chamada **WindowBuilder** do pacote `jeanderson.controller.componentes` que é responsável por fazer a construção do objeto da classe **ControlWindow** utilizando
+as configurações da Classe de controller referente a Janela. O método estático `construct()` recebe uma instancia da classe de controller que tem as configurações, e com base nessas
 configurações será construido o objeto da classe **ControlWindow**. 
 
 **Obs:** está objeto que é passado como parâmetro só é utilizado para pegar as configurações, a classe de controller propriamente dita estara toda pronta no objeto construido da 
