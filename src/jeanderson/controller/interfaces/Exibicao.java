@@ -5,6 +5,8 @@
  */
 package jeanderson.controller.interfaces;
 
+import jeanderson.controller.componentes.Inicializador;
+
 /**
  * Interface de exibição de Telas.
  * @author Jeanderson

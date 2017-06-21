@@ -19,7 +19,7 @@ import javafx.scene.control.TextField;
 import jeanderson.controller.annotations.ClearField;
 import jeanderson.controller.annotations.ClearFields;
 import jeanderson.controller.enums.Clear;
-import jeanderson.controller.interfaces.Inicializador;
+import jeanderson.controller.componentes.Inicializador;
 
 /**
  *

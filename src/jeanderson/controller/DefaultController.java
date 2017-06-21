@@ -7,7 +7,7 @@ package jeanderson.controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import jeanderson.controller.interfaces.Inicializador;
+import jeanderson.controller.componentes.Inicializador;
 
 /**
  * Classe de controller sem implementação. Somente é utilizada quando o usuário não passa uma classe de controller proprio.

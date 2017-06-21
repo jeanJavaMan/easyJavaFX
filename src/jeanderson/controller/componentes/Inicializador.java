@@ -1,4 +1,4 @@
-package jeanderson.controller.interfaces;
+package jeanderson.controller.componentes;
 
 import javafx.fxml.Initializable;
 import jeanderson.controller.componentes.Configurator;

@@ -5,7 +5,7 @@
  */
 package jeanderson.controller.enums;
 
-import jeanderson.controller.interfaces.Inicializador;
+import jeanderson.controller.componentes.Inicializador;
 import java.util.HashMap;
 import jeanderson.controller.control.ControlWindow;
 

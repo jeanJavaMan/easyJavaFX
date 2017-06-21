@@ -10,7 +10,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import jeanderson.controller.componentes.Configurator;
 import jeanderson.controller.interfaces.Exibicao;
-import jeanderson.controller.interfaces.Inicializador;
+import jeanderson.controller.componentes.Inicializador;
 import jeanderson.controller.enums.StaticMod;
 import jeanderson.controller.util.DialogFX;
 import jeanderson.controller.enums.DialogType;
