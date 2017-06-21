@@ -9,11 +9,12 @@ import jeanderson.controller.componentes.ControlBuilder;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import jeanderson.controller.componentes.Configurator;
-import jeanderson.controller.componentes.Exibicao;
-import jeanderson.controller.componentes.Inicializador;
-import jeanderson.controller.componentes.StaticMod;
+import jeanderson.controller.interfaces.Exibicao;
+import jeanderson.controller.interfaces.Inicializador;
+import jeanderson.controller.enums.StaticMod;
 import jeanderson.controller.util.DialogFX;
-import jeanderson.controller.util.DialogType;
+import jeanderson.controller.enums.DialogType;
+import jeanderson.controller.util.FunctionAnnotations;
 
 /**
  * Classe para controle da Janela feita em JavaFX.
@@ -151,16 +152,19 @@ public class ControlWindow<T extends Inicializador> implements Exibicao {
 
     private void preparaShowEnableFields(boolean enableFields) {
         this.controlBuilder.getController().clearFields();
+        FunctionAnnotations.clearFieldsWithAnnotations(this.controlBuilder.getController());
         this.controlBuilder.getController().enableFields(enableFields);
     }
 
     private void preparaShowEditMode(Object data) {
         this.controlBuilder.getController().clearFields();
+        FunctionAnnotations.clearFieldsWithAnnotations(this.controlBuilder.getController());
         this.controlBuilder.getController().editMode(data);
     }
 
     private void preparaShowEditAndEnable(Object data, boolean enableFields) {
         this.controlBuilder.getController().clearFields();
+        FunctionAnnotations.clearFieldsWithAnnotations(this.controlBuilder.getController());
         this.controlBuilder.getController().enableFields(enableFields);
         this.controlBuilder.getController().editMode(data);
     }
@@ -175,6 +179,7 @@ public class ControlWindow<T extends Inicializador> implements Exibicao {
     public void show() {
         this.controlBuilder.newStage();
         this.controlBuilder.getController().clearFields();
+        FunctionAnnotations.clearFieldsWithAnnotations(this.controlBuilder.getController());
         this.fazerExibicao();
     }
 
@@ -192,6 +197,7 @@ public class ControlWindow<T extends Inicializador> implements Exibicao {
     public void show(Class<? extends Inicializador> windowReference) {
         this.definirStagePai(windowReference, "show()");
         this.controlBuilder.getController().clearFields();
+        FunctionAnnotations.clearFieldsWithAnnotations(this.controlBuilder.getController());
         this.fazerExibicao();
     }
 
@@ -436,6 +442,8 @@ public class ControlWindow<T extends Inicializador> implements Exibicao {
     public void showModality() {
         this.controlBuilder.newStage();
         this.controlBuilder.getStage().initModality(Modality.APPLICATION_MODAL);
+        this.controlBuilder.getController().clearFields();
+        FunctionAnnotations.clearFieldsWithAnnotations(this.controlBuilder.getController());
         this.fazerExibicao();
     }
 
@@ -450,6 +458,8 @@ public class ControlWindow<T extends Inicializador> implements Exibicao {
     public void showModality(Class<? extends Inicializador> windowReference) {
         this.definirStagePai(windowReference, "showModality(class reference)");
         this.controlBuilder.getStage().initModality(Modality.APPLICATION_MODAL);
+        this.controlBuilder.getController().clearFields();
+        FunctionAnnotations.clearFieldsWithAnnotations(this.controlBuilder.getController());
         this.fazerExibicao();
     }
 
