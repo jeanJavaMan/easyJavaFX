@@ -9,7 +9,7 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-import jeanderson.controller.enums.Clear;
+import jeanderson.controller.enums.ClearType;
 
 /**
  * Anotação para informa que em uma classe deve ser feita limpeza nos componentes da janela.
@@ -22,5 +22,5 @@ public @interface ClearFields {
      * Qual a maneira de fazer a limpeza.
      * @return Informa qual a maneira de fazer a limpeza dos componentes.
      */
-    Clear limpar();
+    ClearType limpar();
 }
