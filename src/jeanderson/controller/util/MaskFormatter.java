@@ -1,5 +1,6 @@
 package jeanderson.controller.util;
 
+import jeanderson.controller.enums.MaskType;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;

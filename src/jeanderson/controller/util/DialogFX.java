@@ -5,6 +5,7 @@
  */
 package jeanderson.controller.util;
 
+import jeanderson.controller.enums.DialogType;
 import java.util.Optional;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonBar;
