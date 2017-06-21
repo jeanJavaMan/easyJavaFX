@@ -9,6 +9,7 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+import jeanderson.controller.enums.Clear;
 
 /**
  * Anotação para informar quais componentes do pacote Control do JavaFX devem ser limpos.
@@ -17,5 +18,9 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
 public @interface ClearField {
-    
+    /**
+     * Informa se deve limpar o campo ou não.
+     * @return Se deve limpar o campo.
+     */
+    public Clear limpar();
 }
