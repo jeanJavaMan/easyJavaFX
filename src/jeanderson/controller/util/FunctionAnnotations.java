@@ -106,6 +106,7 @@ public class FunctionAnnotations {
                 if (atributo.isAnnotationPresent(FXML.class) && atributo.isAnnotationPresent(ClearField.class)) {
                     ClearField anotacaoDoAtributo = atributo.getAnnotation(ClearField.class);
                     if (anotacaoDoAtributo.limpar() == Clear.YES) {
+                        atributo.setAccessible(true);
                         Object componente = atributo.get(objeto);
                         FunctionAnnotations.clearField(componente);
                     }
