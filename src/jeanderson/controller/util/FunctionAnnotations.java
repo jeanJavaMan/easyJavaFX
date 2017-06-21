@@ -25,6 +25,13 @@ import jeanderson.controller.interfaces.Inicializador;
  */
 public class FunctionAnnotations {
 
+    /**
+     * Faz a limpeza de componentes que possue a anotação FXML ou ClearField.
+     * Obs: funciona somente se a classe tiver a anotação ClearFields.
+     * @see ClearFields
+     * @see ClearField
+     * @param objeto Classe de controller.
+     */
     public static void clearFieldsWithAnnotations(Inicializador objeto) {
         Annotation anotacaoDaClasse = objeto.getClass().getAnnotation(ClearFields.class);
         if (anotacaoDaClasse instanceof ClearFields) {
