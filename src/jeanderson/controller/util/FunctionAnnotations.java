@@ -10,6 +10,7 @@ import java.lang.reflect.Field;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.fxml.FXML;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -17,6 +18,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import jeanderson.controller.annotations.ClearField;
 import jeanderson.controller.annotations.ClearFields;
+import jeanderson.controller.enums.Clear;
 import jeanderson.controller.interfaces.Inicializador;
 
 /**
@@ -28,6 +30,7 @@ public class FunctionAnnotations {
     /**
      * Faz a limpeza de componentes que possue a anotação FXML ou ClearField.
      * Obs: funciona somente se a classe tiver a anotação ClearFields.
+     *
      * @see ClearFields
      * @see ClearField
      * @param objeto Classe de controller.
@@ -65,11 +68,14 @@ public class FunctionAnnotations {
             ((TextArea) componente).setText("");
         } else if (componente instanceof ChoiceBox) {
             ((ChoiceBox) componente).getSelectionModel().clearSelection();
+        } else if (componente instanceof CheckBox) {
+            ((CheckBox) componente).setSelected(false);
         }
     }
 
     /**
      * Limpa todos os componentes que anotação FXML.
+     *
      * @param atributos Atributos da Classe de controller.
      * @param objeto Classe de controller.
      */
@@ -90,6 +96,7 @@ public class FunctionAnnotations {
 
     /**
      * Limpa somente os componentes com a Anotação ClearField e FXML.
+     *
      * @param atributos Atributos da Classe de controller.
      * @param objeto Classe de controller.
      */
@@ -97,9 +104,11 @@ public class FunctionAnnotations {
         try {
             for (Field atributo : atributos) {
                 if (atributo.isAnnotationPresent(FXML.class) && atributo.isAnnotationPresent(ClearField.class)) {
-                    atributo.setAccessible(true);
-                    Object componente = atributo.get(objeto);
-                    FunctionAnnotations.clearField(componente);
+                    ClearField anotacaoDoAtributo = atributo.getAnnotation(ClearField.class);
+                    if (anotacaoDoAtributo.limpar() == Clear.YES) {
+                        Object componente = atributo.get(objeto);
+                        FunctionAnnotations.clearField(componente);
+                    }
                 }
             }
         } catch (IllegalArgumentException | IllegalAccessException ex) {
