@@ -22,5 +22,5 @@ public @interface ClearFields {
      * Qual a maneira de fazer a limpeza.
      * @return Informa qual a maneira de fazer a limpeza dos componentes.
      */
-    ClearType limpar();
+    ClearType clearType();
 }

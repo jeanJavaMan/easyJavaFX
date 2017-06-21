@@ -40,7 +40,7 @@ public class FunctionAnnotations {
         if (anotacaoDaClasse instanceof ClearFields) {
             ClearFields classeComAnotacao = (ClearFields) anotacaoDaClasse;
             Field[] atributos = objeto.getClass().getDeclaredFields();
-            switch (classeComAnotacao.limpar()) {
+            switch (classeComAnotacao.clearType()) {
                 case CLEAR_ALL:
                     FunctionAnnotations.clearAll(atributos, objeto);
                     break;
