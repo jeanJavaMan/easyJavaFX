@@ -5,6 +5,7 @@
  */
 package jeanderson.controller.componentes;
 
+import jeanderson.controller.interfaces.Inicializador;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;

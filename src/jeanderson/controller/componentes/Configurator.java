@@ -5,6 +5,7 @@
  */
 package jeanderson.controller.componentes;
 
+import jeanderson.controller.interfaces.WindowConfiguration;
 import jeanderson.controller.util.ConfigurationEasyJavaFX;
 
 /**

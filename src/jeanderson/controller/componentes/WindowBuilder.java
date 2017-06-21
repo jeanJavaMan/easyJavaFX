@@ -5,6 +5,7 @@
  */
 package jeanderson.controller.componentes;
 
+import jeanderson.controller.interfaces.Inicializador;
 import jeanderson.controller.control.ControlWindow;
 
 /**
