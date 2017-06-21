@@ -5,20 +5,17 @@
  */
 package jeanderson.controller.enums;
 
-import jeanderson.controller.annotations.ClearField;
-
 /**
  *
  * @author Jeanderson
  */
 public enum Clear {
     /**
-     * Limpa todos os componentes que vem do pacote control do JavaFX como TextField, ComboBox, DatePicker...
+     * Informa que deve limpar este componente.
      */
-    CLEAR_ALL,
+    YES,
     /**
-     * Informa quais componentes devem ser limpos atráves da Anotação @ClearField.
-     * @see ClearField.
+     * Informa que não deve limpar este componente.
      */
-    CHOOSE_FIELD;
+    NO;
 }
