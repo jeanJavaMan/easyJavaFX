@@ -5,7 +5,6 @@
  */
 package jeanderson.controller.util;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,10 +15,10 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import jeanderson.controller.annotations.ClearField;
 import jeanderson.controller.annotations.ClearFields;
-import jeanderson.controller.enums.Clear;
 import jeanderson.controller.componentes.Inicializador;
+import jeanderson.controller.annotations.ClearSelect;
+import jeanderson.controller.annotations.DoNotClear;
 
 /**
  *
@@ -28,28 +27,19 @@ import jeanderson.controller.componentes.Inicializador;
 public class FunctionAnnotations {
 
     /**
-     * Faz a limpeza de componentes que possue a anotação FXML ou ClearField.
+     * Faz a limpeza de componentes que possue a anotação FXML ou ClearSelect.
      * Obs: funciona somente se a classe tiver a anotação ClearFields.
      *
      * @see ClearFields
-     * @see ClearField
+     * @see ClearSelect
      * @param objeto Classe de controller.
      */
     public static void clearFieldsWithAnnotations(Inicializador objeto) {
-        Annotation anotacaoDaClasse = objeto.getClass().getAnnotation(ClearFields.class);
-        if (anotacaoDaClasse instanceof ClearFields) {
-            ClearFields classeComAnotacao = (ClearFields) anotacaoDaClasse;
+        if (objeto.getClass().isAnnotationPresent(ClearFields.class)) {
             Field[] atributos = objeto.getClass().getDeclaredFields();
-            switch (classeComAnotacao.clearType()) {
-                case CLEAR_ALL:
-                    FunctionAnnotations.clearAll(atributos, objeto);
-                    break;
-                case CHOOSE_FIELD:
-                    FunctionAnnotations.clearFields(atributos, objeto);
-                    break;
-                default:
-            }
+            FunctionAnnotations.clear(atributos, objeto);
         }
+        
     }
 
     /**
@@ -72,47 +62,19 @@ public class FunctionAnnotations {
             ((CheckBox) componente).setSelected(false);
         }
     }
-
-    /**
-     * Limpa todos os componentes que anotação FXML.
-     *
-     * @param atributos Atributos da Classe de controller.
-     * @param objeto Classe de controller.
-     */
-    private static void clearAll(Field[] atributos, Inicializador objeto) {
+    
+    private static void clear(Field[] atributos, Inicializador objeto) {
         try {
             for (Field atributo : atributos) {
                 if (atributo.isAnnotationPresent(FXML.class)) {
-                    atributo.setAccessible(true);
-                    Object componente = atributo.get(objeto);
-                    FunctionAnnotations.clearField(componente);
-                }
-            }
-        } catch (IllegalArgumentException | IllegalAccessException ex) {
-            System.err.println("Houve um erro ao tentar limpar o componente. Exceção: " + ex);
-            Logger.getLogger(FunctionAnnotations.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    /**
-     * Limpa somente os componentes com a Anotação ClearField e FXML.
-     *
-     * @param atributos Atributos da Classe de controller.
-     * @param objeto Classe de controller.
-     */
-    private static void clearFields(Field[] atributos, Inicializador objeto) {
-        try {
-            for (Field atributo : atributos) {
-                if (atributo.isAnnotationPresent(FXML.class) && atributo.isAnnotationPresent(ClearField.class)) {
-                    ClearField anotacaoDoAtributo = atributo.getAnnotation(ClearField.class);
-                    if (anotacaoDoAtributo.limpar() == Clear.YES) {
+                    if (!atributo.isAnnotationPresent(DoNotClear.class)) {
                         atributo.setAccessible(true);
                         Object componente = atributo.get(objeto);
                         FunctionAnnotations.clearField(componente);
                     }
                 }
             }
-        } catch (IllegalArgumentException | IllegalAccessException ex) {
+        } catch (IllegalAccessException | IllegalArgumentException ex) {
             System.err.println("Houve um erro ao tentar limpar o componente. Exceção: " + ex);
             Logger.getLogger(FunctionAnnotations.class.getName()).log(Level.SEVERE, null, ex);
         }
