@@ -68,4 +68,6 @@ public interface Exibicao {
     public void showSecurityEditAndEnableModality(boolean hasAccess, boolean showMessage, boolean enableFields, Object data);
     
     public void showSecurityEditAndEnableModality(boolean hasAccess, boolean showMessage, boolean enableFields, Object data, Class<? extends Inicializador> windowReference);
+    
+    public void close();
 }
