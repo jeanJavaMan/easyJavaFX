@@ -8,7 +8,9 @@ package jeanderson.controller.enums;
 /**
  *
  * @author Jeanderson
+ * @deprecated Não será mais usado.
  */
+@Deprecated
 public enum Clear {
     /**
      * Informa que deve limpar este componente.

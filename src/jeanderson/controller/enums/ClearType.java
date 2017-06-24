@@ -5,12 +5,12 @@
  */
 package jeanderson.controller.enums;
 
-import jeanderson.controller.annotations.ClearField;
-
 /**
  *
  * @author Jeanderson
+ * @deprecated Não será mais utilizado.
  */
+@Deprecated
 public enum ClearType {
     /**
      * Limpa todos os componentes que vem do pacote control do JavaFX como TextField, ComboBox, DatePicker...
