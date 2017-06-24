@@ -715,4 +715,9 @@ public class ControlWindow<T extends Inicializador> implements Exibicao {
         }
     }
 
+    @Override
+    public void close() {
+        this.controlBuilder.getStage().close();
+    }
+
 }
