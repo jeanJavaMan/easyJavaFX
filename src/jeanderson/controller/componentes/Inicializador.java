@@ -1,7 +1,6 @@
 package jeanderson.controller.componentes;
 
 import javafx.fxml.Initializable;
-import jeanderson.controller.componentes.Configurator;
 import jeanderson.controller.control.ControlWindow;
 import jeanderson.controller.util.ConfigurationEasyJavaFX;
 
