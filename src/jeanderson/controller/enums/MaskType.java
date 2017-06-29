@@ -37,5 +37,9 @@ public enum MaskType {
     /**
      * Informa que aceita apenas digitos numericos.
      */
-    NUMBER_ONLY;
+    NUMBER_ONLY,
+    /**
+     * Informa que aceita apenas digitos numericos decimais.
+     */
+    DECIMAL_ONLY;
 }
