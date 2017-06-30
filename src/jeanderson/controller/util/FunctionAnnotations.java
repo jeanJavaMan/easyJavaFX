@@ -165,7 +165,7 @@ public class FunctionAnnotations {
      * Informa se um componente é editavél, Obs: o componente deve ter anotação
      * @FXML. é possivel informa que este método não tenha efeito sobre um
      * componente utilizando a anotação @EditableWithoutEffect.
-     *
+     * Obs: só funcionar com componentes do tipo TextField, ComboBox, DatePicker e TextArea
      * @param objeto instancia de uma classe.
      * @param editable é editavél.
      */
