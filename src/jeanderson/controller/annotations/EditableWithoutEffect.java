@@ -5,6 +5,10 @@
  */
 package jeanderson.controller.annotations;
 
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 import jeanderson.controller.util.FunctionAnnotations;
 
 /**
@@ -12,6 +16,8 @@ import jeanderson.controller.util.FunctionAnnotations;
  * @author jeanderson
  * @see FunctionAnnotations
  */
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.FIELD)
 public @interface EditableWithoutEffect {
     
 }
