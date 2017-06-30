@@ -19,6 +19,7 @@ import jeanderson.controller.annotations.ClearFields;
 import jeanderson.controller.componentes.Inicializador;
 import jeanderson.controller.annotations.ClearSelect;
 import jeanderson.controller.annotations.DoNotClear;
+import jeanderson.controller.annotations.EditableWithoutEffect;
 import jeanderson.controller.annotations.ValidateField;
 import jeanderson.controller.enums.DialogType;
 
@@ -83,20 +84,25 @@ public class FunctionAnnotations {
     }
 
     /**
-     * Valida os campos que possuem anotação @ValidadeField e mostra uma mensagem caso o campo não esteja preenchido. Por favor veja quais tipos de componentes são verificados em observação.
-     * Observação: Tipos de componentes verificados são: TextField,TextArea,ComboBox,ChoiceBox,CheckBox e DatePicker.
-     * @param objeto instancia de uma classe que possui a anotação @validadeField.
+     * Valida os campos que possuem anotação @ValidadeField e mostra uma
+     * mensagem caso o campo não esteja preenchido. Por favor veja quais tipos
+     * de componentes são verificados em observação. Observação: Tipos de
+     * componentes verificados são:
+     * TextField,TextArea,ComboBox,ChoiceBox,CheckBox e DatePicker.
+     *
+     * @param objeto instancia de uma classe que possui a anotação
+     * @validadeField.
      * @return True se todos os componentes estão preenchidos.
      */
     public static boolean validationFields(Inicializador objeto) {
         Field[] atributos = objeto.getClass().getDeclaredFields();
         boolean verificado = true;
-        try {            
+        try {
             for (Field atributo : atributos) {
                 if (atributo.isAnnotationPresent(ValidateField.class)) {
                     atributo.setAccessible(true);
                     Object componente = atributo.get(objeto);
-                    if(!validate(componente)){
+                    if (!validate(componente)) {
                         verificado = false;
                         break;
                     }
@@ -108,50 +114,86 @@ public class FunctionAnnotations {
         }
         return verificado;
     }
-    
-    private static boolean validate(Object componente){
+
+    private static boolean validate(Object componente) {
         if (componente instanceof TextField) {
-           
-           if(((TextField) componente).getText().isEmpty()){
-               exibirMsgCampoNaoPreenchido();
-               ((TextField) componente).requestFocus();
-               return false;
-           }
+
+            if (((TextField) componente).getText().isEmpty()) {
+                exibirMsgCampoNaoPreenchido();
+                ((TextField) componente).requestFocus();
+                return false;
+            }
         } else if (componente instanceof ComboBox) {
-            if(((ComboBox) componente).getSelectionModel().isSelected(-1)){
-               exibirMsgCampoNaoPreenchido();
-               ((ComboBox) componente).requestFocus();
-               return false;
-           }
+            if (((ComboBox) componente).getSelectionModel().isSelected(-1)) {
+                exibirMsgCampoNaoPreenchido();
+                ((ComboBox) componente).requestFocus();
+                return false;
+            }
         } else if (componente instanceof DatePicker) {
-            if(((DatePicker) componente).getEditor().getText().isEmpty()){
-               exibirMsgCampoNaoPreenchido();
-               ((DatePicker) componente).requestFocus();
-               return false;
-           }
+            if (((DatePicker) componente).getEditor().getText().isEmpty()) {
+                exibirMsgCampoNaoPreenchido();
+                ((DatePicker) componente).requestFocus();
+                return false;
+            }
         } else if (componente instanceof TextArea) {
-            if(((TextArea) componente).getText().isEmpty()){
-               exibirMsgCampoNaoPreenchido();
-               ((TextArea) componente).requestFocus();
-               return false;
-           }
+            if (((TextArea) componente).getText().isEmpty()) {
+                exibirMsgCampoNaoPreenchido();
+                ((TextArea) componente).requestFocus();
+                return false;
+            }
         } else if (componente instanceof ChoiceBox) {
-            if(((ChoiceBox) componente).getSelectionModel().isSelected(-1)){
-               exibirMsgCampoNaoPreenchido();
-               ((ChoiceBox) componente).requestFocus();
-               return false;
-           }
+            if (((ChoiceBox) componente).getSelectionModel().isSelected(-1)) {
+                exibirMsgCampoNaoPreenchido();
+                ((ChoiceBox) componente).requestFocus();
+                return false;
+            }
         } else if (componente instanceof CheckBox) {
-            if(((CheckBox) componente).isSelected()){
-               exibirMsgCampoNaoPreenchido();
-               ((ComboBox) componente).requestFocus();
-               return false;
-           }
+            if (((CheckBox) componente).isSelected()) {
+                exibirMsgCampoNaoPreenchido();
+                ((ComboBox) componente).requestFocus();
+                return false;
+            }
         }
         return true;
     }
-    
-    private static void exibirMsgCampoNaoPreenchido(){
+
+    private static void exibirMsgCampoNaoPreenchido() {
         DialogFX.showMessage("Por favor preencha a campo que está em focus para continuar.", "Campo não preenchido", DialogType.WARNING);
+    }
+
+    /**
+     * Informa se um componente é editavél, Obs: o componente deve ter anotação
+     * @FXML. é possivel informa que este método não tenha efeito sobre um
+     * componente utilizando a anotação @EditableWithoutEffect.
+     *
+     * @param objeto instancia de uma classe.
+     * @param editable é editavél.
+     */
+    public static void editableFields(Inicializador objeto, boolean editable) {
+        Field[] atributos = objeto.getClass().getDeclaredFields();
+        try {
+            for (Field atributo : atributos) {
+                if (atributo.isAnnotationPresent(FXML.class) && !atributo.isAnnotationPresent(EditableWithoutEffect.class)) {
+                    atributo.setAccessible(true);
+                    Object componente = atributo.get(objeto);
+                    editableComponente(componente, editable);
+                }
+            }
+        } catch (IllegalAccessException | IllegalArgumentException ex) {
+            System.err.println("Erro ao informa que um componente é editavel. Motivo: " + ex.getMessage());
+            Logger.getLogger(FunctionAnnotations.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private static void editableComponente(Object componente, boolean editable) {
+        if (componente instanceof TextField) {
+            ((TextField) componente).setEditable(editable);
+        } else if (componente instanceof ComboBox) {
+            ((ComboBox) componente).setEditable(editable);
+        } else if (componente instanceof DatePicker) {
+            ((DatePicker) componente).setEditable(editable);
+        } else if (componente instanceof TextArea) {
+            ((TextArea) componente).setEditable(editable);
+        }
     }
 }
