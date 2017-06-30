@@ -18,38 +18,47 @@ import javafx.scene.input.KeyEvent;
  * @author jeanderson
  */
 public class AutoCompleteComboBox {
-    
+
     private final ComboBox comboBox;
     private ObservableList itensDoBox;
     private FilteredList listaParaFiltrar;
     private SortedList listaFiltrada;
-    
+
     public AutoCompleteComboBox(ComboBox comboBox) {
         this.comboBox = comboBox;
         this.comboBox.setEditable(true);
     }
-    
+
     public void start() {
-        this.comboBox.setOnKeyReleased(this::actionKeyEvent);           
+        this.comboBox.setOnKeyReleased(this::actionKeyEvent);
         this.itensDoBox = this.comboBox.getItems();
         this.listaParaFiltrar = new FilteredList(itensDoBox);
     }
-    
-    private void actionKeyEvent(KeyEvent evento) {       
+
+    private void actionKeyEvent(KeyEvent evento) {
         String textoAnterior = this.comboBox.getEditor().getText();
         KeyCode teclaDigitada = evento.getCode();
-        if(teclaDigitada == KeyCode.UP || teclaDigitada == KeyCode.DOWN || teclaDigitada == KeyCode.TAB){
+        if (teclaDigitada == KeyCode.UP || teclaDigitada == KeyCode.DOWN || teclaDigitada == KeyCode.TAB) {
+
             evento.consume();
-        }
-        if (comboBox.getEditor().getText().length() == 0) {
+        } else if (teclaDigitada == KeyCode.ENTER) {
+            int indexSelecionada = comboBox.getSelectionModel().getSelectedIndex();
+            if (indexSelecionada != -1) {
+                comboBox.getSelectionModel().select(indexSelecionada);
+                moveCaret(textoAnterior.length());
+                if (comboBox.isShowing()) {
+                    comboBox.hide();
+                }
+            }
+        } else if (comboBox.getEditor().getText().length() == 0) {
             this.comboBox.setItems(null);
             this.comboBox.setItems(itensDoBox);
-            if(comboBox.isShowing()){
+            if (comboBox.isShowing()) {
                 comboBox.hide();
                 comboBox.show();
             }
-            evento.consume();        
-        } else {            
+            evento.consume();
+        } else {
             this.listaParaFiltrar.setPredicate(item -> verificaItem(item));
             this.listaFiltrada = new SortedList(listaParaFiltrar);
             this.comboBox.setItems(listaFiltrada);
@@ -60,11 +69,11 @@ public class AutoCompleteComboBox {
             moveCaret(textoAnterior.length());
         }
     }
-    
+
     private void moveCaret(int posicao) {
         this.comboBox.getEditor().positionCaret(posicao);
     }
-    
+
     private boolean verificaItem(Object item) {
         return this.comboBox.getConverter().toString(item).toLowerCase().startsWith(this.comboBox.getEditor().getText().toLowerCase());
     }
