@@ -163,11 +163,15 @@ public class FunctionAnnotations {
 
     /**
      * Informa se um componente é editavél, Obs: o componente deve ter anotação
+     *
      * @FXML. é possivel informa que este método não tenha efeito sobre um
-     * componente utilizando a anotação @EditableWithoutEffect.
-     * Obs: só funcionar com componentes do tipo TextField, ComboBox, DatePicker e TextArea
+     * componente utilizando a anotação @EditableWithoutEffect. Obs: só
+     * funcionar com componentes do tipo TextField,ChoiceBox,CheckBox, ComboBox, DatePicker e TextArea,
+     * ChoiceBox,CheckBox, ComboBox e DatePicker será usado a função Disable. caso não queria este efeito nestes elementos
+     * utilize a anotação @EditableWithoutEffect.
      * @param objeto instancia de uma classe.
      * @param editable é editavél.
+     * @see EditableWithoutEffect
      */
     public static void editableFields(Inicializador objeto, boolean editable) {
         Field[] atributos = objeto.getClass().getDeclaredFields();
@@ -189,11 +193,15 @@ public class FunctionAnnotations {
         if (componente instanceof TextField) {
             ((TextField) componente).setEditable(editable);
         } else if (componente instanceof ComboBox) {
-            ((ComboBox) componente).setEditable(editable);
+            ((ComboBox) componente).setDisable(!editable);
         } else if (componente instanceof DatePicker) {
-            ((DatePicker) componente).setEditable(editable);
+            ((DatePicker) componente).setDisable(!editable);
         } else if (componente instanceof TextArea) {
             ((TextArea) componente).setEditable(editable);
+        } else if (componente instanceof ChoiceBox) {
+            ((ChoiceBox) componente).setDisable(!editable);
+        } else if (componente instanceof CheckBox) {
+            ((ComboBox) componente).setDisable(!editable);
         }
     }
 }
