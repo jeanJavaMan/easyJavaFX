@@ -200,8 +200,6 @@ public class FunctionAnnotations {
             ((TextArea) componente).setEditable(editable);
         } else if (componente instanceof ChoiceBox) {
             ((ChoiceBox) componente).setDisable(!editable);
-        } else if (componente instanceof CheckBox) {
-            ((ComboBox) componente).setDisable(!editable);
         }
     }
 }
