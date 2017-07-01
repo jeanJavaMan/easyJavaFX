@@ -124,7 +124,7 @@ public class FunctionAnnotations {
                 return false;
             }
         } else if (componente instanceof ComboBox) {
-            if (((ComboBox) componente).getSelectionModel().isSelected(-1)) {
+            if (((ComboBox) componente).getSelectionModel().getSelectedIndex() == -1) {
                 exibirMsgCampoNaoPreenchido();
                 ((ComboBox) componente).requestFocus();
                 return false;
