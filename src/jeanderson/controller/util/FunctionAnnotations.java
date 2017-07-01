@@ -201,7 +201,7 @@ public class FunctionAnnotations {
         } else if (componente instanceof ChoiceBox) {
             ((ChoiceBox) componente).setDisable(!editable);
         } else if(componente instanceof CheckBox){
-            ((CheckBox) componente).setDisable(editable);
+            ((CheckBox) componente).setDisable(!editable);
         }
     }
 }
