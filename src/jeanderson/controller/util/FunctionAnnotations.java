@@ -102,7 +102,8 @@ public class FunctionAnnotations {
                 if (atributo.isAnnotationPresent(ValidateField.class)) {
                     atributo.setAccessible(true);
                     Object componente = atributo.get(objeto);
-                    if (!validate(componente)) {
+                    ValidateField validateField = atributo.getAnnotation(ValidateField.class);
+                    if (!validate(componente,validateField)) {
                         verificado = false;
                         break;
                     }
@@ -115,41 +116,41 @@ public class FunctionAnnotations {
         return verificado;
     }
 
-    private static boolean validate(Object componente) {
+    private static boolean validate(Object componente, ValidateField validateField) {
         if (componente instanceof TextField) {
 
             if (((TextField) componente).getText().isEmpty()) {
-                exibirMsgCampoNaoPreenchido();
+                exibirMsgCampoNaoPreenchido(validateField);
                 ((TextField) componente).requestFocus();
                 return false;
             }
         } else if (componente instanceof ComboBox) {
             if (((ComboBox) componente).getSelectionModel().getSelectedIndex() == -1) {
-                exibirMsgCampoNaoPreenchido();
+                exibirMsgCampoNaoPreenchido(validateField);
                 ((ComboBox) componente).requestFocus();
                 return false;
             }
         } else if (componente instanceof DatePicker) {
             if (((DatePicker) componente).getEditor().getText().isEmpty()) {
-                exibirMsgCampoNaoPreenchido();
+                exibirMsgCampoNaoPreenchido(validateField);
                 ((DatePicker) componente).requestFocus();
                 return false;
             }
         } else if (componente instanceof TextArea) {
             if (((TextArea) componente).getText().isEmpty()) {
-                exibirMsgCampoNaoPreenchido();
+                exibirMsgCampoNaoPreenchido(validateField);
                 ((TextArea) componente).requestFocus();
                 return false;
             }
         } else if (componente instanceof ChoiceBox) {
             if (((ChoiceBox) componente).getSelectionModel().isSelected(-1)) {
-                exibirMsgCampoNaoPreenchido();
+                exibirMsgCampoNaoPreenchido(validateField);
                 ((ChoiceBox) componente).requestFocus();
                 return false;
             }
         } else if (componente instanceof CheckBox) {
             if (((CheckBox) componente).isSelected()) {
-                exibirMsgCampoNaoPreenchido();
+                exibirMsgCampoNaoPreenchido(validateField);
                 ((ComboBox) componente).requestFocus();
                 return false;
             }
@@ -157,8 +158,8 @@ public class FunctionAnnotations {
         return true;
     }
 
-    private static void exibirMsgCampoNaoPreenchido() {
-        DialogFX.showMessage("Por favor preencha a campo que está em focus para continuar.", "Campo não preenchido", DialogType.WARNING);
+    private static void exibirMsgCampoNaoPreenchido(ValidateField validateField) {
+        DialogFX.showMessage("Por favor preencha o(s) campo(s) " +validateField.nome(), "Campo não preenchido", DialogType.WARNING);
     }
 
     /**
