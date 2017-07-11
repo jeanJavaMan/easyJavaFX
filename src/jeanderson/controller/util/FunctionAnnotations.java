@@ -13,6 +13,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import jeanderson.controller.annotations.ClearFields;
@@ -88,7 +89,7 @@ public class FunctionAnnotations {
      * mensagem caso o campo não esteja preenchido. Por favor veja quais tipos
      * de componentes são verificados em observação. Observação: Tipos de
      * componentes verificados são:
-     * TextField,TextArea,ComboBox,ChoiceBox,CheckBox e DatePicker.
+     * TextField,TextArea,ComboBox,ChoiceBox,CheckBox, TableView e DatePicker.
      *
      * @param objeto instancia de uma classe que possui a anotação
      * @validadeField.
@@ -152,6 +153,12 @@ public class FunctionAnnotations {
             if (((CheckBox) componente).isSelected()) {
                 exibirMsgCampoNaoPreenchido(validateField);
                 ((ComboBox) componente).requestFocus();
+                return false;
+            }
+        }else if(componente instanceof TableView){
+            if(((TableView)componente).getSelectionModel().getSelectedIndex() == -1){
+                exibirMsgCampoNaoPreenchido(validateField);
+                ((TableView)componente).requestFocus();
                 return false;
             }
         }
