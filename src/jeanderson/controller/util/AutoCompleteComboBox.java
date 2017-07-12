@@ -6,6 +6,8 @@
 package jeanderson.controller.util;
 
 import javafx.application.Platform;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
@@ -23,16 +25,32 @@ public class AutoCompleteComboBox {
     private ObservableList itensDoBox;
     private FilteredList listaParaFiltrar;
     private SortedList listaFiltrada;
+    private boolean recebeuItens;
 
     public AutoCompleteComboBox(ComboBox comboBox) {
         this.comboBox = comboBox;
         this.comboBox.setEditable(true);
+        this.comboBox.setOnKeyReleased(this::actionKeyEvent);
+        this.comboBox.itemsProperty().addListener(this::observarItens);
+        this.recebeuItens = false;
     }
 
-    public void start() {
-        this.comboBox.setOnKeyReleased(this::actionKeyEvent);
-        this.itensDoBox = this.comboBox.getItems();
-        this.listaParaFiltrar = new FilteredList(itensDoBox);
+    private void observarItens(Observable valor) {
+        if (!this.recebeuItens) {
+            System.out.println("aconteceu");
+            this.itensDoBox = this.comboBox.getItems();
+            this.listaParaFiltrar = new FilteredList(itensDoBox);
+            this.recebeuItens = true;
+        }
+
+    }
+    /**
+     * Método deve ser chamado antes de alterar os itens no comboBox, pois informa que o combox vai atualizar sua lista de itens.
+     * é necessário fazer isto para que a lista do autoComplete fique atualizada junto com a lista existente no comboBox.
+     * Obs: deve ser chamado, nos casos de alteração e remoção de um ou mais itens.
+     */
+    public void willUpdateItens(){
+        this.recebeuItens = false;
     }
 
     private void actionKeyEvent(KeyEvent evento) {
@@ -68,6 +86,7 @@ public class AutoCompleteComboBox {
             this.comboBox.getEditor().setText(textoAnterior);
             moveCaret(textoAnterior.length());
         }
+
     }
 
     private void moveCaret(int posicao) {
