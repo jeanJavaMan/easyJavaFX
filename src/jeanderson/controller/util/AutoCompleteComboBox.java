@@ -35,7 +35,6 @@ public class AutoCompleteComboBox {
 
     private void observarItens(Observable valor) {
         if (!this.recebeuItens) {
-            System.out.println("aconteceu");
             this.itensDoBox = this.comboBox.getItems();
             this.listaParaFiltrar = new FilteredList(itensDoBox);
             this.recebeuItens = true;
