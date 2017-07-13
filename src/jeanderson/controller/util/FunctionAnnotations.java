@@ -64,8 +64,6 @@ public class FunctionAnnotations {
             ((ChoiceBox) componente).getSelectionModel().clearSelection();
         } else if (componente instanceof CheckBox) {
             ((CheckBox) componente).setSelected(false);
-        } else if (componente instanceof TableView){
-            ((TableView)componente).getSelectionModel().select(-1);
         }
     }
 
