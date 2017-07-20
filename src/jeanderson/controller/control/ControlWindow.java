@@ -111,6 +111,7 @@ public class ControlWindow<T extends Inicializador> implements Exibicao {
     private void fazerExibicao() {
         this.controlBuilder.getStage().show();
         this.controlBuilder.getStage().requestFocus();
+        this.controlBuilder.getParentRoot().requestFocus();
     }
 
     /**
