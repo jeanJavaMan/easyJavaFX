@@ -41,12 +41,15 @@ public class AutoCompleteComboBox {
         }
 
     }
+
     /**
-     * Método deve ser chamado antes de alterar os itens no comboBox, pois informa que o combox vai atualizar sua lista de itens.
-     * é necessário fazer isto para que a lista do autoComplete fique atualizada junto com a lista existente no comboBox.
-     * Obs: deve ser chamado, nos casos de alteração e remoção de um ou mais itens.
+     * Método deve ser chamado antes de alterar os itens no comboBox, pois
+     * informa que o combox vai atualizar sua lista de itens. é necessário fazer
+     * isto para que a lista do autoComplete fique atualizada junto com a lista
+     * existente no comboBox. Obs: deve ser chamado, nos casos de alteração e
+     * remoção de um ou mais itens.
      */
-    public void willUpdateItens(){
+    public void willUpdateItens() {
         this.recebeuItens = false;
     }
 
@@ -72,7 +75,6 @@ public class AutoCompleteComboBox {
                 comboBox.hide();
                 comboBox.show();
             }
-            evento.consume();
         } else {
             this.listaParaFiltrar.setPredicate(item -> verificaItem(item));
             this.listaFiltrada = new SortedList(listaParaFiltrar);
