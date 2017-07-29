@@ -10,6 +10,7 @@ import java.util.Optional;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.TextInputDialog;
 
 /**
  * Classe que exibi uma Dialog do JavaFX.
@@ -117,6 +118,26 @@ public class DialogFX {
     public static boolean showConfirmation(String question, String title) {
         Alert dialog = createDialog(question, title, "", DialogType.CONFIRMATION);
         Optional<ButtonType> resultado = dialog.showAndWait();
-        return resultado.get().getButtonData().equals(ButtonBar.ButtonData.YES) ;
+        return resultado.get().getButtonData().equals(ButtonBar.ButtonData.YES);
+    }
+
+    /**
+     * Exibi uma Tela com uma caixa de texto. Retorna o texto digitado na caixa. caso seja cancelado retorna vázio.
+     * @param title Titulo do Dialog
+     * @param header Header do Dialog
+     * @param msg Mensagem do Dialog
+     * @return String
+     */
+    public static String showInputText(String title, String header, String msg) {
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle(title);
+        dialog.setHeaderText(header);
+        dialog.setContentText(msg);
+        Optional<String> result = dialog.showAndWait();
+        if (result.isPresent()) {
+            return result.get();
+        } else {
+            return "";
+        }
     }
 }
