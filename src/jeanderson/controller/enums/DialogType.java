@@ -14,8 +14,9 @@ import javafx.stage.Stage;
 import jeanderson.controller.componentes.DialogAssembly;
 
 /**
- * Enum responsável por diferenciar os tipos de DialogFX.
- *Obs: a partir da versão 2.0, o enum agora faz a implementação de uma Alert(Dialog).
+ * Enum responsável por diferenciar os tipos de DialogFX. Obs: a partir da
+ * versão 2.0, o enum agora faz a implementação de uma Alert(Dialog).
+ *
  * @version 2.0
  * @author Jeanderson
  */
