@@ -49,7 +49,7 @@ public class JanelaController extends Inicializador {
 
 Você deve estender a **Inicializador** para que funcione a biblioteca. Então vamos ao 1º dos 3 métodos para construção e exibição da Janela.
 
-##1º Método Builder
+## 1º Método Builder
 
 ```java
 ControlWindow<JanelaController> janela = ControlWindow.prepareBuilder("/Janela.fxml")
@@ -62,7 +62,7 @@ janela.show();
 
 Classe **ControlWindow** possui todas as funções necessária para você trabalha com sua Janela. Irei explicar um pouco melhor sobre ela mais a frente.
 
-##2º Método Sobrescrevendo o método defineConfiguration na classe de Controller
+## 2º Método Sobrescrevendo o método defineConfiguration na classe de Controller
 
 A diferença do método 1, e que você vai informar todas as configurações na sua propria classe de controller, sobrescrevendo o método **defineConfiguration** e você deverá retornar
 um objeto da Classe **Configurator**, pois está classe é a que contém as configurações da sua Janela. Observer a Baixo:
@@ -103,7 +103,7 @@ ControlWindow<JanelaController> janela = WindowBuilder.construct(new JanelaContr
 ```
 Você deve utilizar a Classe chamada **WindowBuilder** para construir o objeto, diferente do método 1, e você deve utilizar o método construct e nele instanciar um objeto da **sua classe de controller**
 
-##3º Método usando anotação @DefineConfiguration (RECOMENDADO)
+## 3º Método usando anotação @DefineConfiguration (RECOMENDADO)
 
 Este é a maneira mais simples é a mais recomendada que deve ser utilizar, você vai utilizar anotação **@DefineConfiguration** para definir as configurações! veja:
 
