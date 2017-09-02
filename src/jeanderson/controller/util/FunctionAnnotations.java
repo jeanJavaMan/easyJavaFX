@@ -170,7 +170,7 @@ public class FunctionAnnotations {
     }
 
     private static void exibirMsgCampoNaoPreenchidoCorretamente(ValidateField validateField) {
-        DialogFX.showMessage("Por favor preencha o campo " + validateField.nome() + " pode está vazio ou não foi preenchido corretamente!", "Campo pode não está preenchido", DialogType.WARNING);
+        DialogFX.showMessage("Por favor preencha o campo " + validateField.nome() + "corretamente, pode está vazio ou não foi preenchido corretamente!", "Campo pode não está preenchido", DialogType.WARNING);
     }
 
     /**
