@@ -22,6 +22,7 @@ import jeanderson.controller.annotations.DoNotClear;
 import jeanderson.controller.annotations.EditableWithoutEffect;
 import jeanderson.controller.annotations.ValidateField;
 import jeanderson.controller.enums.DialogType;
+import jeanderson.controller.enums.ValidateType;
 
 /**
  *
@@ -102,14 +103,14 @@ public class FunctionAnnotations {
                     atributo.setAccessible(true);
                     Object componente = atributo.get(objeto);
                     ValidateField validateField = atributo.getAnnotation(ValidateField.class);
-                    if (!validate(componente,validateField)) {
+                    if (!validate(componente, validateField)) {
                         verificado = false;
                         break;
                     }
                 }
             }
         } catch (IllegalAccessException | IllegalArgumentException ex) {
-            System.err.println("Houve um erro ao tentar limpar o componente. Exceção: " + ex);
+            System.err.println("Houve um erro ao tentar validar campos. Exceção: " + ex);
             Logger.getLogger(FunctionAnnotations.class.getName()).log(Level.SEVERE, null, ex);
         }
         return verificado;
@@ -119,52 +120,57 @@ public class FunctionAnnotations {
         if (componente instanceof TextField) {
 
             if (((TextField) componente).getText().isEmpty()) {
-                exibirMsgCampoNaoPreenchido(validateField);
+                exibirMsgCampoNaoPreenchidoCorretamente(validateField);
                 ((TextField) componente).requestFocus();
                 return false;
+            } else {
+                if (!validarTextField((TextField) componente, validateField)) {
+                    exibirMsgCampoNaoPreenchidoCorretamente(validateField);
+                    return false;
+                }
             }
         } else if (componente instanceof ComboBox) {
             if (((ComboBox) componente).getSelectionModel().getSelectedIndex() == -1) {
-                exibirMsgCampoNaoPreenchido(validateField);
+                exibirMsgCampoNaoPreenchidoCorretamente(validateField);
                 ((ComboBox) componente).requestFocus();
                 return false;
             }
         } else if (componente instanceof DatePicker) {
             if (((DatePicker) componente).getEditor().getText().isEmpty()) {
-                exibirMsgCampoNaoPreenchido(validateField);
+                exibirMsgCampoNaoPreenchidoCorretamente(validateField);
                 ((DatePicker) componente).requestFocus();
                 return false;
             }
         } else if (componente instanceof TextArea) {
             if (((TextArea) componente).getText().isEmpty()) {
-                exibirMsgCampoNaoPreenchido(validateField);
+                exibirMsgCampoNaoPreenchidoCorretamente(validateField);
                 ((TextArea) componente).requestFocus();
                 return false;
             }
         } else if (componente instanceof ChoiceBox) {
             if (((ChoiceBox) componente).getSelectionModel().isSelected(-1)) {
-                exibirMsgCampoNaoPreenchido(validateField);
+                exibirMsgCampoNaoPreenchidoCorretamente(validateField);
                 ((ChoiceBox) componente).requestFocus();
                 return false;
             }
         } else if (componente instanceof CheckBox) {
             if (((CheckBox) componente).isSelected()) {
-                exibirMsgCampoNaoPreenchido(validateField);
+                exibirMsgCampoNaoPreenchidoCorretamente(validateField);
                 ((ComboBox) componente).requestFocus();
                 return false;
             }
-        }else if(componente instanceof TableView){
-            if(((TableView)componente).getSelectionModel().getSelectedIndex() == -1){
-                exibirMsgCampoNaoPreenchido(validateField);
-                ((TableView)componente).requestFocus();
+        } else if (componente instanceof TableView) {
+            if (((TableView) componente).getSelectionModel().getSelectedIndex() == -1) {
+                exibirMsgCampoNaoPreenchidoCorretamente(validateField);
+                ((TableView) componente).requestFocus();
                 return false;
             }
         }
         return true;
     }
 
-    private static void exibirMsgCampoNaoPreenchido(ValidateField validateField) {
-        DialogFX.showMessage("Por favor preencha o(s) campo(s) " +validateField.nome(), "Campo não preenchido", DialogType.WARNING);
+    private static void exibirMsgCampoNaoPreenchidoCorretamente(ValidateField validateField) {
+        DialogFX.showMessage("Por favor preencha o campo " + validateField.nome() + " pode está vazio ou não foi preenchido corretamente!", "Campo pode não está preenchido", DialogType.WARNING);
     }
 
     /**
@@ -172,8 +178,9 @@ public class FunctionAnnotations {
      *
      * @FXML. é possivel informa que este método não tenha efeito sobre um
      * componente utilizando a anotação @EditableWithoutEffect. Obs: só
-     * funcionar com componentes do tipo TextField,ChoiceBox,CheckBox, ComboBox, DatePicker e TextArea,
-     * ChoiceBox,CheckBox, ComboBox e DatePicker será usado a função Disable. caso não queria este efeito nestes elementos
+     * funcionar com componentes do tipo TextField,ChoiceBox,CheckBox, ComboBox,
+     * DatePicker e TextArea, ChoiceBox,CheckBox, ComboBox e DatePicker será
+     * usado a função Disable. caso não queria este efeito nestes elementos
      * utilize a anotação @EditableWithoutEffect.
      * @param objeto instancia de uma classe.
      * @param editable é editavél.
@@ -206,8 +213,35 @@ public class FunctionAnnotations {
             ((TextArea) componente).setEditable(editable);
         } else if (componente instanceof ChoiceBox) {
             ((ChoiceBox) componente).setDisable(!editable);
-        } else if(componente instanceof CheckBox){
+        } else if (componente instanceof CheckBox) {
             ((CheckBox) componente).setDisable(!editable);
+        }
+    }
+
+    /**
+     * Verificar os dados informados no textefield para ver se está conforme o
+     * tipo passado.
+     *
+     * @param textField
+     * @param validateField
+     * @return Se os campos estão em conformidade;
+     */
+    private static boolean validarTextField(TextField textField, ValidateField validateField) {
+        if (validateField.type() != ValidateType.NONE) {
+            String textoSoNumeros = textField.getText().replaceAll("[^0-9]", "");
+            switch (validateField.type()) {
+                case TEL_DIG:
+                    return textoSoNumeros.length() == 10 || textoSoNumeros.length() == 11;
+                case CPF:
+                    return textoSoNumeros.length() == 11;
+                case DATAS:
+                    return textoSoNumeros.length() == 8;
+                default:
+                    return false;
+            }
+        } else {
+            //já que não informou o tipo,retorna sempre true.
+            return true;
         }
     }
 }
