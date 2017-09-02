@@ -18,7 +18,6 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import jeanderson.controller.annotations.ClearFields;
 import jeanderson.controller.componentes.Inicializador;
-import jeanderson.controller.annotations.ClearSelect;
 import jeanderson.controller.annotations.DoNotClear;
 import jeanderson.controller.annotations.EditableWithoutEffect;
 import jeanderson.controller.annotations.ValidateField;
