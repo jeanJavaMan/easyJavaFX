@@ -1,7 +1,7 @@
 # Iniciando... 1º Passos
-Todos os tutoriais serão mostrado de maneira rápida e sem enrolação, apenas para ver como deve proceder ao utilizar a biblioteca e suas funções.
+Todos os tutoriais serão mostrado de maneira rápida e sem enrolação, apenas para ver como se deve proceder ao utilizar a biblioteca e suas funções.
 ## Vamos lá..
-Antes de tudo, como em todo aplicação JavaFX, sua classe que possui o Main deve estender a **Application** conforme a baixo:
+Antes de tudo, como em toda aplicação JavaFX, sua classe que possui o Main deve estender a **Application** conforme a baixo:
 ```java
 public class Executor extends Application {
     
@@ -15,8 +15,8 @@ public class Executor extends Application {
     }
 }
 ```
-### Crie uma Janela FXML, recomendo utilizar o Scene Builder para isto, e depois cria a classe de Controller.
-Para quem já utiliza JavaFX a sua classe fica assim:
+### Crie uma Janela FXML, recomendo utilizar o Scene Builder para isto, e depois crie a sua classe de Controller.
+Para quem já utiliza EasyJavaFX a sua classe fica assim:
 
 ```java
 public class JanelaController implements Initializable {
@@ -48,6 +48,7 @@ public class JanelaController extends Inicializador {
 ```
 
 Você deve estender a **Inicializador** para que funcione a biblioteca. Então vamos ao 1º dos 3 métodos para construção e exibição da Janela.
+
 ##1º Método Builder
 
 ```java
@@ -62,6 +63,7 @@ janela.show();
 Classe **ControlWindow** possui todas as funções necessária para você trabalha com sua Janela. Irei explicar um pouco melhor sobre ela mais a frente.
 
 ##2º Método Sobrescrevendo o método defineConfiguration na classe de Controller
+
 A diferença do método 1, e que você vai informar todas as configurações na sua propria classe de controller, sobrescrevendo o método **defineConfiguration** e você deverá retornar
 um objeto da Classe **Configurator**, pois está classe é a que contém as configurações da sua Janela. Observer a Baixo:
 
@@ -102,6 +104,7 @@ ControlWindow<JanelaController> janela = WindowBuilder.construct(new JanelaContr
 Você deve utilizar a Classe chamada **WindowBuilder** para construir o objeto, diferente do método 1, e você deve utilizar o método construct e nele instanciar um objeto da **sua classe de controller**
 
 ##3º Método usando anotação @DefineConfiguration (RECOMENDADO)
+
 Este é a maneira mais simples é a mais recomendada que deve ser utilizar, você vai utilizar anotação **@DefineConfiguration** para definir as configurações! veja:
 
 ```java
