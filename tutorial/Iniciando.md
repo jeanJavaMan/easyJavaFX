@@ -105,11 +105,11 @@ Você deve utilizar a Classe chamada **WindowBuilder** para construir o objeto, 
 
 ## 3º Método usando anotação @DefineConfiguration (RECOMENDADO)
 
-Este é a maneira mais simples é a mais recomendada que deve ser utilizar, você vai utilizar anotação **@DefineConfiguration** para definir as configurações! veja:
+Este é a maneira mais simples é a mais recomendada que deve se utilizar. Você vai utilizar anotação **@DefineConfiguration** para definir as configurações! veja:
 
 ```java
 @DefineConfiguration(URL_FXML = "/Janela.fxml", title = "Titulo da Janela")
-public class Janela2Control extends Inicializador {
+public class JanelaController extends Inicializador {
 
     /**
      * Initializes the controller class.
@@ -127,4 +127,14 @@ ControlWindow<JanelaController> janela = WindowBuilder.construct(JanelaControlle
         janela.show();
 ```
 Diferente do método 2, neste caso aqui, você não vai passar uma Instancia da sua classe de controller, mas sim passar sua Classe como parâmetro.
+## Observação: Para fechar uma janela basta fazer a seguinte maneira.
+
+```java
+ ControlWindow<JanelaController> janela = WindowBuilder.construct(JanelaController.class);
+        janela.show();
+        //fecha a janela
+        janela.close();
+```
+
+[Próximo: A Classe ControlWindow](https://github.com/jeanJavaMan/easyJavaFX/blob/master/tutorial/ClasseControlWindow.md)
 
