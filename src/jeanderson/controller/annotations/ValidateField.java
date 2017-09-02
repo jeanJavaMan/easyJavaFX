@@ -9,6 +9,7 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+import jeanderson.controller.enums.ValidateType;
 
 /**
  * Informa que um campo deve ser validado.
@@ -18,4 +19,5 @@ import java.lang.annotation.Target;
 @Target(ElementType.FIELD)
 public @interface ValidateField {
     public String nome();
+    public ValidateType type() default ValidateType.NONE;
 }
