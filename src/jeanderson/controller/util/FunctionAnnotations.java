@@ -30,11 +30,10 @@ import jeanderson.controller.enums.DialogType;
 public class FunctionAnnotations {
 
     /**
-     * Faz a limpeza de componentes que possue a anotação FXML ou ClearSelect.
+     * Faz a limpeza de componentes que possue a anotação FXML ou ClearFields.
      * Obs: funciona somente se a classe tiver a anotação ClearFields.
      *
      * @see ClearFields
-     * @see ClearSelect
      * @param objeto Classe de controller.
      */
     public static void clearFieldsWithAnnotations(Inicializador objeto) {
