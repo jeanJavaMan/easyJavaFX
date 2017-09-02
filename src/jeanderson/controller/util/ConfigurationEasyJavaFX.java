@@ -12,7 +12,7 @@ package jeanderson.controller.util;
  */
 public class ConfigurationEasyJavaFX {
 
-    private final static String DEFAULT_URL_ICON = "/jeanderson/view/img/easyJavaFX.png";
+    private final static String DEFAULT_URL_ICON = "/jeanderson/view/img/javafx-logo.png";
     private final static String DEFAULT_FXML = "/jeanderson/view/DefaultView.fxml";
     private final static String DEFAULT_TITLE = "Janela";
     private final static boolean DEFAULT_FULLSCREEN = false;
