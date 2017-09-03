@@ -16,11 +16,15 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import jeanderson.controller.annotations.AutoInstance;
 import jeanderson.controller.annotations.ClearFields;
+import jeanderson.controller.annotations.DefineConfiguration;
 import jeanderson.controller.componentes.Inicializador;
 import jeanderson.controller.annotations.DoNotClear;
 import jeanderson.controller.annotations.EditableWithoutEffect;
 import jeanderson.controller.annotations.ValidateField;
+import jeanderson.controller.componentes.WindowBuilder;
+import jeanderson.controller.control.ControlWindow;
 import jeanderson.controller.enums.DialogType;
 import jeanderson.controller.enums.ValidateType;
 
@@ -244,4 +248,26 @@ public class FunctionAnnotations {
             return true;
         }
     }
+
+    public static void inicializarControlWindows(Class classe) {
+        if (classe.isAnnotationPresent(DefineConfiguration.class)) {
+            Field[] atributos = classe.getDeclaredFields();
+            try {
+                for (Field atributo : atributos) {
+                    if (atributo.isAnnotationPresent(AutoInstance.class)) {
+                        atributo.setAccessible(true);
+                        AutoInstance autoInstance = atributo.getAnnotation(AutoInstance.class);
+                        ControlWindow controlWindow = (ControlWindow) atributo.get(classe);
+                        controlWindow = WindowBuilder.construct(autoInstance.classController());
+                    }
+                }
+            } catch (IllegalAccessException | IllegalArgumentException ex) {
+                System.err.println("Erro ao acessar o objeto da Classe ControlWindow com a anotação @AutoInstance. Motivo: " + ex.getMessage());
+                Logger.getLogger(FunctionAnnotations.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            System.err.println("Não foi encontrado a anotação @DefineConfiguration na classe: " + classe.getName());
+        }
+    }
+
 }
