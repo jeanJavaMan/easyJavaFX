@@ -24,7 +24,6 @@ import jeanderson.controller.annotations.DoNotClear;
 import jeanderson.controller.annotations.EditableWithoutEffect;
 import jeanderson.controller.annotations.ValidateField;
 import jeanderson.controller.componentes.WindowBuilder;
-import jeanderson.controller.control.ControlWindow;
 import jeanderson.controller.enums.DialogType;
 import jeanderson.controller.enums.ValidateType;
 
@@ -263,7 +262,6 @@ public class FunctionAnnotations {
         try {
             for (Field atributo : atributos) {
                 if (atributo.isAnnotationPresent(AutoInstance.class)) {
-                    System.out.println("Nome do atributo: " + atributo.getName());
                     atributo.setAccessible(true);
                     AutoInstance autoInstance = atributo.getAnnotation(AutoInstance.class);
                     if (autoInstance.classController().isAnnotationPresent(DefineConfiguration.class)) {
