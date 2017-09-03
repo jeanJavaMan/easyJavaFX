@@ -5,6 +5,8 @@
  */
 package jeanderson.controller.componentes;
 
+import jeanderson.controller.annotations.AutoInstance;
+import jeanderson.controller.annotations.DefineConfiguration;
 import jeanderson.controller.util.FunctionAnnotations;
 
 /**
@@ -12,7 +14,14 @@ import jeanderson.controller.util.FunctionAnnotations;
  * @author jeand
  */
 public class EasyJavaFX {
-   public static void inicializarComponentes(Class classe){
+   /**
+    * Se na classe do objeto passado como parâmetro tiver um objeto da classe ControlWindow com anotação
+    * AutoInstance então será instanciado automáticamente baseado na anotação DefineConfiguration de sua classe de controller.
+    * @see AutoInstance
+    * @see DefineConfiguration
+    * @param classe 
+    */ 
+   public static void inicializarComponentes(Object classe){
        FunctionAnnotations.inicializarControlWindows(classe);
    }
 }
