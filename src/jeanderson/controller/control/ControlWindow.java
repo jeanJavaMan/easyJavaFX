@@ -111,6 +111,7 @@ public class ControlWindow<T extends Inicializador> implements Exibicao {
     private void fazerExibicao() {
         this.controlBuilder.getStage().show();
         this.controlBuilder.getStage().requestFocus();
+        this.controlBuilder.getParentRoot().requestFocus();
     }
 
     /**
@@ -122,14 +123,14 @@ public class ControlWindow<T extends Inicializador> implements Exibicao {
      * @param methodName Nome do método que está chamado este método. Apenas
      * para informa o usuário.
      */
-    private void definirStagePai(Stage windowReference, String methodName) {
+    private void definirStagePai(ControlWindow windowReference, String methodName) {
         this.controlBuilder.newStage();
         try {
             if (this.controlBuilder.getConfigurator().isAutoNewStage()) {
-                this.controlBuilder.getStage().initOwner(windowReference);
+                this.controlBuilder.getStage().initOwner(windowReference.getWindow().getStage());
 
             } else if (!this.atribuiuDependenciaStage) {
-                this.controlBuilder.getStage().initOwner(windowReference);
+                this.controlBuilder.getStage().initOwner(windowReference.getWindow().getStage());
                 this.atribuiuDependenciaStage = true;
             } else {
                 System.err.println("Não foi atribuido uma janela pai, pois o provavel motivo é que o autoNewStage foi desativado ou já foi atribuido um Janela pai!");
@@ -192,7 +193,7 @@ public class ControlWindow<T extends Inicializador> implements Exibicao {
      * o Stage.
      */
     @Override
-    public void show(Stage windowReference) {
+    public void show(ControlWindow windowReference) {
         this.definirStagePai(windowReference, "show()");
         this.controlBuilder.getController().clearFields();
         FunctionAnnotations.clearFieldsWithAnnotations(this.controlBuilder.getController());
@@ -227,7 +228,7 @@ public class ControlWindow<T extends Inicializador> implements Exibicao {
      * o Stage.
      */
     @Override
-    public void showEnableFields(boolean enableFields, Stage windowReference) {
+    public void showEnableFields(boolean enableFields, ControlWindow windowReference) {
         this.definirStagePai(windowReference, "showEnableFields()");
         this.preparaShowEnableFields(enableFields);
         this.fazerExibicao();
@@ -267,7 +268,7 @@ public class ControlWindow<T extends Inicializador> implements Exibicao {
      * o Stage.
      */
     @Override
-    public void showEditMode(Object data, Stage windowReference) {
+    public void showEditMode(Object data, ControlWindow windowReference) {
         this.definirStagePai(windowReference, "showEditMode()");
         this.preparaShowEditMode(data);
         this.fazerExibicao();
@@ -304,7 +305,7 @@ public class ControlWindow<T extends Inicializador> implements Exibicao {
      * o Stage.
      */
     @Override
-    public void showEditAndEnable(Object data, boolean enableFields, Stage windowReference) {
+    public void showEditAndEnable(Object data, boolean enableFields, ControlWindow windowReference) {
         this.definirStagePai(windowReference, "showEditAndEnable()");
         this.preparaShowEditAndEnable(data, enableFields);
         this.fazerExibicao();
@@ -337,7 +338,7 @@ public class ControlWindow<T extends Inicializador> implements Exibicao {
      * Janela que terá como dependencia.
      */
     @Override
-    public void showSecurityMode(boolean hasAccess, boolean showMessage, Stage windowReference) {
+    public void showSecurityMode(boolean hasAccess, boolean showMessage, ControlWindow  windowReference) {
         if (hasAccess) {
             this.show(windowReference);
         } else if (showMessage) {
@@ -380,7 +381,7 @@ public class ControlWindow<T extends Inicializador> implements Exibicao {
      * Janela que terá como dependencia.
      */
     @Override
-    public void showSecurityAndEdit(boolean hasAccess, boolean showMessage, Object data, Stage windowReference) {
+    public void showSecurityAndEdit(boolean hasAccess, boolean showMessage, Object data, ControlWindow windowReference) {
         if (hasAccess) {
             this.showEditMode(data, windowReference);
         } else if (showMessage) {
@@ -424,7 +425,7 @@ public class ControlWindow<T extends Inicializador> implements Exibicao {
      * Janela que terá como dependencia.
      */
     @Override
-    public void showSecurityEditAndEnable(boolean hasAccess, boolean showMessage, boolean enableFields, Object data, Stage windowReference) {
+    public void showSecurityEditAndEnable(boolean hasAccess, boolean showMessage, boolean enableFields, Object data, ControlWindow windowReference) {
         if (hasAccess) {
             this.showEditAndEnable(data, enableFields, windowReference);
         } else if (showMessage) {
@@ -453,7 +454,7 @@ public class ControlWindow<T extends Inicializador> implements Exibicao {
      * Janela que terá como dependencia.
      */
     @Override
-    public void showModality(Stage windowReference) {
+    public void showModality(ControlWindow windowReference) {
         this.definirStagePai(windowReference, "showModality(class reference)");
         this.controlBuilder.getStage().initModality(Modality.APPLICATION_MODAL);
         this.controlBuilder.getController().clearFields();
@@ -490,7 +491,7 @@ public class ControlWindow<T extends Inicializador> implements Exibicao {
      * Janela que terá como dependencia.
      */
     @Override
-    public void showEnableFieldsModality(boolean enableFields, Stage windowReference) {
+    public void showEnableFieldsModality(boolean enableFields, ControlWindow windowReference) {
         this.definirStagePai(windowReference, "showEnableFieldsModality(boolean enableFields, Class<? extends Inicializador> windowReference)");
         this.controlBuilder.getStage().initModality(Modality.APPLICATION_MODAL);
         this.preparaShowEnableFields(enableFields);
@@ -531,7 +532,7 @@ public class ControlWindow<T extends Inicializador> implements Exibicao {
      * Janela que terá como dependencia.
      */
     @Override
-    public void showEditModeModality(Object data, Stage windowReference) {
+    public void showEditModeModality(Object data, ControlWindow windowReference) {
         this.definirStagePai(windowReference, "showEditModeModality(Object data, Class<? extends Inicializador> windowReference)");
         this.controlBuilder.getStage().initModality(Modality.APPLICATION_MODAL);
         this.preparaShowEditMode(data);
@@ -571,7 +572,7 @@ public class ControlWindow<T extends Inicializador> implements Exibicao {
      * Janela que terá como dependencia.
      */
     @Override
-    public void showEditAndEnableModality(Object data, boolean enableFields, Stage windowReference) {
+    public void showEditAndEnableModality(Object data, boolean enableFields, ControlWindow windowReference) {
         this.definirStagePai(windowReference, "showEditAndEnableModality(Object data, boolean enableFields, Class<? extends Inicializador> windowReference)");
         this.controlBuilder.getStage().initModality(Modality.APPLICATION_MODAL);
         this.preparaShowEditAndEnable(data, enableFields);
@@ -606,7 +607,7 @@ public class ControlWindow<T extends Inicializador> implements Exibicao {
      * Janela que terá como dependencia.
      */
     @Override
-    public void showSecurityModeModality(boolean hasAccess, boolean showMessage, Stage windowReference) {
+    public void showSecurityModeModality(boolean hasAccess, boolean showMessage, ControlWindow windowReference) {
         if (hasAccess) {
             this.showModality(windowReference);
         } else if (showMessage) {
@@ -657,7 +658,7 @@ public class ControlWindow<T extends Inicializador> implements Exibicao {
      * Janela que terá como dependencia.
      */
     @Override
-    public void showSecurityAndEditModality(boolean hasAccess, boolean showMessage, Object data, Stage windowReference) {
+    public void showSecurityAndEditModality(boolean hasAccess, boolean showMessage, Object data, ControlWindow windowReference) {
         if (hasAccess) {
             this.showEditModeModality(data, windowReference);
         } else if (showMessage) {
@@ -705,7 +706,7 @@ public class ControlWindow<T extends Inicializador> implements Exibicao {
      * Janela que terá como dependencia.
      */
     @Override
-    public void showSecurityEditAndEnableModality(boolean hasAccess, boolean showMessage, boolean enableFields, Object data, Stage windowReference) {
+    public void showSecurityEditAndEnableModality(boolean hasAccess, boolean showMessage, boolean enableFields, Object data, ControlWindow windowReference) {
         if (hasAccess) {
             this.showEditAndEnableModality(data, enableFields, windowReference);
         } else if (showMessage) {

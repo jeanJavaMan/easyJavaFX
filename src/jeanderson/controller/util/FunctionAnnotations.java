@@ -60,7 +60,7 @@ public class FunctionAnnotations {
         } else if (componente instanceof ComboBox) {
             ((ComboBox) componente).getSelectionModel().clearSelection();
         } else if (componente instanceof DatePicker) {
-            ((DatePicker) componente).getEditor().setText("");
+            ((DatePicker) componente).setValue(null);
         } else if (componente instanceof TextArea) {
             ((TextArea) componente).setText("");
         } else if (componente instanceof ChoiceBox) {
