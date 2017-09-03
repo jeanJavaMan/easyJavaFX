@@ -249,24 +249,34 @@ public class FunctionAnnotations {
         }
     }
 
-    public static void inicializarControlWindows(Class classe) {
-        if (classe.isAnnotationPresent(DefineConfiguration.class)) {
-            Field[] atributos = classe.getDeclaredFields();
-            try {
-                for (Field atributo : atributos) {
-                    if (atributo.isAnnotationPresent(AutoInstance.class)) {
-                        atributo.setAccessible(true);
-                        AutoInstance autoInstance = atributo.getAnnotation(AutoInstance.class);
-                        ControlWindow controlWindow = (ControlWindow) atributo.get(classe);
-                        controlWindow = WindowBuilder.construct(autoInstance.classController());
+    /**
+     * Faz o instanciamento do objeto da Classe ControlWindow. o ideial não é
+     * utilizar esté método através dessa classe, mas sim atráves da classe
+     * EasyJavaFX utilizando o método inicializarComponentes().
+     *
+     *
+     * @param objeto objeto que tenha declarado um ControlWindow com anotação
+     * @AutoInstace.
+     */
+    public static void inicializarControlWindows(Object objeto) {
+        Field[] atributos = objeto.getClass().getDeclaredFields();
+        try {
+            for (Field atributo : atributos) {
+                if (atributo.isAnnotationPresent(AutoInstance.class)) {
+                    System.out.println("Nome do atributo: " + atributo.getName());
+                    atributo.setAccessible(true);
+                    AutoInstance autoInstance = atributo.getAnnotation(AutoInstance.class);
+                    if (autoInstance.classController().isAnnotationPresent(DefineConfiguration.class)) {
+                        //cria a instancia da classe ControlWindow
+                        atributo.set(objeto, WindowBuilder.construct(autoInstance.classController()));
+                    } else {
+                        System.err.println("Na classe de controller do objeto passado não possui a anotação @DefineConfiguration.! Objeto: " + objeto.getClass().getName());
                     }
                 }
-            } catch (IllegalAccessException | IllegalArgumentException ex) {
-                System.err.println("Erro ao acessar o objeto da Classe ControlWindow com a anotação @AutoInstance. Motivo: " + ex.getMessage());
-                Logger.getLogger(FunctionAnnotations.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } else {
-            System.err.println("Não foi encontrado a anotação @DefineConfiguration na classe: " + classe.getName());
+        } catch (IllegalAccessException | IllegalArgumentException ex) {
+            System.err.println("Erro ao acessar o objeto da Classe ControlWindow com a anotação @AutoInstance. Motivo: " + ex.getMessage());
+            Logger.getLogger(FunctionAnnotations.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
