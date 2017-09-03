@@ -23,6 +23,6 @@ public @interface DefineConfiguration {
     public boolean FULLSCREEN() default false;
     public boolean RESIZABLE() default true;
     public boolean MAXIMIZED() default false;
-    public boolean AUTO_NEW_STAGE() default false;
+    public boolean AUTO_NEW_STAGE() default true;
     public boolean STATIC_CLASS() default false;
 }
