@@ -5,12 +5,23 @@
  */
 package jeanderson.controller.util;
 
+import java.io.IOException;
 import jeanderson.controller.enums.DialogType;
 import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextInputDialog;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import jeanderson.controller.DialogConfirmation;
+import jeanderson.controller.DialogInput;
+import jeanderson.controller.DialogMessage;
 
 /**
  * Classe que exibi uma Dialog do JavaFX.
@@ -20,26 +31,13 @@ import javafx.scene.control.TextInputDialog;
 public class DialogFX {
 
     /**
-     * Método que criar um Dialog do javaFX de acordo com o tipo informado.
-     *
-     * @param msg Mensagem do Dialog.
-     * @param title Titulo do Dialog.
-     * @param header Mensagem de Header do Dialog.
-     * @param dialogType Tipo de Dialog
-     * @return Retorna uma Alert da Classe do JavaFX.
-     */
-    private static Alert createDialog(String msg, String title, String header, DialogType dialogType) {
-        return dialogType.createDialog(msg, title, header);
-    }
-
-    /**
      * Exibi uma mensagem do tipo INFORMATION(informação)e não para a execução
      * de comandos.
      *
      * @param msg Mensagem a ser exibida.
      */
     public static void showMessage(String msg) {
-        createDialog(msg, "Informação", "", DialogType.INFORMATION).show();
+        createDialogMessage("Informação", msg, DialogType.INFORMATION).show();
     }
 
     /**
@@ -50,7 +48,7 @@ public class DialogFX {
      * @param title Titulo do Dialog.
      */
     public static void showMessage(String msg, String title) {
-        createDialog(msg, title, "", DialogType.INFORMATION).show();
+        createDialogMessage(title, msg, DialogType.INFORMATION).show();
     }
 
     /**
@@ -61,7 +59,7 @@ public class DialogFX {
      * @param dialogType Tipo do Dialog.
      */
     public static void showMessage(String msg, String title, DialogType dialogType) {
-        createDialog(msg, title, "", dialogType).show();
+        createDialogMessage(title, msg, dialogType).show();
     }
 
     /**
@@ -71,7 +69,7 @@ public class DialogFX {
      * @param msg Mensagem a ser exibida.
      */
     public static void showMessageAndWait(String msg) {
-        createDialog(msg, "Informação", "", DialogType.INFORMATION).showAndWait();
+        createDialogMessage("Informação", msg, DialogType.INFORMATION).showAndWait();
     }
 
     /**
@@ -82,7 +80,7 @@ public class DialogFX {
      * @param title Titulo do Dialog.
      */
     public static void showMessageAndWait(String msg, String title) {
-        createDialog(msg, title, "", DialogType.INFORMATION).showAndWait();
+       createDialogMessage(title, msg, DialogType.INFORMATION).showAndWait();
     }
 
     /**
@@ -93,7 +91,7 @@ public class DialogFX {
      * @param dialogType Tipo do Dialog.
      */
     public static void showMessageAndWait(String msg, String title, DialogType dialogType) {
-        createDialog(msg, title, "", dialogType).showAndWait();
+        createDialogMessage(title, msg, dialogType).showAndWait();
     }
 
     /**
@@ -103,9 +101,7 @@ public class DialogFX {
      * @return Retorna true se escolheu sim, retorna false se escolheu não.
      */
     public static boolean showConfirmation(String question) {
-        Alert dialog = createDialog(question, "Mensagem", "", DialogType.CONFIRMATION);
-        Optional<ButtonType> resultado = dialog.showAndWait();
-        return resultado.get().getButtonData().equals(ButtonBar.ButtonData.YES);
+        return createDialogConfirmation("Confirmação", question);
     }
 
     /**
@@ -116,28 +112,74 @@ public class DialogFX {
      * @return Retorna true se escolheu sim, retorna false se escolheu não.
      */
     public static boolean showConfirmation(String question, String title) {
-        Alert dialog = createDialog(question, title, "", DialogType.CONFIRMATION);
-        Optional<ButtonType> resultado = dialog.showAndWait();
-        return resultado.get().getButtonData().equals(ButtonBar.ButtonData.YES);
+        return createDialogConfirmation(title, question);
     }
 
     /**
-     * Exibi uma Tela com uma caixa de texto. Retorna o texto digitado na caixa. caso seja cancelado retorna vázio.
+     * Exibi uma Tela com uma caixa de texto. Retorna o texto digitado na caixa.
+     * caso seja cancelado retorna vázio.
+     *
      * @param title Titulo do Dialog
      * @param header Header do Dialog
      * @param msg Mensagem do Dialog
      * @return String
      */
     public static String showInputText(String title, String header, String msg) {
-        TextInputDialog dialog = new TextInputDialog();
-        dialog.setTitle(title);
-        dialog.setHeaderText(header);
-        dialog.setContentText(msg);
-        Optional<String> result = dialog.showAndWait();
-        if (result.isPresent()) {
-            return result.get();
-        } else {
+        try {
+            FXMLLoader loader = new FXMLLoader(DialogFX.class.getResource("/jeanderson/view/DialogInput.fxml"));
+            Parent root = loader.load();
+            DialogInput dialogInput = loader.getController();
+            Stage stage = new Stage(StageStyle.DECORATED);
+            stage.setResizable(false);
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle(title);
+            dialogInput.preparaExibicao(header, msg);
+            dialogInput.exibirAnimacao();
+            stage.showAndWait();
+            return dialogInput.getInput();
+        } catch (IOException ex) {
+            Logger.getLogger(DialogFX.class.getName()).log(Level.SEVERE, null, ex);
             return "";
+        }
+    }
+
+    private static Stage createDialogMessage(String title, String msg, DialogType type) {
+        try {
+            FXMLLoader loader = new FXMLLoader(DialogFX.class.getResource("/jeanderson/view/DialogMessage.fxml"));
+            Parent root = loader.load();            
+            Stage stage = new Stage(StageStyle.DECORATED);
+            stage.setResizable(false);
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            DialogMessage dialog = (DialogMessage) loader.getController();
+            stage.setTitle(title);
+            dialog.prepara(stage, msg, type);
+            dialog.exibirAnimacao();
+            return stage;
+        } catch (IOException ex) {
+            Logger.getLogger(DialogFX.class.getName()).log(Level.SEVERE, null, ex);
+            return new Stage();
+        }
+    }
+    
+    private static boolean createDialogConfirmation(String title, String msg){
+        try {
+            FXMLLoader loader = new FXMLLoader(DialogFX.class.getResource("/jeanderson/view/DialogConfirmation.fxml"));
+            Parent root = loader.load();            
+            Stage stage = new Stage(StageStyle.DECORATED);
+            stage.setResizable(false);
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            DialogConfirmation dialog = loader.getController();
+            stage.setTitle(title);
+            dialog.prepara(msg);
+            dialog.exibirAnimacao();
+            stage.showAndWait();
+            return dialog.getResultado();
+        } catch (IOException ex) {
+            Logger.getLogger(DialogFX.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
     }
 }
